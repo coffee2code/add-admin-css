@@ -14,7 +14,7 @@ Easily define additional CSS (inline and/or by URL) to be added to all administr
 
 Ever want to tweak the appearance of the WordPress admin pages, by hiding stuff, moving stuff around, changing fonts, colors, sizes, etc?  Any modification you may want to do with CSS can easily be done via this plugin.
 
-Using this plugin you'll easily be able to define additional CSS (inline and/or by URL) to be added to all administration pages.  You can define CSS to appear inline in the admin head (within style tags), or reference CSS files to be linked (via "link rel='stylesheet'" tags).  The referenced CSS files will appear in the admin head first, listed in the order defined in the plugin's settings.  Then any inline CSS are added to the admin head.  Both values can be filtered for advanced customization (see Advanced section).
+Using this plugin you'll easily be able to define additional CSS (inline and/or files by URL) to be added to all administration pages.  You can define CSS to appear inline in the admin head (within style tags), or reference CSS files to be linked (via "link rel='stylesheet'" tags).  The referenced CSS files will appear in the admin head first, listed in the order defined in the plugin's settings.  Then any inline CSS are added to the admin head.  Both values can be filtered for advanced customization (see Advanced section).
 
 Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/add-admin-css/) | [Author Homepage](http://coffee2code.com)
 
