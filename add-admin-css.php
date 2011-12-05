@@ -7,17 +7,21 @@
 /*
 Plugin Name: Add Admin CSS
 Version: 1.1
-Plugin URI: http://coffee2code.com/wp-plugins/add-admin-css
+Plugin URI: http://coffee2code.com/wp-plugins/add-admin-css/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
 Text Domain: add-admin-css
-Description: Easily define additional CSS (inline and/or by URL) to be added to all administration pages.
+Domain Path: /lang/
+Description: Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
 
-Compatible with WordPress 3.0+, 3.1+, 3.2+
+Compatible with WordPress 3.0+, 3.1+, 3.2+, 3.3+
 
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
 =>> Or visit: http://wordpress.org/extend/plugins/add-admin-css/
+
+TODO:
+	* Move 'Advanced Tips' section to contextual help
 
 */
 
@@ -41,7 +45,7 @@ if ( is_admin() && ! class_exists( 'c2c_AddAdminCSS' ) ) :
 
 require_once( 'c2c-plugin.php' );
 
-class c2c_AddAdminCSS extends C2C_Plugin_027 {
+class c2c_AddAdminCSS extends C2C_Plugin_029 {
 
 	public static $instance;
 
@@ -164,7 +168,7 @@ HTML;
 		echo <<<HTML
 		<pre><code>add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
 function my_admin_css_files( \$files ) {
-	\$files[] = 'http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css';
+	\$files[] = 'http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css';
 	return \$files;
 }</code></pre>
 

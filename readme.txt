@@ -1,16 +1,18 @@
 === Add Admin CSS ===
 Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
-Tags: admin, css, style, stylesheets, admin theme, coffee2code
+Tags: admin, css, style, stylesheets, admin theme, customize, coffee2code
 Requires at least: 3.0
-Tested up to: 3.2
+Tested up to: 3.3
 Stable tag: 1.1
 Version: 1.1
 
-Easily define additional CSS (inline and/or by URL) to be added to all administration pages.
+Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
 
 
 == Description ==
+
+Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
 
 Ever want to tweak the appearance of the WordPress admin pages, by hiding stuff, moving stuff around, changing fonts, colors, sizes, etc?  Any modification you may want to do with CSS can easily be done via this plugin.
 
@@ -39,7 +41,7 @@ You can also programmatically add to or customize any referenced CSS files defin
 `
 add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
 function my_admin_css_files( $files ) {
-	$files[] = 'http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css';
+	$files[] = 'http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css';
 	return $files;
 }
 `
@@ -78,13 +80,15 @@ No, not presently.  The CSS is added for any user that can enter the admin secti
 * Rename class from 'AddAdminCSS' to 'c2c_AddAdminCSS'
 * Rename filter from 'add_admin_css' to 'c2c_add_admin_css'
 * Rename filter from 'add_admin_css_files' to 'c2c_add_admin_css_files'
-* Update plugin framework to v027
+* Update plugin framework to 029
 * Save a static version of itself in class variable $instance
 * Deprecate use of global variable $c2c_add_admin_css to store instance
 * Explicitly declare all functions as public
 * Add __construct(), activation(), and uninstall()
-* Note compatibility through WP 3.2+
+* Note compatibility through WP 3.3+
 * Drop compatibility with versions of WP older than 3.0
+* Add .pot
+* Add 'Domain Path' plugin header
 * Minor code formatting changes (spacing)
 * Update copyright date (2011)
 * Add plugin homepage and author links in description in readme.txt
@@ -96,7 +100,7 @@ No, not presently.  The CSS is added for any user that can enter the admin secti
 == Upgrade Notice ==
 
 = 1.1 =
-Recommended update.  Renamed class and filters by prefixing 'c2c_'; noted WP 3.2 compatibility; dropped support for versions of WP older than 3.0; updated plugin framework; deprecate global variable.
+Recommended update: renamed class and filters by prefixing 'c2c_'; noted compatibility through WP 3.3; dropped support for versions of WP older than 3.0; updated plugin framework; deprecate global variable.
 
 = 1.0 =
 Initial public release!
