@@ -2,10 +2,12 @@
 Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: admin, css, style, stylesheets, admin theme, customize, coffee2code
-Requires at least: 3.0
-Tested up to: 3.3
-Stable tag: 1.1
-Version: 1.1
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Requires at least: 3.1
+Tested up to: 3.5
+Stable tag: 1.2
+Version: 1.2
 
 Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
 
@@ -60,9 +62,11 @@ function my_admin_css_files( $files ) {
 
 Yes, via the "Admin CSS Files" input field on the plugin's settings page.
 
-= Can I limit what admin pages the CSS applies to? =
+= Can I limit what admin pages the CSS gets output on? =
 
-No, not presently.  The CSS is added for every admin page on the site.
+No, not presently. The CSS The CSS is added for every admin page on the site.
+
+However, you can preface your selectors with admin page specific class(es) on 'body' tag to ensure CSS only applies on certain admin pages. (e.g. `body.index-php h2, #icon-index { display: none; }`).
 
 = Can I limit what users the CSS applies to? =
 
@@ -75,6 +79,32 @@ No, not presently.  The CSS is added for any user that can enter the admin secti
 
 
 == Changelog ==
+
+= 1.2 =
+* Move 'Advanced Tips' section from bottom of settings page into contextual help section
+* Add `help_tabs_content()` and `contextual_help()`
+* Prevent textareas from wrapping lines
+* Display fonts properly in textareas
+* Change input fields to be displayed as inline_textarea instead of textarea
+* Add `instance()` static method for returning/creating singleton instance
+* Made static variable 'instance' private
+* Add dummy `__clone()` and `__wakeup()`
+* Remove support for previously deprecated 'c2c_add_admin_css' global
+* Remove `c2c_AddAdminCSS()`; only PHP5 constructor is supported now
+* Update plugin framework to 035
+* Discontinue use of explicit pass-by-reference for objects
+* Add check to prevent execution of code if file is directly accessed
+* Regenerate .pot
+* Re-license as GPLv2 or later (from X11)
+* Add 'License' and 'License URI' header tags to readme.txt and plugin file
+* Minor documentation improvements
+* Note compatibility through WP 3.5+
+* Drop compatibility versions of WP older than 3.1
+* Update copyright date (2013)
+* Minor code reformatting (spacing)
+* Remove ending PHP close tag
+* Create repo's WP.org assets directory
+* Move screenshot into repo's assets directory
 
 = 1.1 =
 * Rename class from 'AddAdminCSS' to 'c2c_AddAdminCSS'
@@ -98,6 +128,9 @@ No, not presently.  The CSS is added for any user that can enter the admin secti
 
 
 == Upgrade Notice ==
+
+= 1.2 =
+Recommended update. Highlights: stopped wrapping long input field text; updated plugin framework; updated WP compatibility as 3.1 - 3.5+; explicitly stated license; and more.
 
 = 1.1 =
 Recommended update: renamed class and filters by prefixing 'c2c_'; noted compatibility through WP 3.3; dropped support for versions of WP older than 3.0; updated plugin framework; deprecate global variable.

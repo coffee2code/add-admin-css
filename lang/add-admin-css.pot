@@ -1,11 +1,11 @@
 # Translation of the WordPress plugin Add Admin CSS v1.1 by Scott Reilly.
-# Copyright (C) 2011 Scott Reilly
+# Copyright (C) 2013 Scott Reilly
 # This file is distributed under the same license as the Add Admin CSS plugin.
 msgid ""
 msgstr ""
 "Project-Id-Version: Add Admin CSS 1.1\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/add-admin-css\n"
-"POT-Creation-Date: 2011-12-05 17:41:51+00:00\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/add-admin-css\n"
+"POT-Creation-Date: 2013-01-02 16:18:16+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,19 +15,19 @@ msgstr ""
 
 #. #-#-#-#-#  add-admin-css.pot (Add Admin CSS 1.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: add-admin-css.php:103
+#: add-admin-css.php:126
 msgid "Add Admin CSS"
 msgstr ""
 
-#: add-admin-css.php:104 add-admin-css.php:113
+#: add-admin-css.php:127 add-admin-css.php:136
 msgid "Admin CSS"
 msgstr ""
 
-#: add-admin-css.php:108
+#: add-admin-css.php:131
 msgid "Admin CSS Files"
 msgstr ""
 
-#: add-admin-css.php:109
+#: add-admin-css.php:132
 msgid ""
 "List one file per line.  The reference can be relative to the root of your "
 "active theme, relative to the root of your site (by prepending file or path "
@@ -35,29 +35,29 @@ msgid ""
 "listed, and appear before the CSS defined below."
 msgstr ""
 
-#: add-admin-css.php:114
+#: add-admin-css.php:137
 msgid ""
 "Note that the above CSS will be added to all admin pages and apply for all "
 "admin users."
 msgstr ""
 
-#: add-admin-css.php:137
+#: add-admin-css.php:157
 msgid "Add Admin CSS Settings"
 msgstr ""
 
-#: add-admin-css.php:138
+#: add-admin-css.php:158
 msgid ""
 "Add additional CSS to your admin pages, which allows you to tweak the "
 "appearance of the WordPress administration pages to your liking."
 msgstr ""
 
-#: add-admin-css.php:139
+#: add-admin-css.php:159
 msgid ""
-"See <a href=\"#advanced-tips\">Advanced Tips</a> for info on how to use the "
-"plugin to programmatically customize CSS."
+"See the \"Advanced Tips\" tab in the \"Help\" section for info on how to use "
+"the plugin to programmatically customize CSS."
 msgstr ""
 
-#: add-admin-css.php:141
+#: add-admin-css.php:161
 msgid ""
 "TIP: If you are primarily only interested in hiding certain administration "
 "interface elements, take a look at my <a href=\"%s\" title=\"Admin Trim "
@@ -67,88 +67,96 @@ msgid ""
 "simple to use, requiring no knowledge of CSS."
 msgstr ""
 
-#: add-admin-css.php:155
+#: add-admin-css.php:175
+msgid "Advanced Tips"
+msgstr ""
+
+#: add-admin-css.php:198
 msgid ""
 "You can also programmatically add to or customize any CSS defined in the "
 "\"Admin CSS\" field via the <code>c2c_add_admin_css</code> filter, like so:"
 msgstr ""
 
-#: add-admin-css.php:167
+#: add-admin-css.php:212
 msgid ""
 "You can also programmatically add to or customize any referenced CSS files "
 "defined in the \"Admin CSS Files\" field via the "
 "<code>c2c_add_admin_css_files</code> filter, like so:"
 msgstr ""
 
-#: c2c-plugin.php:77
+#: c2c-plugin.php:76
 msgid "Invalid file specified for C2C_Plugin: %s"
 msgstr ""
 
-#: c2c-plugin.php:286
+#: c2c-plugin.php:296
 msgid "See the \"Help\" link to the top-right of the page for more help."
 msgstr ""
 
-#: c2c-plugin.php:319
+#: c2c-plugin.php:329
 msgid "Settings reset."
 msgstr ""
 
-#: c2c-plugin.php:330 c2c-plugin.php:338
+#: c2c-plugin.php:340 c2c-plugin.php:348
 msgid "A value is required for: \"%s\""
 msgstr ""
 
-#: c2c-plugin.php:347
+#: c2c-plugin.php:357
 msgid "Expected integer value for: %s"
 msgstr ""
 
-#: c2c-plugin.php:458
+#: c2c-plugin.php:469
 msgid "More information about %1$s %2$s"
 msgstr ""
 
-#: c2c-plugin.php:459
+#: c2c-plugin.php:470
 msgid "Click for more help on this plugin"
 msgstr ""
 
-#: c2c-plugin.php:460
+#: c2c-plugin.php:471
 msgid " (especially check out the \"Other Notes\" tab, if present)"
 msgstr ""
 
-#: c2c-plugin.php:550
+#: c2c-plugin.php:585
+msgid "More Help"
+msgstr ""
+
+#: c2c-plugin.php:597
 msgid "Settings"
 msgstr ""
 
-#: c2c-plugin.php:562
+#: c2c-plugin.php:609
 msgid "Donation for coffee2code plugin: %s"
 msgstr ""
 
-#: c2c-plugin.php:563
+#: c2c-plugin.php:610
 msgid "Coffee fuels my coding."
 msgstr ""
 
-#: c2c-plugin.php:802
+#: c2c-plugin.php:845
 msgid "A plugin by coffee2code"
 msgstr ""
 
-#: c2c-plugin.php:811
+#: c2c-plugin.php:854
 msgid "Save Changes"
 msgstr ""
 
-#: c2c-plugin.php:812
+#: c2c-plugin.php:855
 msgid "Reset Settings"
 msgstr ""
 
-#: c2c-plugin.php:818
+#: c2c-plugin.php:861
 msgid "Scott Reilly, aka coffee2code"
 msgstr ""
 
-#: c2c-plugin.php:819
+#: c2c-plugin.php:862
 msgid "This plugin brought to you by %s."
 msgstr ""
 
-#: c2c-plugin.php:820
+#: c2c-plugin.php:863
 msgid "Please consider a donation"
 msgstr ""
 
-#: c2c-plugin.php:821
+#: c2c-plugin.php:864
 msgid "Did you find this plugin useful?"
 msgstr ""
 
@@ -167,5 +175,5 @@ msgid "Scott Reilly"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://coffee2code.com"
+msgid "http://coffee2code.com/"
 msgstr ""
