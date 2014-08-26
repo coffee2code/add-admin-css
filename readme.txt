@@ -5,19 +5,19 @@ Tags: admin, css, style, stylesheets, admin theme, customize, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
-Tested up to: 3.8
-Stable tag: 1.3
+Tested up to: 4.0
+Stable tag: 1.3.1
 
 Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
 
 
 == Description ==
 
-Ever want to tweak the appearance of the WordPress admin pages, by hiding stuff, moving stuff around, changing fonts, colors, sizes, etc?  Any modification you may want to do with CSS can easily be done via this plugin.
+Ever want to tweak the appearance of the WordPress admin pages by hiding stuff, moving stuff around, changing fonts, colors, sizes, etc?  Any modification you may want to do with CSS can easily be done via this plugin.
 
 Using this plugin you'll easily be able to define additional CSS (inline and/or files by URL) to be added to all administration pages. You can define CSS to appear inline in the admin head (within style tags), or reference CSS files to be linked (via "link rel='stylesheet'" tags). The referenced CSS files will appear in the admin head first, listed in the order defined in the plugin's settings. Then any inline CSS are added to the admin head. Both values can be filtered for advanced customization (see Advanced section).
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/add-admin-css/) | [Plugin Directory Page](http://wordpress.org/plugins/add-admin-css/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/add-admin-css/) | [Plugin Directory Page](https://wordpress.org/plugins/add-admin-css/) | [Author Homepage](http://coffee2code.com)
 
 
 == Advanced ==
@@ -80,6 +80,16 @@ Yes.
 
 
 == Changelog ==
+
+= 1.3.1 (2014-08-23) =
+* Update plugin framework to 038
+* Minor plugin header reformatting
+* Minor code reformatting (spacing, bracing)
+* Change documentation links to wp.org to be https
+* Localize an additional string
+* Note compatibility through WP 4.0+
+* Regenerate .pot
+* Add plugin icon
 
 = 1.3 (2014-01-03) =
 * Add unit tests
@@ -146,8 +156,11 @@ Yes.
 
 == Upgrade Notice ==
 
+= 1.3.1 =
+Trivial update: update plugin framework to version 038; noted compatibility through WP 4.0+; added plugin icon.
+
 = 1.3 =
-Minor update: added unit tests; minor improvements; noted compatibility through WP 3.8+;
+Minor update: added unit tests; minor improvements; noted compatibility through WP 3.8+.
 
 = 1.2 =
 Recommended update. Highlights: stopped wrapping long input field text; updated plugin framework; updated WP compatibility as 3.1 - 3.5+; explicitly stated license; and more.

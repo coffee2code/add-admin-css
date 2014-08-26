@@ -1,27 +1,26 @@
 <?php
 /**
+ * Plugin Name: Add Admin CSS
+ * Version:     1.3.1
+ * Plugin URI:  http://coffee2code.com/wp-plugins/add-admin-css/
+ * Author:      Scott Reilly
+ * Author URI:  http://coffee2code.com/
+ * Text Domain: add-admin-css
+ * Domain Path: /lang/
+ * License:     GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Description: Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
+ *
+ * Compatible with WordPress 3.5+ through 4.0+
+ *
+ * =>> Read the accompanying readme.txt file for instructions and documentation.
+ * =>> Also, visit the plugin's homepage for additional information and updates.
+ * =>> Or visit: https://wordpress.org/plugins/add-admin-css/
+ *
  * @package Add_Admin_CSS
  * @author Scott Reilly
- * @version 1.3
- */
-/*
-Plugin Name: Add Admin CSS
-Version: 1.3
-Plugin URI: http://coffee2code.com/wp-plugins/add-admin-css/
-Author: Scott Reilly
-Author URI: http://coffee2code.com/
-Text Domain: add-admin-css
-Domain Path: /lang/
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Description: Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
-
-Compatible with WordPress 3.5+ through 3.8+
-
-=>> Read the accompanying readme.txt file for instructions and documentation.
-=>> Also, visit the plugin's homepage for additional information and updates.
-=>> Or visit: http://wordpress.org/plugins/add-admin-css/
-*/
+ * @version 1.3.1
+ **/
 
 /*
 	Copyright (c) 2010-2014 by Scott Reilly (aka coffee2code)
@@ -47,7 +46,7 @@ if ( is_admin() && ! class_exists( 'c2c_AddAdminCSS' ) ) :
 
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 
-class c2c_AddAdminCSS extends C2C_Plugin_036 {
+class c2c_AddAdminCSS extends C2C_Plugin_038 {
 
 	/**
 	 * @var c2c_AddAdminCSS The one true instance
@@ -65,8 +64,9 @@ class c2c_AddAdminCSS extends C2C_Plugin_036 {
 	 * @since 1.2
 	 */
 	public static function instance() {
-		if ( ! isset( self::$instance ) )
+		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
+		}
 
 		return self::$instance;
 	}
@@ -84,7 +84,7 @@ class c2c_AddAdminCSS extends C2C_Plugin_036 {
 	 * Constructor.
 	 */
 	protected function __construct() {
-		parent::__construct( '1.3', 'add-admin-css', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		parent::__construct( '1.3.1', 'add-admin-css', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 
 		return self::$instance = $this;
@@ -120,14 +120,14 @@ class c2c_AddAdminCSS extends C2C_Plugin_036 {
 		$this->config = array(
 			'files' => array( 'input' => 'inline_textarea', 'default' => '', 'datatype' => 'array',
 					'label' => __( 'Admin CSS Files', $this->textdomain ),
-					'help' => __( 'List one file per line.  The reference can be relative to the root of your active theme, relative to the root of your site (by prepending file or path with "/"), or a full, absolute URL.  These will be listed in the order listed, and appear before the CSS defined below.', $this->textdomain ),
+					'help'  => __( 'List one file per line.  The reference can be relative to the root of your active theme, relative to the root of your site (by prepending file or path with "/"), or a full, absolute URL.  These will be listed in the order listed, and appear before the CSS defined below.', $this->textdomain ),
 					'input_attributes' => 'style="width: 98%; white-space: nowrap;" rows="4" cols="40"'
 			),
 			'css' => array( 'input' => 'inline_textarea', 'default' => '', 'datatype' => 'text',
 					'label' => __( 'Admin CSS', $this->textdomain ),
-					'help' => __( 'Note that the above CSS will be added to all admin pages and apply for all admin users.', $this->textdomain),
+					'help'  => __( 'Note that the above CSS will be added to all admin pages and apply for all users able to view those pages.', $this->textdomain ),
 					'input_attributes' => 'style="width: 98%; white-space: nowrap;" rows="10" cols="40"'
-			)
+			),
 		);
 	}
 
@@ -151,8 +151,8 @@ class c2c_AddAdminCSS extends C2C_Plugin_036 {
 		echo '<p>' . __( 'See the "Advanced Tips" tab in the "Help" section for info on how to use the plugin to programmatically customize CSS.' ) . '</p>';
 		echo '<p>' .
 			sprintf( __( 'TIP: If you are primarily only interested in hiding certain administration interface elements, take a look at my <a href="%s" title="Admin Trim Interface">Admin Trim Interface</a> plugin.  If you only want to hide in-page help text, check out my <a href="%s" title="">Admin Expert Mode</a> plugin.  Both plugins are geared toward their respective tasks and are very simple to use, requiring no knowledge of CSS.', $this->textdomain ),
-			'http://wordpress.org/plugins/admin-trim-interface/',
-			'http://wordpress.org/plugins/admin-expert-mode/' ) .
+			'https://wordpress.org/plugins/admin-trim-interface/',
+			'https://wordpress.org/plugins/admin-expert-mode/' ) .
 		'</p>';
 	}
 
@@ -182,10 +182,11 @@ class c2c_AddAdminCSS extends C2C_Plugin_036 {
 	 * @return void (Text is echoed)
 	 */
 	public function contextual_help( $contextual_help, $screen_id, $screen = null ) {
-		if ( $screen_id != $this->options_page )
+		if ( $screen_id != $this->options_page ) {
 			return $contextual_help;
+		}
 
-		$help = '<h3>Advanced Tips</h3>';
+		$help = '<h3>' . __( 'Advanced Tips', $this->textdomain ) . '</h3>';
 
 		$help .= '<p>' . __( 'You can also programmatically add to or customize any CSS defined in the "Admin CSS" field via the <code>c2c_add_admin_css</code> filter, like so:', $this->textdomain ) . '</p>';
 
@@ -260,8 +261,9 @@ HTML;
 
 		$options = $this->get_options();
 
-		if ( ! empty( $this->css_file_handles ) )
+		if ( ! empty( $this->css_file_handles ) ) {
 			$wp_styles->do_items( $this->css_file_handles );
+		}
 
 		$css = trim( apply_filters( 'c2c_add_admin_css', $options['css'] . "\n" ) );
 

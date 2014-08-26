@@ -2,12 +2,12 @@
 /**
  * @package C2C_Plugins
  * @author Scott Reilly
- * @version 036
+ * @version 038
  */
 /*
 Basis for other plugins
 
-Compatible with WordPress 3.1+ through 3.8+.
+Compatible with WordPress 3.6+ through 4.0+.
 
 */
 
@@ -31,9 +31,9 @@ Compatible with WordPress 3.1+ through 3.8+.
 
 defined( 'ABSPATH' ) or die();
 
-if ( ! class_exists( 'C2C_Plugin_036' ) ) :
+if ( ! class_exists( 'C2C_Plugin_038' ) ) :
 
-abstract class C2C_Plugin_036 {
+abstract class C2C_Plugin_038 {
 	protected $plugin_css_version = '009';
 	protected $options            = array();
 	protected $options_from_db    = '';
@@ -328,8 +328,8 @@ abstract class C2C_Plugin_036 {
 	 * @return array
 	 */
 	public function reset_options() {
-		$options = $this->get_options( false );
-		return $options;
+		$this->options = $this->get_options( false );
+		return $this->options;
 	}
 
 	/**
@@ -618,7 +618,7 @@ HTML;
 	 */
 	public function donate_link( $links, $file ) {
 		if ( $file == $this->plugin_basename ) {
-			$donation_url  = 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40scottreilly%2enet&item_name=';
+			$donation_url  = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522';
 			$donation_url .= urlencode( sprintf( __( 'Donation for coffee2code plugin: %s', $this->textdomain ), $this->name ) );
 			$title         = __( 'Coffee fuels my coding.', $this->textdomain );
 			$links[] = '<a href="' . esc_url( $donation_url ) . '" title="' . esc_attr( $title ) . '">Donate</a>';
@@ -708,6 +708,24 @@ HTML;
 			}
 		}
 		return apply_filters( $this->get_hook( 'options' ), $this->options );
+	}
+
+	/**
+	 * Updates the options with values specifically defined.
+	 *
+	 * @since 037
+	 *
+	 * @param array $settings   The new setting value(s)
+	 * @param bool  $with_reset Should the options be reset, with the new settings overlaid on top of the default settings?
+	 * @return array
+	 */
+	public function update_option( $settings, $with_reset = false ) {
+		if ( $with_reset ) {
+			$this->reset_options();
+		}
+		$settings = $this->sanitize_inputs( $settings );
+		update_option( $this->admin_options_name, $settings );
+		return $this->options = $settings;
 	}
 
 	/**
@@ -873,7 +891,7 @@ HTML;
 		echo '<div id="c2c" class="wrap"><div>' . "\n";
 		$c2c = '<a href="http://coffee2code.com" title="coffee2code.com">' . __( 'Scott Reilly, aka coffee2code', $this->textdomain ) . '</a>';
 		echo sprintf( __( 'This plugin brought to you by %s.', $this->textdomain ), $c2c );
-		echo '<span><a href="http://coffee2code.com/donate" title="' . esc_attr__( 'Please consider a donation', $this->textdomain ) . '">' .
+		echo '<span><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522" title="' . esc_attr__( 'Please consider a donation', $this->textdomain ) . '">' .
 		__( 'Did you find this plugin useful?', $this->textdomain ) . '</a></span>';
 		echo '</div></div>' . "\n";
 	}
@@ -896,7 +914,7 @@ HTML;
 	 * @return string The URL
 	 */
 	public function readme_url() {
-		return 'http://wordpress.org/plugins/' . $this->id_base . '/tags/' . $this->version . '/readme.txt';
+		return 'https://wordpress.org/plugins/' . $this->id_base . '/tags/' . $this->version . '/readme.txt';
 	}
 } // end class
 
