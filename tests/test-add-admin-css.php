@@ -6,12 +6,15 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
 	function setUp() {
 		parent::setUp();
+
 		$this->set_option();
 	}
 
 	function tearDown() {
 		parent::tearDown();
+
 		remove_filter( 'c2c_add_admin_css_files', array( $this, 'add_css_files' ) );
+		remove_filter( 'c2c_add_admin_css',       array( $this, 'add_css' ) );
 
 		unset( $GLOBALS['wp_styles']);
 		$GLOBALS['wp_styles'] = new WP_Styles;
@@ -33,7 +36,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		return array(
 			array( 'http://test.example.org/css/sample.css' ),
 			array( 'http://example.org/css/site-relative.css' ),
-			array( 'http://example.org/wp-content/themes/twentyfourteen/theme-relative.css' ),
+			array( get_stylesheet_directory_uri() . '/theme-relative.css' ),
 		);
 	}
 
@@ -41,7 +44,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		return array(
 			array( 'http://test.example.org/css/sample2.css' ),
 			array( 'http://example.org/css/site-relative2.css' ),
-			array( 'http://example.org/wp-content/themes/twentyfourteen/theme-relative2.css' ),
+			array( get_stylesheet_directory_uri() . '/theme-relative2.css' ),
 		);
 	}
 
@@ -94,9 +97,8 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
 	function test_css_added_via_filter_not_added_to_wp_head() {
 		add_filter( 'c2c_add_admin_css', array( $this, 'add_css' ) );
-		$head = $this->get_action_output( 'wp_head' );
 
-		$this->assertEmpty( strpos( $head,  $this->add_css( '' ) ) );
+		$this->assertNotContains( $this->add_css( '' ), $this->get_action_output( 'wp_head' ) );
 	}
 
 	/**
@@ -105,9 +107,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	function test_css_files_added_via_filter_not_added_to_wp_head( $link ) {
 		add_filter( 'c2c_add_admin_css_files', array( $this, 'add_css_files' ) );
 
-		$head = $this->get_action_output( 'wp_head' );
-
-		$this->assertEmpty( intval( strpos( $head, $link ) ) );
+		$this->assertNotContains( $link, $this->get_action_output( 'wp_head' ) );
 	}
 
 	/***
@@ -115,8 +115,10 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	 *****/
 
 	function test_turn_on_admin() {
-		define( 'WP_ADMIN', true );
-		require dirname( __FILE__ ) . '/../add-admin-css.php';
+		if ( ! defined( 'WP_ADMIN' ) ) {
+			define( 'WP_ADMIN', true );
+		}
+		require( __DIR__ . '/../add-admin-css.php' );
 		c2c_AddAdminCSS::instance()->init();
 		c2c_AddAdminCSS::instance()->register_css_files();
 
@@ -126,15 +128,25 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	}
 
 
+	function test_class_name() {
+		$this->assertTrue( class_exists( 'c2c_AddAdminCSS' ) );
+	}
+
+	function test_plugin_framework_class_name() {
+		$this->assertTrue( class_exists( 'C2C_Plugin_039' ) );
+	}
+
+	function test_version() {
+		$this->assertEquals( '1.3.2', c2c_AddAdminCSS::instance()->version() );
+	}
+
 	/**
 	 * @dataProvider get_css_file_links
 	 */
 	function test_css_files_are_added_to_admin_head( $link ) {
-		c2c_AddAdminCSS::instance()->register_css_files();
+		$this->test_turn_on_admin();
 
-		$head = $this->get_action_output();
-
-		$this->assertGreaterThan( 0, intval( strpos( $head, $link ) ) );
+		$this->assertContains( $link, $this->get_action_output() );
 	}
 
 	/**
@@ -142,25 +154,24 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	 */
 	function test_css_files_added_via_filter_are_added_to_admin_head( $link ) {
 		add_filter( 'c2c_add_admin_css_files', array( $this, 'add_css_files' ) );
-		c2c_AddAdminCSS::instance()->register_css_files();
 
-		$head = $this->get_action_output();
+		$this->test_turn_on_admin();
 
-		$this->assertGreaterThan( 0, intval( strpos( $head, $link ) ) );
+		$this->assertContains( $link, $this->get_action_output() );
 	}
 
 	function test_css_is_added_to_admin_head() {
-		$head = $this->get_action_output();
+		$this->test_turn_on_admin();
 
-		$this->assertGreaterThan( 0, intval( strpos( $head, $this->add_css( '', '22' ) ) ) );
+		$this->assertContains( $this->add_css( '', '22' ), $this->get_action_output() );
 	}
 
 	function test_css_added_via_filter_is_added_to_admin_head() {
+		$this->test_turn_on_admin();
+
 		add_filter( 'c2c_add_admin_css', array( $this, 'add_css' ) );
 
-		$head = $this->get_action_output();
-
-		$this->assertGreaterThan( 0, intval( strpos( $head,  $this->add_css( '' ) ) ) );
+		$this->assertContains( $this->add_css( '' ), $this->get_action_output() );
 	}
 
 }

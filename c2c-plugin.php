@@ -2,17 +2,17 @@
 /**
  * @package C2C_Plugins
  * @author Scott Reilly
- * @version 038
+ * @version 039
  */
 /*
 Basis for other plugins
 
-Compatible with WordPress 3.6+ through 4.0+.
+Compatible with WordPress 3.6+ through 4.1+.
 
 */
 
 /*
-	Copyright (c) 2010-2014 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2010-2015 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -31,9 +31,9 @@ Compatible with WordPress 3.6+ through 4.0+.
 
 defined( 'ABSPATH' ) or die();
 
-if ( ! class_exists( 'C2C_Plugin_038' ) ) :
+if ( ! class_exists( 'C2C_Plugin_039' ) ) :
 
-abstract class C2C_Plugin_038 {
+abstract class C2C_Plugin_039 {
 	protected $plugin_css_version = '009';
 	protected $options            = array();
 	protected $options_from_db    = '';
@@ -77,24 +77,25 @@ abstract class C2C_Plugin_038 {
 		$u_id_base = str_replace( '-', '_', $id_base );
 		$author_prefix .= '_';
 		$defaults = array(
-			'admin_options_name'    => $author_prefix . $u_id_base, // The setting under which all plugin settings are stored under (as array)
-			'config'                => array(),                     // Default configuration
-			'disable_contextual_help' => false,                     // Prevent overriding of the contextual help?
-			'disable_update_check'  => false,                       // Prevent WP from checking for updates to this plugin?
-			'hook_prefix'           => $u_id_base . '_',            // Prefix for all hooks
-			'form_name'             => $u_id_base,                  // Name for the <form>
-			'menu_name'             => '',                          // Specify this via plugin
-			'name'                  => '',                          // Full, localized version of the plugin name
-			'nonce_field'           => 'update-' . $u_id_base,      // Nonce field value
-			'settings_page'         => 'options-general',           // The type of the settings page.
-			'show_admin'            => true,                        // Should admin be shown? Only applies if admin is enabled
-			'textdomain'            => $id_base,                    // Textdomain for localization
-			'textdomain_subdir'     => 'lang'                       // Subdirectory, relative to plugin's root, to hold localization files
+			'admin_options_name'      => $author_prefix . $u_id_base, // The setting under which all plugin settings are stored under (as array)
+			'config'                  => array(),                     // Default configuration
+			'disable_contextual_help' => false,                       // Prevent overriding of the contextual help?
+			'disable_update_check'    => false,                       // Prevent WP from checking for updates to this plugin?
+			'hook_prefix'             => $u_id_base . '_',            // Prefix for all hooks
+			'form_name'               => $u_id_base,                  // Name for the <form>
+			'menu_name'               => '',                          // Specify this via plugin
+			'name'                    => '',                          // Full, localized version of the plugin name
+			'nonce_field'             => 'update-' . $u_id_base,      // Nonce field value
+			'settings_page'           => 'options-general',           // The type of the settings page.
+			'show_admin'              => true,                        // Should admin be shown? Only applies if admin is enabled
+			'textdomain'              => $id_base,                    // Textdomain for localization
+			'textdomain_subdir'       => 'lang'                       // Subdirectory, relative to plugin's root, to hold localization files
 		);
 		$settings = wp_parse_args( $plugin_options, $defaults );
 
-		foreach ( array_keys( $defaults ) as $key )
-			$this->$key = $settings[$key];
+		foreach ( array_keys( $defaults ) as $key ) {
+			$this->$key = $settings[ $key ];
+		}
 
 		$this->author_prefix        = $author_prefix;
 		$this->id_base              = $id_base;
@@ -112,8 +113,9 @@ abstract class C2C_Plugin_038 {
 		add_action( 'deactivate_' . $plugin_file,   array( $this, 'deactivate' ) );
 		if ( $this->is_plugin_admin_page() || $this->is_submitting_form() ) {
 			add_action( 'admin_init', array( $this, 'init_options' ) );
-			if ( ! $this->is_submitting_form() )
+			if ( ! $this->is_submitting_form() ) {
 				add_action( 'admin_head', array( $this, 'add_c2c_admin_css' ) );
+			}
 		}
 	}
 
@@ -169,24 +171,29 @@ abstract class C2C_Plugin_038 {
 	public function init() {
 		global $c2c_plugin_max_css_version;
 
-		if ( ! isset( $c2c_plugin_max_css_version ) || ( $c2c_plugin_max_css_version < $this->plugin_css_version ) )
+		if ( ! isset( $c2c_plugin_max_css_version ) || ( $c2c_plugin_max_css_version < $this->plugin_css_version ) ) {
 			$c2c_plugin_max_css_version = $this->plugin_css_version;
+		}
+
 		$this->load_textdomain();
 		$this->load_config();
 		$this->verify_config();
 
-		add_filter( 'plugin_row_meta', array( $this, 'donate_link' ), 10, 2);
+		add_filter( 'plugin_row_meta', array( $this, 'donate_link' ), 10, 2 );
 
-		if ( $this->disable_update_check )
+		if ( $this->disable_update_check ) {
 			add_filter( 'http_request_args', array( $this, 'disable_update_check' ), 5, 2 );
+		}
 
 		if ( $this->show_admin && $this->settings_page && ! empty( $this->config ) && current_user_can( 'manage_options' ) ) {
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 			if ( ! $this->disable_contextual_help ) {
-				if ( version_compare( $GLOBALS['wp_version'], '3.3', '<' ) )
+				if ( version_compare( $GLOBALS['wp_version'], '3.3', '<' ) ) {
 					add_filter( 'contextual_help', array( $this, 'contextual_help' ), 10, 3 );
-				if ( $this->is_plugin_admin_page() )
+				}
+				if ( $this->is_plugin_admin_page() ) {
 					add_thickbox();
+				}
 			}
 		}
 
@@ -203,8 +210,9 @@ abstract class C2C_Plugin_038 {
 	 */
 	function check_if_plugin_was_upgraded() {
 		// If there was no previous install of this plugin, then don't need to do anything here
-		if ( empty( $this->options_from_db ) )
+		if ( empty( $this->options_from_db ) ) {
 			return;
+		}
 
 		$_version = isset( $this->options['_version'] ) ? $this->options['_version'] : '0.0';
 
@@ -255,8 +263,9 @@ abstract class C2C_Plugin_038 {
 	 * @return array The response array with this plugin removed, if present
 	 */
 	public function disable_update_check( $r, $url ) {
-		if ( 0 !== strpos( $url, 'http://api.wordpress.org/plugins/update-check' ) )
+		if ( 0 !== strpos( $url, 'http://api.wordpress.org/plugins/update-check' ) ) {
 			return $r; // Not a plugin update request. Bail immediately.
+		}
 		$plugins = unserialize( $r['body']['plugins'] );
 		unset( $plugins->plugins[ $this->plugin_basename ] );
 		unset( $plugins->active[ array_search( $this->plugin_basename, $plugins->active ) ] );
@@ -273,8 +282,9 @@ abstract class C2C_Plugin_038 {
 		register_setting( $this->admin_options_name, $this->admin_options_name, array( $this, 'sanitize_inputs' ) );
 		add_settings_section( 'default', '', array( $this, 'options_page_description' ), $this->plugin_file );
 		add_filter( 'whitelist_options', array( $this, 'whitelist_options' ) );
-		foreach ( $this->get_option_names( false ) as $opt )
+		foreach ( $this->get_option_names( false ) as $opt ) {
 			add_settings_field( $opt, $this->get_option_label( $opt ), array( $this, 'display_option' ), $this->plugin_file, 'default', $opt );
+		}
 	}
 
 	/**
@@ -298,15 +308,19 @@ abstract class C2C_Plugin_038 {
 	 * @return void
 	 */
 	public function options_page_description( $localized_heading_text = '' ) {
-		if ( ! is_string( $localized_heading_text ) )
+		if ( ! is_string( $localized_heading_text ) ) {
 			$localized_heading_text = '';
+		}
 
-		if ( empty( $localized_heading_text ) )
+		if ( empty( $localized_heading_text ) ) {
 			$localized_heading_text = $this->name;
-		if ( $localized_heading_text )
+		}
+		if ( $localized_heading_text ) {
 			echo '<h2>' . $localized_heading_text . "</h2>\n";
-		if ( ! $this->disable_contextual_help )
+		}
+		if ( ! $this->disable_contextual_help ) {
 			echo '<p class="see-help">' . __( 'See the "Help" link to the top-right of the page for more help.', $this->textdomain ) . "</p>\n";
+		}
 	}
 
 	/**
@@ -316,9 +330,10 @@ abstract class C2C_Plugin_038 {
 	 * @return string The label for the option
 	 */
 	public function get_option_label( $opt ) {
-		$label = isset( $this->config[$opt]['label'] ) ? $this->config[$opt]['label'] : '';
-		if ( $this->config[$opt]['numbered'] === true )
+		$label = isset( $this->config[ $opt ]['label'] ) ? $this->config[ $opt ]['label'] : '';
+		if ( true === $this->config[ $opt ]['numbered'] ) {
 			$label = ++$this->setting_index . ". $label";
+		}
 		return $label;
 	}
 
@@ -346,28 +361,28 @@ abstract class C2C_Plugin_038 {
 			$options = $this->get_options();
 			$option_names = $this->get_option_names();
 			foreach ( $option_names as $opt ) {
-				if ( !isset( $inputs[$opt] ) ) {
-					if ( $this->config[$opt]['input'] == 'checkbox' )
-						$options[$opt] = '';
-					elseif ( ( $this->config[$opt]['required'] === true ) ) {
-						$msg = sprintf( __( 'A value is required for: "%s"', $this->textdomain ), $this->config[$opt]['label'] );
+				if ( !isset( $inputs[ $opt ] ) ) {
+					if ( $this->config[ $opt ]['input'] == 'checkbox' ) {
+						$options[ $opt ] = '';
+					} elseif ( true === $this->config[ $opt ]['required'] ) {
+						$msg = sprintf( __( 'A value is required for: "%s"', $this->textdomain ), $this->config[ $opt ]['label'] );
 						add_settings_error( 'general', 'setting_required', $msg, 'error' );
 					}
 				}
 				else {
-					$val = $inputs[$opt];
+					$val = $inputs[ $opt ];
 					$error = false;
-					if ( empty( $val ) && ( $this->config[$opt]['required'] === true ) ) {
-						$msg = sprintf( __( 'A value is required for: "%s"', $this->textdomain ), $this->config[$opt]['label'] );
+					if ( empty( $val ) && ( true === $this->config[ $opt ]['required'] ) ) {
+						$msg = sprintf( __( 'A value is required for: "%s"', $this->textdomain ), $this->config[ $opt ]['label'] );
 						$error = true;
 					} else {
-						$input = $this->config[$opt]['input'];
-						switch ( $this->config[$opt]['datatype'] ) {
+						$input = $this->config[ $opt ]['input'];
+						switch ( $this->config[ $opt ]['datatype'] ) {
 							case 'checkbox':
 								break;
 							case 'int':
 								if ( !empty( $val ) && ( !is_numeric( $val ) || ( intval( $val ) != round( $val ) ) ) ) {
-									$msg = sprintf( __( 'Expected integer value for: %s', $this->textdomain ), $this->config[$opt]['label'] );
+									$msg = sprintf( __( 'Expected integer value for: %s', $this->textdomain ), $this->config[ $opt ]['label'] );
 									$error = true;
 									$val = '';
 								}
@@ -387,17 +402,19 @@ abstract class C2C_Plugin_038 {
 									$new_values = array();
 									foreach ( explode( "\n", $val ) AS $line ) {
 										list( $shortcut, $text ) = array_map( 'trim', explode( "=>", $line, 2 ) );
-										if ( !empty( $shortcut ) )
+										if ( !empty( $shortcut ) ) {
 											$new_values[str_replace( '\\', '', $shortcut )] = str_replace( '\\', '', $text );
+										}
 									}
 									$val = $new_values;
 								}
 								break;
 						}
 					}
-					if ( $error )
+					if ( $error ) {
 						add_settings_error( 'general', 'setting_not_int', $msg, 'error' );
-					$options[$opt] = $val;
+					}
+					$options[ $opt ] = $val;
 				}
 			}
 			$options = apply_filters( $this->get_hook( 'before_update_option' ), $options, $this );
@@ -421,19 +438,21 @@ abstract class C2C_Plugin_038 {
 	protected function verify_config() {
 		// Ensure required configuration options have been configured via the sub-class.  Die if any aren't.
 		foreach ( $this->required_config as $config ) {
-			if ( empty( $this->$config ) )
+			if ( empty( $this->$config ) ) {
 				die( "The plugin configuration option '$config' must be supplied." );
+			}
 		}
 
 		// Set/change configuration options based on sub-class changes.
-		if ( empty( $this->config ) )
+		if ( empty( $this->config ) ) {
 			$this->show_admin = false;
-		else {
+		} else {
 			// Initialize any option attributes that weren't specified by the plugin
 			foreach ( $this->get_option_names( true ) as $opt ) {
 				foreach ( $this->config_attributes as $attrib => $default) {
-					if ( ! isset( $this->config[$opt][$attrib] ) )
-						$this->config[$opt][$attrib] = $default;
+					if ( ! isset( $this->config[ $opt ][ $attrib ] ) ) {
+						$this->config[ $opt ][ $attrib ] = $default;
+					}
 				}
 			}
 		}
@@ -472,8 +491,9 @@ abstract class C2C_Plugin_038 {
 	 * @return void (Text is echoed)
 	 */
 	public function contextual_help( $contextual_help, $screen_id, $screen = null ) {
-		if ( $screen_id != $this->options_page )
+		if ( $screen_id != $this->options_page ) {
 			return $contextual_help;
+		}
 
 		$help_url = admin_url( "plugin-install.php?tab=plugin-information&amp;plugin={$this->id_base}&amp;TB_iframe=true&amp;width=640&amp;height=514" );
 
@@ -493,8 +513,9 @@ abstract class C2C_Plugin_038 {
 	 */
 	public function add_c2c_admin_css() {
 		global $c2c_plugin_max_css_version, $c2c_plugin_css_was_output;
-		if ( ( $c2c_plugin_max_css_version != $this->plugin_css_version ) || ( isset( $c2c_plugin_css_was_output ) && $c2c_plugin_css_was_output ) )
+		if ( ( $c2c_plugin_max_css_version != $this->plugin_css_version ) || ( isset( $c2c_plugin_css_was_output ) && $c2c_plugin_css_was_output ) ) {
 			return;
+		}
 
 		$c2c_plugin_css_was_output = true;
 		$logo = plugins_url( 'c2c_minilogo.png', $this->plugin_file );
@@ -529,7 +550,6 @@ abstract class C2C_Plugin_038 {
 		.c2c-plugin-list {margin-left:2em;}
 		.c2c-plugin-list li {list-style:disc outside;}
 		.wrap {margin-bottom:30px !important;}
-		.c2c-form input[type="checkbox"] {width:1.5em;}
 		.c2c-form .hr, .c2c-hr {border-bottom:1px solid #ccc;padding:0 2px;margin-bottom:6px;}
 		.c2c-input-help {color:#777;font-size:x-small;}
 		.c2c-fieldset {border:1px solid #ccc; padding:2px 8px;}
@@ -572,13 +592,15 @@ HTML;
 	 * @return void
 	 */
 	public function help_tabs() {
-		if ( ! class_exists( 'WP_Screen' ) )
+		if ( ! class_exists( 'WP_Screen' ) ) {
 			return;
+		}
 
 		$screen = get_current_screen();
 
-		if ( $screen->id != $this->options_page )
+		if ( $screen->id != $this->options_page ) {
 			return;
+		}
 
 		$this->help_tabs_content( $screen );
 	}
@@ -639,9 +661,9 @@ HTML;
 		$valid = true;
 		$ver_operators = array( 'wpgt' => '>', 'wpgte' => '>=', 'wplt' => '<', 'wplte' => '<=' );
 		foreach ( $ver_operators as $ver_check => $ver_op ) {
-			if ( isset( $this->config[$opt][$ver_check] )
-				&& ! empty( $this->config[$opt][$ver_check] )
-				&& ! version_compare( $wp_version, $this->config[$opt][$ver_check], $ver_op ) ) {
+			if ( isset( $this->config[ $opt ][ $ver_check ] )
+				&& ! empty( $this->config[ $opt ][ $ver_check ] )
+				&& ! version_compare( $wp_version, $this->config[ $opt ][ $ver_check ], $ver_op ) ) {
 					$valid = false;
 					break;
 			}
@@ -656,14 +678,17 @@ HTML;
 	 * @return array Array of option names.
 	 */
 	protected function get_option_names( $include_non_options = false ) {
-		if ( ! $include_non_options && ! empty( $this->option_names ) )
+		if ( ! $include_non_options && ! empty( $this->option_names ) ) {
 			return $this->option_names;
-		if ( $include_non_options )
+		}
+		if ( $include_non_options ) {
 			return array_keys( $this->config );
+		}
 		$this->option_names = array();
 		foreach ( array_keys( $this->config ) as $opt ) {
-			if ( isset( $this->config[$opt]['input'] ) && $this->config[$opt]['input'] != '' && $this->config[$opt]['input'] != 'none' && $this->is_option_valid( $opt ) )
+			if ( isset( $this->config[ $opt ]['input'] ) && $this->config[ $opt ]['input'] != '' && $this->config[ $opt ]['input'] != 'none' && $this->is_option_valid( $opt ) ) {
 				$this->option_names[] = $opt;
+			}
 		}
 		return $this->option_names;
 	}
@@ -676,15 +701,18 @@ HTML;
 	 * @return array The options array for the plugin (which is also stored in $this->options if !$with_options).
 	 */
 	public function get_options( $with_current_values = true ) {
-		if ( $with_current_values && ! empty( $this->options ) )
+		if ( $with_current_values && ! empty( $this->options ) ) {
 			return $this->options;
+		}
 		// Derive options from the config
 		$options = array();
 		$option_names = $this->get_option_names( !$with_current_values );
-		foreach ( $option_names as $opt )
-			$options[$opt] = $this->config[$opt]['default'];
-		if ( ! $with_current_values )
+		foreach ( $option_names as $opt ) {
+			$options[ $opt ] = $this->config[ $opt ]['default'];
+		}
+		if ( ! $with_current_values ) {
 			return $options;
+		}
 		$this->options_from_db = get_option( $this->admin_options_name );
 		$this->options = wp_parse_args( $this->options_from_db, $options );
 
@@ -693,17 +721,17 @@ HTML;
 
 		// Un-escape fields
 		foreach ( $option_names as $opt ) {
-			if ( $this->config[$opt]['allow_html'] == true ) {
-				if ( is_array( $this->options[$opt] ) ) {
-					foreach ( $this->options[$opt] as $key => $val ) {
+			if ( $this->config[ $opt ]['allow_html'] == true ) {
+				if ( is_array( $this->options[ $opt ] ) ) {
+					foreach ( $this->options[ $opt ] as $key => $val ) {
 						$new_key = wp_specialchars_decode( $key, ENT_QUOTES );
 						$new_val = wp_specialchars_decode( $val, ENT_QUOTES );
-						$this->options[$opt][$new_key] = $new_val;
+						$this->options[ $opt ][ $new_key ] = $new_val;
 						if ( $key != $new_key )
-							unset( $this->options[$opt][$key] );
+							unset( $this->options[ $opt ][ $key ] );
 					}
 				} else {
-					$this->options[$opt] = wp_specialchars_decode( $this->options[$opt], ENT_QUOTES );
+					$this->options[ $opt ] = wp_specialchars_decode( $this->options[ $opt ], ENT_QUOTES );
 				}
 			}
 		}
@@ -776,84 +804,93 @@ HTML;
 
 		$options = $this->get_options();
 
-		foreach ( array( 'datatype', 'input' ) as $attrib )
-			$$attrib = isset( $this->config[$opt][$attrib] ) ? $this->config[$opt][$attrib] : '';
+		foreach ( array( 'datatype', 'input' ) as $attrib ) {
+			$$attrib = isset( $this->config[ $opt ][ $attrib ] ) ? $this->config[ $opt ][ $attrib ] : '';
+		}
 
-		if ( $input == '' || $input == 'none' )
+		if ( $input == '' || $input == 'none' ) {
 			return;
-		elseif ( $input == 'custom' ) {
+		} elseif ( $input == 'custom' ) {
 			do_action( $this->get_hook( 'custom_display_option' ), $opt );
 			return;
 		}
-		$value = isset( $options[$opt] ) ? $options[$opt] : '';
-		$popt = $this->admin_options_name . "[$opt]";
+		$value = isset( $options[ $opt ] ) ? $options[ $opt ] : '';
+		$popt = $this->admin_options_name . "[{$opt}]";
 		if ( $input == 'multiselect' ) {
 			// Do nothing since it needs the values as an array
 			$popt .= '[]';
 		} elseif ( $datatype == 'array' ) {
-			if ( ! is_array( $value ) )
+			if ( ! is_array( $value ) ) {
 				$value = '';
-			else {
-				if ( $input == 'textarea' || $input == 'inline_textarea' )
+			} else {
+				if ( $input == 'textarea' || $input == 'inline_textarea' ) {
 					$value = implode( "\n", $value );
-				else
+				} else {
 					$value = implode( ', ', $value );
+				}
 			}
 		} elseif ( $datatype == 'hash' && $input != 'select' ) {
-			if ( ! is_array( $value ) )
+			if ( ! is_array( $value ) ) {
 				$value = '';
-			else {
+			} else {
 				$new_value = '';
-				foreach ( $value AS $shortcut => $replacement )
+				foreach ( $value AS $shortcut => $replacement ) {
 					$new_value .= "$shortcut => $replacement\n";
+				}
 				$value = $new_value;
 			}
 		}
-		$attributes = $this->config[$opt]['input_attributes'];
-		$this->config[$opt]['class'][] = 'c2c-' . $input;
-		if ( ( 'textarea' == $input || 'inline_textarea' == $input ) && $this->config[$opt]['no_wrap'] ) {
+		$attributes = $this->config[ $opt ]['input_attributes'];
+		$this->config[ $opt ]['class'][] = 'c2c-' . $input;
+		if ( ( 'textarea' == $input || 'inline_textarea' == $input ) && $this->config[ $opt ]['no_wrap'] ) {
 			$attributes .= ' wrap="off"'; // Does not validate, but only cross-browser technique
 		}
 		elseif ( in_array( $input, array( 'text', 'long_text', 'short_text' ) ) ) {
-			$this->config[$opt]['class'][]  = ( ( $input == 'short_text' ) ? 'small-text' : 'regular-text' );
-			if ( $input == 'long_text' )
-				$this->config[$opt]['class'][] = ' long-text';
+			$this->config[ $opt ]['class'][]  = ( ( $input == 'short_text' ) ? 'small-text' : 'regular-text' );
+			if ( $input == 'long_text' ) {
+				$this->config[ $opt ]['class'][] = ' long-text';
+			}
 			$input = 'text';
 		}
-		$class = implode( ' ', $this->config[$opt]['class'] );
-		$attribs = "name='$popt' id='$opt' class='$class' $attributes";
+		$class = implode( ' ', $this->config[ $opt ]['class'] );
+		$attribs = "name='{$popt}' id='{$opt}' class='{$class}' {$attributes}";
 		if ( $input == '' ) {
 // Change of implementation prevents this from being possible (since this function only gets called for registered settings)
-//			if ( !empty( $this->config[$opt]['output'] ) )
-//				echo $this->config[$opt]['output'] . "\n";
+//			if ( !empty( $this->config[ $opt ]['output'] ) )
+//				echo $this->config[ $opt ]['output'] . "\n";
 //			else
 //				echo '<div class="hr">&nbsp;</div>' . "\n";
 		} elseif ( $input == 'textarea' || $input == 'inline_textarea' ) {
-			if ( $input == 'textarea' )
+			if ( $input == 'textarea' ) {
 				echo "</td><tr><td colspan='2'>";
-			echo "<textarea $attribs>$value</textarea>\n";
+			}
+			echo "<textarea {$attribs}>{$value}</textarea>\n";
 		} elseif ( $input == 'select' ) {
 			echo "<select $attribs>";
-			if ( $this->config[$opt]['datatype'] == 'hash' ) {
-				foreach ( (array) $this->config[$opt]['options'] as $sopt => $sval )
-					echo "<option value='$sopt' " . selected( $value, $sopt, false ) . ">$sval</option>\n";
+			if ( $this->config[ $opt ]['datatype'] == 'hash' ) {
+				foreach ( (array) $this->config[ $opt ]['options'] as $sopt => $sval ) {
+					echo "<option value='{$sopt}' " . selected( $value, $sopt, false ) . ">{$sval}</option>\n";
+				}
 			} else {
-				foreach ( (array) $this->config[$opt]['options'] as $sopt )
-					echo "<option value='$sopt' " . selected( $value, $sopt, false ) . ">$sopt</option>\n";
+				foreach ( (array) $this->config[ $opt ]['options'] as $sopt ) {
+					echo "<option value='{$sopt}' " . selected( $value, $sopt, false ) . ">{$sopt}</option>\n";
+				}
 			}
 			echo "</select>";
 		} elseif ( $input == 'multiselect' ) {
 			echo '<fieldset class="c2c-fieldset">' . "\n";
-			foreach ( (array) $this->config[$opt]['options'] as $sopt )
-				echo "<input type='checkbox' $attribs value='$sopt' " . checked( in_array( $sopt, $value ), true, false ) . ">$sopt</input><br />\n";
+			foreach ( (array) $this->config[ $opt ]['options'] as $sopt ) {
+				echo "<input type='checkbox' {$attribs} value='{$sopt}' " . checked( in_array( $sopt, $value ), true, false ) . ">{$sopt}</input><br />\n";
+			}
 			echo '</fieldset>';
 		} elseif ( $input == 'checkbox' ) {
-			echo "<input type='$input' $attribs value='1' " . checked( $value, 1, false ) . " />\n";
+			echo "<input type='{$input}' {$attribs} value='1' " . checked( $value, 1, false ) . " />\n";
 		} else { // Only 'text' and 'password' should fall through to here.
-			echo "<input type='$input' $attribs value='" . esc_attr( $value ) . "' />\n";
+			echo "<input type='{$input}' {$attribs} value='" . esc_attr( $value ) . "' />\n";
 		}
-		if ( $help = apply_filters( $this->get_hook( 'option_help'), $this->config[$opt]['help'], $opt ) )
-			echo "<br /><span class='c2c-input-help'>$help</span>\n";
+		if ( $help = apply_filters( $this->get_hook( 'option_help'), $this->config[ $opt ]['help'], $opt ) ) {
+			echo "<br /><span class='c2c-input-help'>{$help}</span>\n";
+		}
 
 		do_action( $this->get_hook( 'post_display_option' ), $opt );
 	}
@@ -867,13 +904,14 @@ HTML;
 	public function options_page() {
 		$options = $this->get_options();
 
-		if ( $this->saved_settings )
+		if ( $this->saved_settings ) {
 			echo "<div id='message' class='updated fade'><p><strong>" . $this->saved_settings_msg . '</strong></p></div>';
+		}
 
 		$logo = plugins_url( 'c2c_minilogo.png', $this->plugin_file );
 
 		echo "<div class='wrap'>\n";
-		echo "<div class='icon32' style='width:44px;'><img src='$logo' alt='" . esc_attr__( 'A plugin by coffee2code', $this->textdomain ) . "' /><br /></div>\n";
+		echo "<div class='icon32' style='width:44px;'><img src='{$logo}' alt='" . esc_attr__( 'A plugin by coffee2code', $this->textdomain ) . "' /><br /></div>\n";
 
 		do_action( $this->get_hook( 'before_settings_form' ), $this );
 

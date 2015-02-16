@@ -5,8 +5,8 @@ Tags: admin, css, style, stylesheets, admin theme, customize, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
-Tested up to: 4.0
-Stable tag: 1.3.1
+Tested up to: 4.1
+Stable tag: 1.3.2
 
 Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
 
@@ -80,6 +80,16 @@ Yes.
 
 
 == Changelog ==
+
+= 1.3.2 (2015-02-16) =
+* Update plugin framework to 039
+* Add to and improve unit tests
+* Explicitly declare class method `activation()` and `uninstall()` static
+* Use __DIR__ instead of `dirname(__FILE__)`
+* Various inline code documentation improvements (spacing, punctuation)
+* Note compatibility through WP 4.1+
+* Update copyright date (2015)
+* Regenerate .pot
 
 = 1.3.1 (2014-08-23) =
 * Update plugin framework to 038
@@ -156,8 +166,11 @@ Yes.
 
 == Upgrade Notice ==
 
+= 1.3.2 =
+Trivial update: improvements to unit tests; updated plugin framework to version 039; noted compatibility through WP 4.1+; updated copyright date (2015).
+
 = 1.3.1 =
-Trivial update: update plugin framework to version 038; noted compatibility through WP 4.0+; added plugin icon.
+Trivial update: updated plugin framework to version 038; noted compatibility through WP 4.0+; added plugin icon.
 
 = 1.3 =
 Minor update: added unit tests; minor improvements; noted compatibility through WP 3.8+.

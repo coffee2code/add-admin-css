@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Add Admin CSS
- * Version:     1.3.1
+ * Version:     1.3.2
  * Plugin URI:  http://coffee2code.com/wp-plugins/add-admin-css/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -11,7 +11,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Description: Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
  *
- * Compatible with WordPress 3.5+ through 4.0+
+ * Compatible with WordPress 3.5+ through 4.1+
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
@@ -19,11 +19,11 @@
  *
  * @package Add_Admin_CSS
  * @author Scott Reilly
- * @version 1.3.1
+ * @version 1.3.2
  **/
 
 /*
-	Copyright (c) 2010-2014 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2010-2015 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -44,17 +44,21 @@ defined( 'ABSPATH' ) or die();
 
 if ( is_admin() && ! class_exists( 'c2c_AddAdminCSS' ) ) :
 
-require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
+require_once( __DIR__ . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 
-class c2c_AddAdminCSS extends C2C_Plugin_038 {
+class c2c_AddAdminCSS extends C2C_Plugin_039 {
 
 	/**
-	 * @var c2c_AddAdminCSS The one true instance
+	 * The one true instance.
+	 *
+	 * @var c2c_AddAdminCSS
 	 */
 	private static $instance;
 
 	/**
-	 * @var array CSS file handles
+	 * CSS file handles.
+	 *
+	 * @var array
 	 */
 	protected $css_file_handles = array();
 
@@ -84,7 +88,7 @@ class c2c_AddAdminCSS extends C2C_Plugin_038 {
 	 * Constructor.
 	 */
 	protected function __construct() {
-		parent::__construct( '1.3.1', 'add-admin-css', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		parent::__construct( '1.3.2', 'add-admin-css', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 
 		return self::$instance = $this;
@@ -95,7 +99,7 @@ class c2c_AddAdminCSS extends C2C_Plugin_038 {
 	 *
 	 * @since 1.1
 	 */
-	public function activation() {
+	public static function activation() {
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
 	}
 
@@ -106,7 +110,7 @@ class c2c_AddAdminCSS extends C2C_Plugin_038 {
 	 *
 	 * @since 1.1
 	 */
-	public function uninstall() {
+	public static function uninstall() {
 		delete_option( 'c2c_add_admin_css' );
 	}
 
@@ -143,7 +147,6 @@ class c2c_AddAdminCSS extends C2C_Plugin_038 {
 	 * Outputs the text above the setting form
 	 *
 	 * @param string $localized_heading_text (optional) Localized page heading text.
-	 * @return void (Text will be echoed.)
 	 */
 	public function options_page_description( $localized_heading_text = '' ) {
 		parent::options_page_description( __( 'Add Admin CSS Settings', $this->textdomain ) );
@@ -179,7 +182,6 @@ class c2c_AddAdminCSS extends C2C_Plugin_038 {
 	 * @param string $contextual_help The default contextual help
 	 * @param int $screen_id The screen ID
 	 * @param object $screen The screen object (only supplied in WP 3.0)
-	 * @return void (Text is echoed)
 	 */
 	public function contextual_help( $contextual_help, $screen_id, $screen = null ) {
 		if ( $screen_id != $this->options_page ) {
@@ -191,25 +193,25 @@ class c2c_AddAdminCSS extends C2C_Plugin_038 {
 		$help .= '<p>' . __( 'You can also programmatically add to or customize any CSS defined in the "Admin CSS" field via the <code>c2c_add_admin_css</code> filter, like so:', $this->textdomain ) . '</p>';
 
 		$help .= <<<HTML
-<pre><code>add_filter( 'c2c_add_admin_css', 'my_admin_css' );
-function my_admin_css( \$css ) {
+<pre><code>function my_admin_css( \$css ) {
 	\$css .= "
 		#site-heading a span { color:blue !important; }
 		#favorite-actions { display:none; }
 	";
 	return \$css;
-}</code></pre>
+}
+add_filter( 'c2c_add_admin_css', 'my_admin_css' );</code></pre>
 
 HTML;
 
 		$help .= '<p>' . __( 'You can also programmatically add to or customize any referenced CSS files defined in the "Admin CSS Files" field via the <code>c2c_add_admin_css_files</code> filter, like so:', $this->textdomain ) . '</p>';
 
 		$help .= <<<HTML
-<pre><code>add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
-function my_admin_css_files( \$files ) {
+<pre><code>function my_admin_css_files( \$files ) {
 	\$files[] = 'http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css';
 	return \$files;
-}</code></pre>
+}
+add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );</code></pre>
 
 HTML;
 
@@ -240,7 +242,7 @@ HTML;
 				if ( strpos( $file, '://' ) !== false ) {
 					$src = $file;
 					$handle .= '-remote';
-				} elseif ( $file{0} == '/' ) {
+				} elseif ( '/' == $file[0] ) {
 					$src = trailingslashit( get_option( 'siteurl' ) ) . ltrim( $file, '/' );
 				} else {
 					$src = trailingslashit( get_stylesheet_directory_uri() ) . $file;
@@ -253,8 +255,6 @@ HTML;
 
 	/**
 	 * Outputs CSS as header links and/or inline header styles
-	 *
-	 * @return void (Text will be echoed.)
 	 */
 	public function add_css() {
 		global $wp_styles;
