@@ -118,7 +118,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		if ( ! defined( 'WP_ADMIN' ) ) {
 			define( 'WP_ADMIN', true );
 		}
-		require( __DIR__ . '/../add-admin-css.php' );
+		require( dirname( __FILE__ ) . '/../add-admin-css.php' );
 		c2c_AddAdminCSS::instance()->init();
 		c2c_AddAdminCSS::instance()->register_css_files();
 
@@ -137,7 +137,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	}
 
 	function test_version() {
-		$this->assertEquals( '1.3.2', c2c_AddAdminCSS::instance()->version() );
+		$this->assertEquals( '1.3.3', c2c_AddAdminCSS::instance()->version() );
 	}
 
 	/**

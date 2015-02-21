@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 
 Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
 
@@ -80,6 +80,9 @@ Yes.
 
 
 == Changelog ==
+
+= 1.3.3 (2015-02-21) =
+* Revert back to using `dirname(__FILE__)`; __DIR__ is only PHP 5.3+
 
 = 1.3.2 (2015-02-16) =
 * Update plugin framework to 039
@@ -165,6 +168,9 @@ Yes.
 
 
 == Upgrade Notice ==
+
+= 1.3.3 =
+Bugfix release: revert use of __DIR__ constant since it isn't supported on older installations (PHP 5.2)
 
 = 1.3.2 =
 Trivial update: improvements to unit tests; updated plugin framework to version 039; noted compatibility through WP 4.1+; updated copyright date (2015).
