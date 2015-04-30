@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Add Admin CSS
- * Version:     1.3.3
+ * Version:     1.3.4
  * Plugin URI:  http://coffee2code.com/wp-plugins/add-admin-css/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -11,15 +11,15 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Description: Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
  *
- * Compatible with WordPress 3.5+ through 4.1+
+ * Compatible with WordPress 3.5+ through 4.2+
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
  * =>> Or visit: https://wordpress.org/plugins/add-admin-css/
  *
  * @package Add_Admin_CSS
- * @author Scott Reilly
- * @version 1.3.3
+ * @author  Scott Reilly
+ * @version 1.3.4
  **/
 
 /*
@@ -88,7 +88,7 @@ class c2c_AddAdminCSS extends C2C_Plugin_039 {
 	 * Constructor.
 	 */
 	protected function __construct() {
-		parent::__construct( '1.3.3', 'add-admin-css', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		parent::__construct( '1.3.4', 'add-admin-css', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 
 		return self::$instance = $this;
@@ -125,12 +125,12 @@ class c2c_AddAdminCSS extends C2C_Plugin_039 {
 			'files' => array( 'input' => 'inline_textarea', 'default' => '', 'datatype' => 'array',
 					'label' => __( 'Admin CSS Files', $this->textdomain ),
 					'help'  => __( 'List one file per line.  The reference can be relative to the root of your active theme, relative to the root of your site (by prepending file or path with "/"), or a full, absolute URL.  These will be listed in the order listed, and appear before the CSS defined below.', $this->textdomain ),
-					'input_attributes' => 'style="width: 98%; white-space: nowrap;" rows="4" cols="40"'
+					'input_attributes' => 'style="width: 98%; white-space: pre; word-wrap: normal; overflow-x: scroll;" rows="4" cols="40"'
 			),
 			'css' => array( 'input' => 'inline_textarea', 'default' => '', 'datatype' => 'text',
 					'label' => __( 'Admin CSS', $this->textdomain ),
 					'help'  => __( 'Note that the above CSS will be added to all admin pages and apply for all users able to view those pages.', $this->textdomain ),
-					'input_attributes' => 'style="width: 98%; white-space: nowrap;" rows="10" cols="40"'
+					'input_attributes' => 'style="width: 98%; white-space: pre; word-wrap: normal; overflow-x: scroll;" rows="10" cols="40"'
 			),
 		);
 	}

@@ -137,7 +137,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	}
 
 	function test_version() {
-		$this->assertEquals( '1.3.3', c2c_AddAdminCSS::instance()->version() );
+		$this->assertEquals( '1.3.4', c2c_AddAdminCSS::instance()->version() );
 	}
 
 	/**
@@ -172,6 +172,17 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		add_filter( 'c2c_add_admin_css', array( $this, 'add_css' ) );
 
 		$this->assertContains( $this->add_css( '' ), $this->get_action_output() );
+	}
+
+	function test_uninstall_deletes_option() {
+		$option = 'c2c_add_admin_css';
+		c2c_AddAdminCSS::instance()->get_options();
+
+		$this->assertNotFalse( get_option( $option ) );
+
+		c2c_AddAdminCSS::uninstall();
+
+		$this->assertFalse( get_option( $option ) );
 	}
 
 }
