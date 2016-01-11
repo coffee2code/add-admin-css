@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Add Admin CSS
- * Version:     1.3.4
+ * Version:     1.4
  * Plugin URI:  http://coffee2code.com/wp-plugins/add-admin-css/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -11,7 +11,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Description: Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
  *
- * Compatible with WordPress 3.5+ through 4.2+
+ * Compatible with WordPress 4.1+ through 4.4+
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
@@ -19,11 +19,17 @@
  *
  * @package Add_Admin_CSS
  * @author  Scott Reilly
- * @version 1.3.4
+ * @version 1.4
  **/
 
 /*
-	Copyright (c) 2010-2015 by Scott Reilly (aka coffee2code)
+ * TODO:
+ * - Show admin notifications for settings page (they don't appear since the
+ *   settings page isn't under Settings).
+ */
+
+/*
+	Copyright (c) 2010-2016 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -46,7 +52,7 @@ if ( is_admin() && ! class_exists( 'c2c_AddAdminCSS' ) ) :
 
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 
-class c2c_AddAdminCSS extends C2C_Plugin_039 {
+class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_040 {
 
 	/**
 	 * The one true instance.
@@ -88,7 +94,7 @@ class c2c_AddAdminCSS extends C2C_Plugin_039 {
 	 * Constructor.
 	 */
 	protected function __construct() {
-		parent::__construct( '1.3.4', 'add-admin-css', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		parent::__construct( '1.4', 'add-admin-css', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 
 		return self::$instance = $this;
@@ -118,18 +124,18 @@ class c2c_AddAdminCSS extends C2C_Plugin_039 {
 	 * Initializes the plugin's configuration and localizable text variables.
 	 */
 	protected function load_config() {
-		$this->name      = __( 'Add Admin CSS', $this->textdomain );
-		$this->menu_name = __( 'Admin CSS', $this->textdomain );
+		$this->name      = __( 'Add Admin CSS', 'add-admin-css' );
+		$this->menu_name = __( 'Admin CSS', 'add-admin-css' );
 
 		$this->config = array(
 			'files' => array( 'input' => 'inline_textarea', 'default' => '', 'datatype' => 'array',
-					'label' => __( 'Admin CSS Files', $this->textdomain ),
-					'help'  => __( 'List one file per line.  The reference can be relative to the root of your active theme, relative to the root of your site (by prepending file or path with "/"), or a full, absolute URL.  These will be listed in the order listed, and appear before the CSS defined below.', $this->textdomain ),
+					'label' => __( 'Admin CSS Files', 'add-admin-css' ),
+					'help'  => __( 'List one file per line.  The reference can be relative to the root of your active theme, relative to the root of your site (by prepending file or path with "/"), or a full, absolute URL.  These will be listed in the order listed, and appear before the CSS defined below.', 'add-admin-css' ),
 					'input_attributes' => 'style="width: 98%; white-space: pre; word-wrap: normal; overflow-x: scroll;" rows="4" cols="40"'
 			),
 			'css' => array( 'input' => 'inline_textarea', 'default' => '', 'datatype' => 'text',
-					'label' => __( 'Admin CSS', $this->textdomain ),
-					'help'  => __( 'Note that the above CSS will be added to all admin pages and apply for all users able to view those pages.', $this->textdomain ),
+					'label' => __( 'Admin CSS', 'add-admin-css' ),
+					'help'  => __( 'Note that the above CSS will be added to all admin pages and apply for all users able to view those pages.', 'add-admin-css' ),
 					'input_attributes' => 'style="width: 98%; white-space: pre; word-wrap: normal; overflow-x: scroll;" rows="10" cols="40"'
 			),
 		);
@@ -149,11 +155,11 @@ class c2c_AddAdminCSS extends C2C_Plugin_039 {
 	 * @param string $localized_heading_text (optional) Localized page heading text.
 	 */
 	public function options_page_description( $localized_heading_text = '' ) {
-		parent::options_page_description( __( 'Add Admin CSS Settings', $this->textdomain ) );
-		echo '<p>' . __( 'Add additional CSS to your admin pages, which allows you to tweak the appearance of the WordPress administration pages to your liking.', $this->textdomain ) . '</p>';
-		echo '<p>' . __( 'See the "Advanced Tips" tab in the "Help" section for info on how to use the plugin to programmatically customize CSS.' ) . '</p>';
+		parent::options_page_description( __( 'Add Admin CSS Settings', 'add-admin-css' ) );
+		echo '<p>' . __( 'Add additional CSS to your admin pages, which allows you to tweak the appearance of the WordPress administration pages to your liking.', 'add-admin-css' ) . '</p>';
+		echo '<p>' . __( 'See the "Advanced Tips" tab in the "Help" section for info on how to use the plugin to programmatically customize CSS.', 'add-admin-css' ) . '</p>';
 		echo '<p>' .
-			sprintf( __( 'TIP: If you are primarily only interested in hiding certain administration interface elements, take a look at my <a href="%s" title="Admin Trim Interface">Admin Trim Interface</a> plugin.  If you only want to hide in-page help text, check out my <a href="%s" title="">Admin Expert Mode</a> plugin.  Both plugins are geared toward their respective tasks and are very simple to use, requiring no knowledge of CSS.', $this->textdomain ),
+			sprintf( __( 'TIP: If you are primarily only interested in hiding certain administration interface elements, take a look at my <a href="%s" title="Admin Trim Interface">Admin Trim Interface</a> plugin.  If you only want to hide in-page help text, check out my <a href="%s" title="">Admin Expert Mode</a> plugin.  Both plugins are geared toward their respective tasks and are very simple to use, requiring no knowledge of CSS.', 'add-admin-css' ),
 			'https://wordpress.org/plugins/admin-trim-interface/',
 			'https://wordpress.org/plugins/admin-expert-mode/' ) .
 		'</p>';
@@ -167,7 +173,7 @@ class c2c_AddAdminCSS extends C2C_Plugin_039 {
 	public function help_tabs_content( $screen ) {
 		$screen->add_help_tab( array(
 			'id'      => 'c2c-advanced-tips-' . $this->id_base,
-			'title'   => __( 'Advanced Tips', $this->textdomain ),
+			'title'   => __( 'Advanced Tips', 'add-admin-css' ),
 			'content' => self::contextual_help( '', $this->options_page )
 		) );
 
@@ -188,9 +194,9 @@ class c2c_AddAdminCSS extends C2C_Plugin_039 {
 			return $contextual_help;
 		}
 
-		$help = '<h3>' . __( 'Advanced Tips', $this->textdomain ) . '</h3>';
+		$help = '<h3>' . __( 'Advanced Tips', 'add-admin-css' ) . '</h3>';
 
-		$help .= '<p>' . __( 'You can also programmatically add to or customize any CSS defined in the "Admin CSS" field via the <code>c2c_add_admin_css</code> filter, like so:', $this->textdomain ) . '</p>';
+		$help .= '<p>' . __( 'You can also programmatically add to or customize any CSS defined in the "Admin CSS" field via the <code>c2c_add_admin_css</code> filter, like so:', 'add-admin-css' ) . '</p>';
 
 		$help .= <<<HTML
 <pre><code>function my_admin_css( \$css ) {
@@ -204,7 +210,7 @@ add_filter( 'c2c_add_admin_css', 'my_admin_css' );</code></pre>
 
 HTML;
 
-		$help .= '<p>' . __( 'You can also programmatically add to or customize any referenced CSS files defined in the "Admin CSS Files" field via the <code>c2c_add_admin_css_files</code> filter, like so:', $this->textdomain ) . '</p>';
+		$help .= '<p>' . __( 'You can also programmatically add to or customize any referenced CSS files defined in the "Admin CSS Files" field via the <code>c2c_add_admin_css_files</code> filter, like so:', 'add-admin-css' ) . '</p>';
 
 		$help .= <<<HTML
 <pre><code>function my_admin_css_files( \$files ) {
@@ -237,7 +243,17 @@ HTML;
 
 		if ( $files ) {
 			foreach ( (array) $files as $file ) {
-				$handle = basename( $file, '.css' );
+				// Determine an adequate handle for the script.
+				$file_parts = parse_url( $file );
+				$handle = basename( $file_parts['path'], '.css' );
+
+				// Determine a version for the script (the one specified, else the plugin's version).
+				if ( isset( $file_parts['query'] ) ) {
+					parse_str( $file_parts['query'], $file_query );
+				}
+				$version = ( ! empty( $file_query ) && isset( $file_query['ver'] ) ) ? $file_query['ver'] : $this->version;
+				unset( $file_query );
+
 				// FYI: There is still the potential for duplicate handles, which preclude subsequent uses from registering
 				if ( strpos( $file, '://' ) !== false ) {
 					$src = $file;
@@ -248,7 +264,7 @@ HTML;
 					$src = trailingslashit( get_stylesheet_directory_uri() ) . $file;
 				}
 				$this->css_file_handles[] = $handle;
-				wp_register_style( $handle, $src, array(), $this->version, 'all' );
+				wp_register_style( $handle, $src, array(), $version, 'all' );
 			}
 		}
 	}

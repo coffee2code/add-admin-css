@@ -4,9 +4,9 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: admin, css, style, stylesheets, admin theme, customize, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 3.5
-Tested up to: 4.2
-Stable tag: 1.3.4
+Requires at least: 4.1
+Tested up to: 4.4
+Stable tag: 1.4
 
 Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
 
@@ -35,13 +35,17 @@ Yes, via the "Admin CSS Files" input field on the plugin's settings page.
 
 = Can I limit what admin pages the CSS gets output on? =
 
-No, not presently. The CSS The CSS is added for every admin page on the site.
+No, not presently. At least not directly. By default, the CSS is added for every admin page on the site.
 
 However, you can preface your selectors with admin page specific class(es) on 'body' tag to ensure CSS only applies on certain admin pages. (e.g. `body.index-php h2, #icon-index { display: none; }`).
 
+Or, you can hook the 'c2c_add_admin_css' and 'c2c_add_admin_css_files' filters and determine the current admin page content to decide whether the respective hook argument should be returned (and thus output) or not.
+
 = Can I limit what users the CSS applies to? =
 
-No, not presently. The CSS is added for any user that can enter the admin section of the site.
+No, not presently. At least not directly. By default, the CSS is added for any user that can enter the admin section of the site.
+
+You can hook the 'c2c_add_admin_css' and 'c2c_add_admin_css_files' filters and determine the current user to decide whether the respective hook argument should be returned (and thus output) for the user or not.
 
 = Does this plugin include unit tests? =
 
@@ -92,6 +96,34 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
 
 
 == Changelog ==
+
+= 1.4 (2016-01-10) =
+Highlights:
+* This release fixes a couple of bugs, adds support for language packs, and has many minor behind-the-scenes changes.
+
+Details:
+* Bugfix: Allow CSS links/files with query args to be enqueued.
+* Bugfix: If specified as part of the link, 'ver' query arg takes precedence as script version.
+* Add: More unit tests.
+* Add: Amend a couple of the FAQ answers to indicate things are possible via hooks rather than suggesting they aren't possible.
+* Change: Update plugin framework to 040:
+    * Change class name to c2c_AddAdminCSS_Plugin_040 to be plugin-specific.
+    * Set textdomain using a string instead of a variable.
+    * Don't load textdomain from file.
+    * Change admin page header from 'h2' to 'h1' tag.
+    * Add `c2c_plugin_version()`.
+    * Formatting improvements to inline docs.
+* Change: Add support for language packs:
+    * Set textdomain using a string instead of a variable.
+    * Remove .pot file and /lang subdirectory.
+* Change: Declare class as final.
+* Change: Explicitly declare methods in unit tests as public or protected.
+* Change: Minor tweak to description.
+* Change: Minor improvements to inline docs and test docs.
+* Add: Create empty index.php to prevent files from being listed if web server has enabled directory listings.
+* Change: Note compatibility through WP 4.4+.
+* Change: Remove support for versions of WordPress older than 4.1.
+* Change: Update copyright date (2016).
 
 = 1.3.4 (2015-04-30) =
 * Bugfix: Fix line-wrapping display for Firefox and Safari
@@ -186,6 +218,9 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
 
 
 == Upgrade Notice ==
+
+= 1.4 =
+Recommended update: bugfixes for CSS file links containing query arguments; improved support for localization; verified compatibility through WP 4.4; removed compatibility with WP earlier than 4.1; updated copyright date (2016)
 
 = 1.3.4 =
 Bugfix release: fixed line-wrapping display for Firefox and Safari; noted compatibility through WP 4.2+.

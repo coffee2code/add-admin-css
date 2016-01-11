@@ -1,18 +1,18 @@
 <?php
 /**
  * @package C2C_Plugins
- * @author Scott Reilly
- * @version 039
+ * @author  Scott Reilly
+ * @version 040
  */
 /*
-Basis for other plugins
+Basis for other plugins.
 
-Compatible with WordPress 3.6+ through 4.1+.
+Compatible with WordPress 3.6+ through 4.4+.
 
 */
 
 /*
-	Copyright (c) 2010-2015 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2010-2016 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -21,7 +21,7 @@ Compatible with WordPress 3.6+ through 4.1+.
 
 	This program is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
@@ -31,9 +31,9 @@ Compatible with WordPress 3.6+ through 4.1+.
 
 defined( 'ABSPATH' ) or die();
 
-if ( ! class_exists( 'C2C_Plugin_039' ) ) :
+if ( ! class_exists( 'c2c_AddAdminCSS_Plugin_040' ) ) :
 
-abstract class C2C_Plugin_039 {
+abstract class c2c_AddAdminCSS_Plugin_040 {
 	protected $plugin_css_version = '009';
 	protected $options            = array();
 	protected $options_from_db    = '';
@@ -60,19 +60,27 @@ abstract class C2C_Plugin_039 {
 	private   $setting_index      = 0;
 
 	/**
+	 * Returns the plugin framework's version.
+	 *
+	 * @since 040
+	 */
+	public function c2c_plugin_version() {
+		return '040';
+	}
+
+	/**
 	 * Handles installation tasks, such as ensuring plugin options are instantiated and saved to options table.
 	 *
-	 * @param string $version Version of the plugin.
-	 * @param string $id_base A unique base ID for the plugin (generally a lower-case, dash-separated version of plugin name).
+	 * @param string $version       Version of the plugin.
+	 * @param string $id_base       A unique base ID for the plugin (generally a lower-case, dash-separated version of plugin name).
 	 * @param string $author_prefix Short (2-3 char) identifier for plugin author.
-	 * @param string $file The __FILE__ value for the sub-class.
-	 * @param array $plugin_options (optional) Array specifying further customization of plugin configuration.
-	 * @return void
+	 * @param string $file          The __FILE__ value for the sub-class.
+	 * @param array $plugin_options Optional. Array specifying further customization of plugin configuration.
 	 */
 	protected function __construct( $version, $id_base, $author_prefix, $file, $plugin_options = array() ) {
 		$id_base = sanitize_title( $id_base );
 		if ( ! file_exists( $file ) )
-			die( sprintf( __( 'Invalid file specified for C2C_Plugin: %s', $this->textdomain ), $file ) );
+			die( sprintf( __( 'Invalid file specified for C2C_Plugin: %s', 'add-admin-css' ), $file ) );
 
 		$u_id_base = str_replace( '-', '_', $id_base );
 		$author_prefix .= '_';
@@ -124,14 +132,14 @@ abstract class C2C_Plugin_039 {
 	 *
 	 * @since 036
 	 */
-	public function __clone() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', $this->textdomain ), '036' ); }
+	public function __clone() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'add-admin-css' ), '036' ); }
 
 	/**
 	 * A dummy magic method to prevent object from being unserialized
 	 *
 	 * @since 036
 	 */
-	public function __wakeup() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', $this->textdomain ), '036' ); }
+	public function __wakeup() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'add-admin-css' ), '036' ); }
 
 	/**
 	 * Returns the plugin's version.
@@ -146,8 +154,6 @@ abstract class C2C_Plugin_039 {
 	 * Handles installation tasks, such as ensuring plugin options are instantiated and saved to options table.
 	 *
 	 * This can be overridden.
-	 *
-	 * @return void
 	 */
 	public function install() {
 		$this->options = $this->get_options();
@@ -158,15 +164,11 @@ abstract class C2C_Plugin_039 {
 	 * Handles deactivation tasks
 	 *
 	 * This should be overridden.
-	 *
-	 * @return void
 	 */
 	public function deactivate() { }
 
 	/**
 	 * Handles actions to be hooked to 'init' action, such as loading text domain and loading plugin config data array.
-	 *
-	 * @return void
 	 */
 	public function init() {
 		global $c2c_plugin_max_css_version;
@@ -208,7 +210,7 @@ abstract class C2C_Plugin_039 {
 	 *
 	 * @since 021
 	 */
-	function check_if_plugin_was_upgraded() {
+	public function check_if_plugin_was_upgraded() {
 		// If there was no previous install of this plugin, then don't need to do anything here
 		if ( empty( $this->options_from_db ) ) {
 			return;
@@ -228,19 +230,21 @@ abstract class C2C_Plugin_039 {
 	}
 
 	/**
-	 * Handle plugin updates.  (To be implemented by inheriting class, if
+	 * Handle plugin updates. (To be implemented by inheriting class, if
 	 * necessary.)
 	 *
 	 * Intended to be used for updating plugin options, etc.
 	 *
 	 * This is only called if the version stored in the db doesn't match the
-	 * plugin's current version.  At the very least the settings will get
+	 * plugin's current version. At the very least the settings will get
 	 * re-saved so that the new current version can be recorded.
 	 *
 	 * @since 021
+	 *
 	 * @param string $old_version The version number of the old version of
-	 *        the plugin. '0.0' indicates no version previously stored
-	 * @param array $options Array of all plugin options
+	 *                            the plugin. '0.0' indicates no version
+	 *                            previously stored.
+	 * @param array $options      Array of all plugin options
 	 */
 	protected function handle_plugin_upgrade( $old_version, $options ) {
 		/* Example:
@@ -258,9 +262,10 @@ abstract class C2C_Plugin_039 {
 	 * Prevents this plugin from being included when WordPress phones home
 	 * to check for plugin updates.
 	 *
-	 * @param array $r Response array
-	 * @param string $url URL for the update check
-	 * @return array The response array with this plugin removed, if present
+	 * @param array $r Response array.
+	 * @param string $url URL for the update check.
+	 *
+	 * @return array The response array with this plugin removed, if present.
 	 */
 	public function disable_update_check( $r, $url ) {
 		if ( 0 !== strpos( $url, 'http://api.wordpress.org/plugins/update-check' ) ) {
@@ -274,9 +279,7 @@ abstract class C2C_Plugin_039 {
 	}
 
 	/**
-	 * Initializes options
-	 *
-	 * @return void
+	 * Initializes options.
 	 */
 	public function init_options() {
 		register_setting( $this->admin_options_name, $this->admin_options_name, array( $this, 'sanitize_inputs' ) );
@@ -290,8 +293,9 @@ abstract class C2C_Plugin_039 {
 	/**
 	 * Whitelist the plugin's option(s)
 	 *
-	 * @param array $options Array of options
-	 * @return array The whitelist-amended $options array
+	 * @param array $options Array of options.
+	 *
+	 * @return array The whitelist-amended $options array.
 	 */
 	public function whitelist_options( $options ) {
 		$added = array( $this->admin_options_name => array( $this->admin_options_name ) );
@@ -305,7 +309,6 @@ abstract class C2C_Plugin_039 {
 	 * Intended to be overridden by sub-class.
 	 *
 	 * @param string $localized_heading_text (optional) Localized page heading text.
-	 * @return void
 	 */
 	public function options_page_description( $localized_heading_text = '' ) {
 		if ( ! is_string( $localized_heading_text ) ) {
@@ -316,18 +319,19 @@ abstract class C2C_Plugin_039 {
 			$localized_heading_text = $this->name;
 		}
 		if ( $localized_heading_text ) {
-			echo '<h2>' . $localized_heading_text . "</h2>\n";
+			echo '<h1>' . $localized_heading_text . "</h1>\n";
 		}
 		if ( ! $this->disable_contextual_help ) {
-			echo '<p class="see-help">' . __( 'See the "Help" link to the top-right of the page for more help.', $this->textdomain ) . "</p>\n";
+			echo '<p class="see-help">' . __( 'See the "Help" link to the top-right of the page for more help.', 'add-admin-css' ) . "</p>\n";
 		}
 	}
 
 	/**
-	 * Gets the label for a given option
+	 * Gets the label for a given option.
 	 *
-	 * @param string $opt The option
-	 * @return string The label for the option
+	 * @param string $opt The option.
+	 *
+	 * @return string The label for the option.
 	 */
 	public function get_option_label( $opt ) {
 		$label = isset( $this->config[ $opt ]['label'] ) ? $this->config[ $opt ]['label'] : '';
@@ -338,7 +342,7 @@ abstract class C2C_Plugin_039 {
 	}
 
 	/**
-	 * Resets plugin options
+	 * Resets plugin options.
 	 *
 	 * @return array
 	 */
@@ -348,13 +352,13 @@ abstract class C2C_Plugin_039 {
 	}
 
 	/**
-	 * Sanitize user inputs prior to saving
+	 * Sanitizes user inputs prior to saving.
 	 */
 	public function sanitize_inputs( $inputs ) {
 		do_action( $this->get_hook( 'before_save_options' ), $this );
 		if ( isset( $_POST['Reset'] ) ) {
 			$options = $this->reset_options();
-			add_settings_error( 'general', 'settings_reset', __( 'Settings reset.', $this->textdomain ), 'updated' );
+			add_settings_error( 'general', 'settings_reset', __( 'Settings reset.', 'add-admin-css' ), 'updated' );
 		} else {
 			// Start with the existing options, then start overwriting their potential override value. (This prevents
 			// unscrupulous addition of fields by the user)
@@ -365,7 +369,7 @@ abstract class C2C_Plugin_039 {
 					if ( $this->config[ $opt ]['input'] == 'checkbox' ) {
 						$options[ $opt ] = '';
 					} elseif ( true === $this->config[ $opt ]['required'] ) {
-						$msg = sprintf( __( 'A value is required for: "%s"', $this->textdomain ), $this->config[ $opt ]['label'] );
+						$msg = sprintf( __( 'A value is required for: "%s"', 'add-admin-css' ), $this->config[ $opt ]['label'] );
 						add_settings_error( 'general', 'setting_required', $msg, 'error' );
 					}
 				}
@@ -373,7 +377,7 @@ abstract class C2C_Plugin_039 {
 					$val = $inputs[ $opt ];
 					$error = false;
 					if ( empty( $val ) && ( true === $this->config[ $opt ]['required'] ) ) {
-						$msg = sprintf( __( 'A value is required for: "%s"', $this->textdomain ), $this->config[ $opt ]['label'] );
+						$msg = sprintf( __( 'A value is required for: "%s"', 'add-admin-css' ), $this->config[ $opt ]['label'] );
 						$error = true;
 					} else {
 						$input = $this->config[ $opt ]['input'];
@@ -381,8 +385,8 @@ abstract class C2C_Plugin_039 {
 							case 'checkbox':
 								break;
 							case 'int':
-								if ( !empty( $val ) && ( !is_numeric( $val ) || ( intval( $val ) != round( $val ) ) ) ) {
-									$msg = sprintf( __( 'Expected integer value for: %s', $this->textdomain ), $this->config[ $opt ]['label'] );
+								if ( ! empty( $val ) && ( ! is_numeric( $val ) || ( intval( $val ) != round( $val ) ) ) ) {
+									$msg = sprintf( __( 'Expected integer value for: %s', 'add-admin-css' ), $this->config[ $opt ]['label'] );
 									$error = true;
 									$val = '';
 								}
@@ -398,11 +402,11 @@ abstract class C2C_Plugin_039 {
 									$val = array_map( 'trim', explode( "\n", trim( $val ) ) );
 								break;
 							case 'hash':
-								if ( !empty( $val ) && $input != 'select' && !is_array( $val ) ) {
+								if ( ! empty( $val ) && $input != 'select' && !is_array( $val ) ) {
 									$new_values = array();
 									foreach ( explode( "\n", $val ) AS $line ) {
 										list( $shortcut, $text ) = array_map( 'trim', explode( "=>", $line, 2 ) );
-										if ( !empty( $shortcut ) ) {
+										if ( ! empty( $shortcut ) ) {
 											$new_values[str_replace( '\\', '', $shortcut )] = str_replace( '\\', '', $text );
 										}
 									}
@@ -425,21 +429,17 @@ abstract class C2C_Plugin_039 {
 
 	/**
 	 * Initializes the plugin's configuration and localizable text variables.
-	 *
-	 * @return void
 	 */
 	abstract protected function load_config();
 
 	/**
 	 * Verify that the necessary configuration files were set in the inheriting class.
-	 *
-	 * @return void
 	 */
 	protected function verify_config() {
-		// Ensure required configuration options have been configured via the sub-class.  Die if any aren't.
+		// Ensure required configuration options have been configured via the sub-class. Die if any aren't.
 		foreach ( $this->required_config as $config ) {
 			if ( empty( $this->$config ) ) {
-				die( "The plugin configuration option '$config' must be supplied." );
+				die( sprintf( __( "The plugin configuration option '%s' must be supplied.", 'add-admin-css' ), $config ) );
 			}
 		}
 
@@ -460,35 +460,31 @@ abstract class C2C_Plugin_039 {
 
 	/**
 	 * Loads the localization textdomain for the plugin.
-	 *
-	 * @return void
 	 */
 	protected function load_textdomain() {
-		$subdir = empty( $this->textdomain_subdir ) ? '' : DIRECTORY_SEPARATOR.$this->textdomain_subdir;
-		load_plugin_textdomain( $this->textdomain, false, basename( dirname( $this->plugin_file ) ) . $subdir );
+		load_plugin_textdomain( 'add-admin-css' );
 	}
 
 	/**
 	 * Registers filters.
-	 * NOTE: This occurs during the 'init' filter, so you can't use this to hook anything that happens earlier
-	 *
-	 * @return void
+	 * NOTE: This occurs during the 'init' filter, so you can't use this to hook
+	 * anything that happens earlier.
 	 */
 	public function register_filters() {
 		// This should be overridden in order to define filters.
 	}
 
 	/**
-	 * Outputs simple contextual help text, comprising solely of a thickboxed link to the plugin's hosted readme.txt file.
+	 * Outputs simple contextual help text, comprising solely of a thickboxed link
+	 * to the plugin's hosted readme.txt file.
 	 *
 	 * NOTE: If overriding this in a sub-class, before sure to include the
 	 * check at the beginning of the function to ensure it shows up on its
 	 * own settings admin page.
 	 *
-	 * @param string $contextual_help The default contextual help
-	 * @param int $screen_id The screen ID
-	 * @param object $screen The screen object (only supplied in WP 3.0)
-	 * @return void (Text is echoed)
+	 * @param string $contextual_help The default contextual help.
+	 * @param int    $screen_id       The screen ID.
+	 * @param object $screen          The screen object (only supplied in WP 3.0).
 	 */
 	public function contextual_help( $contextual_help, $screen_id, $screen = null ) {
 		if ( $screen_id != $this->options_page ) {
@@ -497,19 +493,17 @@ abstract class C2C_Plugin_039 {
 
 		$help_url = admin_url( "plugin-install.php?tab=plugin-information&amp;plugin={$this->id_base}&amp;TB_iframe=true&amp;width=640&amp;height=514" );
 
-		$help = '<h3>More Plugin Help</h3>';
+		$help = '<h3>' . __( 'More Plugin Help', 'add-admin-css' ) . '</h3>';
 		$help .= '<p class="more-help">';
-		$help .= '<a title="' . esc_attr( sprintf( __( 'More information about %1$s %2$s', $this->textdomain ), $this->name, $this->version ) ) .
-			'" class="thickbox" href="' . $help_url . '">' . __( 'Click for more help on this plugin', $this->textdomain ) . '</a>' .
-			__( ' (especially check out the "Other Notes" tab, if present)', $this->textdomain );
+		$help .= '<a title="' . esc_attr( sprintf( __( 'More information about %1$s %2$s', 'add-admin-css' ), $this->name, $this->version ) ) .
+			'" class="thickbox" href="' . $help_url . '">' . __( 'Click for more help on this plugin', 'add-admin-css' ) . '</a>' .
+			__( ' (especially check out the "Other Notes" tab, if present)', 'add-admin-css' );
 		$help .= ".</p>\n";
 		return $help;
 	}
 
 	/**
-	 * Outputs CSS into admin head of the plugin's settings page
-	 *
-	 * @return void
+	 * Outputs CSS into admin head of the plugin's settings page.
 	 */
 	public function add_c2c_admin_css() {
 		global $c2c_plugin_max_css_version, $c2c_plugin_css_was_output;
@@ -563,8 +557,6 @@ HTML;
 
 	/**
 	 * Registers the admin options page and the Settings link.
-	 *
-	 * @return void
 	 */
 	public function admin_menu() {
 		add_filter( 'plugin_action_links_' . $this->plugin_basename, array( $this, 'plugin_action_links' ) );
@@ -589,7 +581,6 @@ HTML;
 	 * Initialize help tabs.
 	 *
 	 * @since 034
-	 * @return void
 	 */
 	public function help_tabs() {
 		if ( ! class_exists( 'WP_Screen' ) ) {
@@ -611,13 +602,11 @@ HTML;
 	 * This should be overridden by inheriting class if it needs help content.
 	 *
 	 * @since 034
-	 *
-	 * @return void
 	 */
 	public function help_tabs_content( $screen ) {
 		$screen->add_help_tab( array(
 			'id'      => 'c2c-more-help-' . $this->id_base,
-			'title'   => __( 'More Help', $this->textdomain ),
+			'title'   => __( 'More Help', 'add-admin-css' ),
 			'content' => self::contextual_help( '', $this->options_page )
 		) );
 	}
@@ -626,23 +615,23 @@ HTML;
 	 * Adds a 'Settings' link to the plugin action links.
 	 *
 	 * @param int $limit The default limit value for the current posts query.
+	 *
 	 * @return array Links associated with a plugin on the admin Plugins page
 	 */
 	public function plugin_action_links( $action_links ) {
-		$settings_link = '<a href="' . $this->settings_page . '.php?page='.$this->plugin_basename.'">' . __( 'Settings', $this->textdomain ) . '</a>';
+		$settings_link = '<a href="' . $this->settings_page . '.php?page='.$this->plugin_basename.'">' . __( 'Settings', 'add-admin-css' ) . '</a>';
 		array_unshift( $action_links, $settings_link );
 		return $action_links;
 	}
 
 	/**
 	 * Adds donate link to plugin row.
-	 *
 	 */
 	public function donate_link( $links, $file ) {
 		if ( $file == $this->plugin_basename ) {
 			$donation_url  = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522';
-			$donation_url .= urlencode( sprintf( __( 'Donation for coffee2code plugin: %s', $this->textdomain ), $this->name ) );
-			$title         = __( 'Coffee fuels my coding.', $this->textdomain );
+			$donation_url .= urlencode( sprintf( __( 'Donation for coffee2code plugin: %s', 'add-admin-css' ), $this->name ) );
+			$title         = __( 'Coffee fuels my coding.', 'add-admin-css' );
 			$links[] = '<a href="' . esc_url( $donation_url ) . '" title="' . esc_attr( $title ) . '">Donate</a>';
 		}
 		return $links;
@@ -653,8 +642,9 @@ HTML;
 	 *
 	 * @since 013
 	 *
-	 * @param string $opt The option name
-	 * @return bool If the option is valid for this version of WP
+	 * @param string $opt The option name.
+	 *
+	 * @return bool If the option is valid for this version of WP.
 	 */
 	protected function is_option_valid( $opt ) {
 		global $wp_version;
@@ -674,7 +664,8 @@ HTML;
 	/**
 	 * Returns the list of option names.
 	 *
-	 * @param bool $include_non_options (optional) Should non-options be included? Default is false.
+	 * @param bool $include_non_options Optional. Should non-options be included? Default is false.
+	 *
 	 * @return array Array of option names.
 	 */
 	protected function get_option_names( $include_non_options = false ) {
@@ -697,7 +688,8 @@ HTML;
 	 * Returns either the buffered array of all options for the plugin, or
 	 * obtains the options and buffers the value.
 	 *
-	 * @param bool $with_current_values (optional) Should the currently saved values be returned? If false, then the plugin's defaults are returned. Default is true.
+	 * @param bool $with_current_values Optional. Should the currently saved values be returned? If false, then the plugin's defaults are returned. Default is true.
+	 *
 	 * @return array The options array for the plugin (which is also stored in $this->options if !$with_options).
 	 */
 	public function get_options( $with_current_values = true ) {
@@ -745,6 +737,7 @@ HTML;
 	 *
 	 * @param array $settings   The new setting value(s)
 	 * @param bool  $with_reset Should the options be reset, with the new settings overlaid on top of the default settings?
+	 *
 	 * @return array
 	 */
 	public function update_option( $settings, $with_reset = false ) {
@@ -759,8 +752,9 @@ HTML;
 	/**
 	 * Gets the name to use for a form's <input type="hidden" name="XXX" value="1" />
 	 *
-	 * @param string $prefix A prefix string, unique to the form
-	 * @return string The name
+	 * @param string $prefix A prefix string, unique to the form.
+	 *
+	 * @return string The name.
 	 */
 	protected function get_form_submit_name( $prefix ) {
 		return $prefix . '_' . $this->u_id_base;
@@ -797,7 +791,6 @@ HTML;
 	 * Outputs the markup for an option's form field (and surrounding markup)
 	 *
 	 * @param string $opt The name/key of the option.
-	 * @return void
 	 */
 	public function display_option( $opt ) {
 		do_action( $this->get_hook( 'pre_display_option' ), $opt );
@@ -898,8 +891,6 @@ HTML;
 	/**
 	 * Outputs the options page for the plugin, and saves user updates to the
 	 * options.
-	 *
-	 * @return void
 	 */
 	public function options_page() {
 		$options = $this->get_options();
@@ -911,7 +902,7 @@ HTML;
 		$logo = plugins_url( 'c2c_minilogo.png', $this->plugin_file );
 
 		echo "<div class='wrap'>\n";
-		echo "<div class='icon32' style='width:44px;'><img src='{$logo}' alt='" . esc_attr__( 'A plugin by coffee2code', $this->textdomain ) . "' /><br /></div>\n";
+		echo "<div class='icon32' style='width:44px;'><img src='{$logo}' alt='" . esc_attr__( 'A plugin by coffee2code', 'add-admin-css' ) . "' /><br /></div>\n";
 
 		do_action( $this->get_hook( 'before_settings_form' ), $this );
 
@@ -920,17 +911,17 @@ HTML;
 		settings_fields( $this->admin_options_name );
 		do_settings_sections( $this->plugin_file );
 
-		echo '<input type="submit" name="Submit" class="button-primary" value="' . esc_attr__( 'Save Changes', $this->textdomain ) . '" />' . "\n";
-		echo '<input type="submit" name="Reset" class="button" value="' . esc_attr__( 'Reset Settings', $this->textdomain ) . '" />' . "\n";
+		echo '<input type="submit" name="Submit" class="button-primary" value="' . esc_attr__( 'Save Changes', 'add-admin-css' ) . '" />' . "\n";
+		echo '<input type="submit" name="Reset" class="button" value="' . esc_attr__( 'Reset Settings', 'add-admin-css' ) . '" />' . "\n";
 		echo '</form>' . "\n";
 
 		do_action( $this->get_hook( 'after_settings_form' ), $this );
 
 		echo '<div id="c2c" class="wrap"><div>' . "\n";
-		$c2c = '<a href="http://coffee2code.com" title="coffee2code.com">' . __( 'Scott Reilly, aka coffee2code', $this->textdomain ) . '</a>';
-		echo sprintf( __( 'This plugin brought to you by %s.', $this->textdomain ), $c2c );
-		echo '<span><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522" title="' . esc_attr__( 'Please consider a donation', $this->textdomain ) . '">' .
-		__( 'Did you find this plugin useful?', $this->textdomain ) . '</a></span>';
+		$c2c = '<a href="http://coffee2code.com" title="coffee2code.com">' . __( 'Scott Reilly, aka coffee2code', 'add-admin-css' ) . '</a>';
+		echo sprintf( __( 'This plugin brought to you by %s.', 'add-admin-css' ), $c2c );
+		echo '<span><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522" title="' . esc_attr__( 'Please consider a donation', 'add-admin-css' ) . '">' .
+		__( 'Did you find this plugin useful?', 'add-admin-css' ) . '</a></span>';
 		echo '</div></div>' . "\n";
 	}
 
@@ -938,6 +929,7 @@ HTML;
 	 * Returns the full plugin-specific name for a hook.
 	 *
 	 * @param string $hook The name of a hook, to be made plugin-specific.
+	 *
 	 * @return string The plugin-specific version of the hook name.
 	 */
 	protected function get_hook( $hook ) {
