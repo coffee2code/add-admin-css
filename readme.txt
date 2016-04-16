@@ -97,6 +97,9 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
 
 == Changelog ==
 
+= () =
+* Change: Declare class as final.
+
 = 1.4 (2016-01-10) =
 Highlights:
 * This release fixes a couple of bugs, adds support for language packs, and has many minor behind-the-scenes changes.
