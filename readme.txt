@@ -100,6 +100,7 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
 = () =
 * Change: Declare class as final.
 * Change: Note compatibility through WP 4.5+.
+* New: Add LICENSE file.
 
 = 1.4 (2016-01-10) =
 Highlights:
