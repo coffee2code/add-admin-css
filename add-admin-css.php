@@ -52,7 +52,7 @@ if ( is_admin() && ! class_exists( 'c2c_AddAdminCSS' ) ) :
 
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 
-final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_040 {
+final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_041 {
 
 	/**
 	 * The one true instance.

@@ -2,7 +2,7 @@
 /**
  * @package C2C_Plugins
  * @author  Scott Reilly
- * @version 040
+ * @version 041
  */
 /*
 Basis for other plugins.
@@ -31,9 +31,9 @@ Compatible with WordPress 3.6+ through 4.4+.
 
 defined( 'ABSPATH' ) or die();
 
-if ( ! class_exists( 'c2c_AddAdminCSS_Plugin_040' ) ) :
+if ( ! class_exists( 'c2c_AddAdminCSS_Plugin_041' ) ) :
 
-abstract class c2c_AddAdminCSS_Plugin_040 {
+abstract class c2c_AddAdminCSS_Plugin_041 {
 	protected $plugin_css_version = '009';
 	protected $options            = array();
 	protected $options_from_db    = '';
@@ -65,7 +65,7 @@ abstract class c2c_AddAdminCSS_Plugin_040 {
 	 * @since 040
 	 */
 	public function c2c_plugin_version() {
-		return '040';
+		return '041';
 	}
 
 	/**
@@ -79,8 +79,9 @@ abstract class c2c_AddAdminCSS_Plugin_040 {
 	 */
 	protected function __construct( $version, $id_base, $author_prefix, $file, $plugin_options = array() ) {
 		$id_base = sanitize_title( $id_base );
-		if ( ! file_exists( $file ) )
+		if ( ! file_exists( $file ) ) {
 			die( sprintf( __( 'Invalid file specified for C2C_Plugin: %s', 'add-admin-css' ), $file ) );
+		}
 
 		$u_id_base = str_replace( '-', '_', $id_base );
 		$author_prefix .= '_';
@@ -435,7 +436,7 @@ abstract class c2c_AddAdminCSS_Plugin_040 {
 	/**
 	 * Verify that the necessary configuration files were set in the inheriting class.
 	 */
-	protected function verify_config() {
+	public function verify_config() {
 		// Ensure required configuration options have been configured via the sub-class. Die if any aren't.
 		foreach ( $this->required_config as $config ) {
 			if ( empty( $this->$config ) ) {
@@ -453,6 +454,11 @@ abstract class c2c_AddAdminCSS_Plugin_040 {
 					if ( ! isset( $this->config[ $opt ][ $attrib ] ) ) {
 						$this->config[ $opt ][ $attrib ] = $default;
 					}
+				}
+				if ( 'array' === $this->config[ $opt ]['datatype'] && ! is_array( $this->config[ $opt ]['default'] ) ) {
+					$this->config[ $opt ]['default'] = $this->config[ $opt ]['default'] ?
+						array( $this->config[ $opt ]['default'] ) :
+						array();
 				}
 			}
 		}
@@ -528,8 +534,9 @@ abstract class c2c_AddAdminCSS_Plugin_040 {
 			border-style:solid;
 			border-color:#dadada;
 			border-width:1px 0;
+			overflow: auto;
 		}
-		#c2c div {
+		#c2c div:first-child {
 			margin:0 auto;
 			padding:5px 40px 0 0;
 			width:45%;
@@ -545,7 +552,6 @@ abstract class c2c_AddAdminCSS_Plugin_040 {
 		.c2c-plugin-list li {list-style:disc outside;}
 		.wrap {margin-bottom:30px !important;}
 		.c2c-form .hr, .c2c-hr {border-bottom:1px solid #ccc;padding:0 2px;margin-bottom:6px;}
-		.c2c-input-help {color:#777;font-size:x-small;}
 		.c2c-fieldset {border:1px solid #ccc; padding:2px 8px;}
 		.c2c-textarea, .c2c-inline_textarea {width:98%;font-family:"Courier New", Courier, mono;}
 		.see-help {font-size:x-small;font-style:italic;}
@@ -693,12 +699,12 @@ HTML;
 	 * @return array The options array for the plugin (which is also stored in $this->options if !$with_options).
 	 */
 	public function get_options( $with_current_values = true ) {
-		if ( $with_current_values && ! empty( $this->options ) ) {
+		if ( $with_current_values && $this->options ) {
 			return $this->options;
 		}
 		// Derive options from the config
 		$options = array();
-		$option_names = $this->get_option_names( !$with_current_values );
+		$option_names = $this->get_option_names( ! $with_current_values );
 		foreach ( $option_names as $opt ) {
 			$options[ $opt ] = $this->config[ $opt ]['default'];
 		}
@@ -719,8 +725,9 @@ HTML;
 						$new_key = wp_specialchars_decode( $key, ENT_QUOTES );
 						$new_val = wp_specialchars_decode( $val, ENT_QUOTES );
 						$this->options[ $opt ][ $new_key ] = $new_val;
-						if ( $key != $new_key )
+						if ( $key != $new_key ) {
 							unset( $this->options[ $opt ][ $key ] );
+						}
 					}
 				} else {
 					$this->options[ $opt ] = wp_specialchars_decode( $this->options[ $opt ], ENT_QUOTES );
@@ -882,7 +889,7 @@ HTML;
 			echo "<input type='{$input}' {$attribs} value='" . esc_attr( $value ) . "' />\n";
 		}
 		if ( $help = apply_filters( $this->get_hook( 'option_help'), $this->config[ $opt ]['help'], $opt ) ) {
-			echo "<br /><span class='c2c-input-help'>{$help}</span>\n";
+			echo "<p class='description'>{$help}</p>\n";
 		}
 
 		do_action( $this->get_hook( 'post_display_option' ), $opt );
@@ -902,7 +909,6 @@ HTML;
 		$logo = plugins_url( 'c2c_minilogo.png', $this->plugin_file );
 
 		echo "<div class='wrap'>\n";
-		echo "<div class='icon32' style='width:44px;'><img src='{$logo}' alt='" . esc_attr__( 'A plugin by coffee2code', 'add-admin-css' ) . "' /><br /></div>\n";
 
 		do_action( $this->get_hook( 'before_settings_form' ), $this );
 
@@ -922,7 +928,9 @@ HTML;
 		echo sprintf( __( 'This plugin brought to you by %s.', 'add-admin-css' ), $c2c );
 		echo '<span><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522" title="' . esc_attr__( 'Please consider a donation', 'add-admin-css' ) . '">' .
 		__( 'Did you find this plugin useful?', 'add-admin-css' ) . '</a></span>';
-		echo '</div></div>' . "\n";
+		echo '</div>' . "\n";
+
+		echo '</div>' . "\n";
 	}
 
 	/**

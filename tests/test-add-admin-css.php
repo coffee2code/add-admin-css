@@ -138,11 +138,11 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	}
 
 	public function test_plugin_framework_class_name() {
-		$this->assertTrue( class_exists( 'c2c_AddAdminCSS_Plugin_040' ) );
+		$this->assertTrue( class_exists( 'c2c_AddAdminCSS_Plugin_041' ) );
 	}
 
 	public function test_plugin_framework_version() {
-		$this->assertEquals( '040', c2c_AddAdminCSS::instance()->c2c_plugin_version() );
+		$this->assertEquals( '041', c2c_AddAdminCSS::instance()->c2c_plugin_version() );
 	}
 
 	public function test_version() {
