@@ -6,7 +6,6 @@
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
  * Text Domain: add-admin-css
- * Domain Path: /lang/
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Description: Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.

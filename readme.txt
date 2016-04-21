@@ -107,6 +107,7 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
     * Remove styling for .c2c-input-help.
     * Add braces around the few remaining single line conditionals.
 * Change: Note compatibility through WP 4.5+.
+* Change: Remove 'Domain Path' from plugin header.
 * New: Add LICENSE file.
 
 = 1.4 (2016-01-10) =
