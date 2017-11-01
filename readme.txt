@@ -116,6 +116,8 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
     * 042:
     * Update `disable_update_check()` to check for HTTP and HTTPS for plugin update check API URL.
     * Translate "Donate" in footer message.
+* Change: Update unit test bootstrap
+    * Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable
 * Change: Note compatibility through WP 4.9+
 * Change: Remove support for WordPress older than 4.6
 * Change: Update copyright date (2018)
