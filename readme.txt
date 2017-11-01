@@ -4,8 +4,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: admin, css, style, stylesheets, admin theme, customize, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 4.1
-Tested up to: 4.5
+Requires at least: 4.6
+Tested up to: 4.9
 Stable tag: 1.5
 
 Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
@@ -98,6 +98,8 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
 == Changelog ==
 
 = 1.6 =
+* Change: Note compatibility through WP 4.9+
+* Change: Remove support for WordPress older than 4.6
 * Change: Update copyright date (2018)
 
 = 1.5 (2016-04-21) =
