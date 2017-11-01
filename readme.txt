@@ -98,6 +98,24 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
 == Changelog ==
 
 = 1.6 =
+* Change: Update plugin framework to 046
+    * 046:
+    * Fix `reset_options()` to reference instance variable `$options`.
+	* Note compatibility through WP 4.7+.
+	* Update copyright date (2017)
+    * 045:
+    * Ensure `reset_options()` resets values saved in the database.
+    * 044:
+    * Add `reset_caches()` to clear caches and memoized data. Use it in `reset_options()` and `verify_config()`.
+    * Add `verify_options()` with logic extracted from `verify_config()` for initializing default option attributes.
+    * Add  `add_option()` to add a new option to the plugin's configuration.
+    * Add filter 'sanitized_option_names' to allow modifying the list of whitelisted option names.
+    * Change: Refactor `get_option_names()`.
+    * 043:
+    * Disregard invalid lines supplied as part of hash option value.
+    * 042:
+    * Update `disable_update_check()` to check for HTTP and HTTPS for plugin update check API URL.
+    * Translate "Donate" in footer message.
 * Change: Note compatibility through WP 4.9+
 * Change: Remove support for WordPress older than 4.6
 * Change: Update copyright date (2018)
