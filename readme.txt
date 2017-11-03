@@ -47,6 +47,12 @@ No, not presently. At least not directly. By default, the CSS is added for any u
 
 You can hook the 'c2c_add_admin_css' and 'c2c_add_admin_css_files' filters and determine the current user to decide whether the respective hook argument should be returned (and thus output) for the user or not.
 
+= How do I disable syntax highlighting? =
+
+The plugin's syntax highlighting of CSS (available on WP 4.9+) honors the built-in setting for whether syntax highlighting should be enabled or not.
+
+To disable syntax highlighting, go to your profile page. Next to "Syntax Highlighting", click the checkbox labeled "Disable syntax highlighting when editing code". Note that this checkbox disables syntax highlighting throughout the admin interface and not just specifically for the plugin's settings page.
+
 = Does this plugin include unit tests? =
 
 Yes.
@@ -98,6 +104,8 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
 == Changelog ==
 
 = 1.6 =
+* New: Add support for CodeMirror (as packaged with WP 4.9)
+    * Adds code highlighting, syntax checking, and other features
 * Change: Update plugin framework to 046
     * 046:
     * Fix `reset_options()` to reference instance variable `$options`.

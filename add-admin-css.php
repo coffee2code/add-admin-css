@@ -152,6 +152,7 @@ final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_046 {
 	public function register_filters() {
 		add_action( 'admin_init', array( $this, 'register_css_files' ) );
 		add_action( 'admin_head', array( $this, 'add_css' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'add_codemirror' ) );
 	}
 
 	/**
@@ -295,6 +296,40 @@ HTML;
 			</style>
 			";
 		}
+	}
+
+	/**
+	 * Initializes CodeMirror for the CSS textarea.
+	 *
+	 * @since 1.6
+	 */
+	public function add_codemirror() {
+		// Bail if not on the plugin setting page.
+		if ( $this->options_page !== get_current_screen()->id ) {
+			return;
+		}
+
+		// Bail if the code editor script hasn't been registered.
+		if ( ! wp_script_is( 'code-editor', 'registered' ) ) {
+			return;
+		}
+
+		// Enqueue code editor and settings for manipulating CSS.
+		$settings = wp_enqueue_code_editor( array( 'type' => 'text/css' ) );
+
+		// Bail if user disabled CodeMirror.
+		if ( false === $settings ) {
+			return;
+		}
+
+		// Inline the CodeMirror code.
+		wp_add_inline_script(
+			'code-editor',
+			sprintf(
+				'jQuery( function() { wp.codeEditor.initialize( "css", %s ); } );',
+				wp_json_encode( $settings )
+			)
+		);
 	}
 
 } // end c2c_AddAdminCSS
