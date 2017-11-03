@@ -106,6 +106,7 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
 = 1.6 =
 * New: Add support for CodeMirror (as packaged with WP 4.9)
     * Adds code highlighting, syntax checking, and other features
+* Fix: Show admin notifications for settings page
 * Change: Update plugin framework to 046
     * 046:
     * Fix `reset_options()` to reference instance variable `$options`.

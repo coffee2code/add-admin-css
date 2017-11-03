@@ -23,8 +23,6 @@
 
 /*
  * TODO:
- * - Show admin notifications for settings page (they don't appear since the
- *   settings page isn't under Settings).
  */
 
 /*
@@ -152,6 +150,7 @@ final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_046 {
 	public function register_filters() {
 		add_action( 'admin_init', array( $this, 'register_css_files' ) );
 		add_action( 'admin_head', array( $this, 'add_css' ) );
+		add_action( 'admin_notices', array( $this, 'show_admin_notices' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_codemirror' ) );
 	}
 
@@ -228,6 +227,23 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );</code></pre>
 HTML;
 
 		return $help;
+	}
+
+	/**
+	 * Shows settings admin notices.
+	 *
+	 * Settings notices are only shown for admin pages listed under Settings.
+	 * This plugin has its settings page under Appearance.
+	 *
+	 * @since 1.6
+	 */
+	public function show_admin_notices() {
+		// Bail if not on the plugin setting page.
+		if ( $this->options_page !== get_current_screen()->id ) {
+			return;
+		}
+
+		settings_errors();
 	}
 
 	/**
