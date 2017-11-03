@@ -127,15 +127,21 @@ final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_046 {
 		$this->menu_name = __( 'Admin CSS', 'add-admin-css' );
 
 		$this->config = array(
-			'files' => array( 'input' => 'inline_textarea', 'default' => '', 'datatype' => 'array',
-					'label' => __( 'Admin CSS Files', 'add-admin-css' ),
-					'help'  => __( 'List one file per line.  The reference can be relative to the root of your active theme, relative to the root of your site (by prepending file or path with "/"), or a full, absolute URL.  These will be listed in the order listed, and appear before the CSS defined below.', 'add-admin-css' ),
-					'input_attributes' => 'style="width: 98%; white-space: pre; word-wrap: normal; overflow-x: scroll;" rows="4" cols="40"'
+			'files' => array(
+				'input'            => 'inline_textarea',
+				'default'          => '',
+				'datatype'         => 'array',
+				'label'            => __( 'Admin CSS Files', 'add-admin-css' ),
+				'help'             => __( 'List one file per line.  The reference can be relative to the root of your active theme, relative to the root of your site (by prepending file or path with "/"), or a full, absolute URL.  These will be listed in the order listed, and appear before the CSS defined below.', 'add-admin-css' ),
+				'input_attributes' => 'style="width: 98%; white-space: pre; word-wrap: normal; overflow-x: scroll;" rows="4" cols="40"',
 			),
-			'css' => array( 'input' => 'inline_textarea', 'default' => '', 'datatype' => 'text',
-					'label' => __( 'Admin CSS', 'add-admin-css' ),
-					'help'  => __( 'Note that the above CSS will be added to all admin pages and apply for all users able to view those pages.', 'add-admin-css' ),
-					'input_attributes' => 'style="width: 98%; white-space: pre; word-wrap: normal; overflow-x: scroll;" rows="10" cols="40"'
+			'css' => array(
+				'input'            => 'inline_textarea',
+				'default'          => '',
+				'datatype'         => 'text',
+				'label'            => __( 'Admin CSS', 'add-admin-css' ),
+				'help'             => __( 'Note that the above CSS will be added to all admin pages and apply for all users able to view those pages.', 'add-admin-css' ),
+				'input_attributes' => 'style="width: 98%; white-space: pre; word-wrap: normal; overflow-x: scroll;" rows="10" cols="40"',
 			),
 		);
 	}
