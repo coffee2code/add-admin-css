@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 4.9
-Stable tag: 1.5
+Stable tag: 1.6
 
 Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
 
@@ -103,7 +103,7 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
 
 == Changelog ==
 
-= 1.6 =
+= 1.6 (2017-11-03) =
 * New: Add support for CodeMirror (as packaged with WP 4.9)
     * Adds code highlighting, syntax checking, and other features
 * Fix: Show admin notifications for settings page
@@ -117,7 +117,7 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
     * 044:
     * Add `reset_caches()` to clear caches and memoized data. Use it in `reset_options()` and `verify_config()`.
     * Add `verify_options()` with logic extracted from `verify_config()` for initializing default option attributes.
-    * Add  `add_option()` to add a new option to the plugin's configuration.
+    * Add `add_option()` to add a new option to the plugin's configuration.
     * Add filter 'sanitized_option_names' to allow modifying the list of whitelisted option names.
     * Change: Refactor `get_option_names()`.
     * 043:
@@ -267,8 +267,11 @@ Details:
 
 == Upgrade Notice ==
 
+= 1.6 =
+Recommended update: added code highlighting, syntax checking, etc as introduced elsewhere in WP 4.9; show admin notifications for settings page; updated plugin framework to version 046; verified compatibility through WP 4.9; dropped compatibility with versions of WordPress older than 4.6; updated copyright date (2018).
+
 = 1.5 =
-Minor update: update plugin framework to version 041; verified compatibility through WP 4.5.
+Minor update: updated plugin framework to version 041; verified compatibility through WP 4.5.
 
 = 1.4 =
 Recommended update: bugfixes for CSS file links containing query arguments; improved support for localization; verified compatibility through WP 4.4; removed compatibility with WP earlier than 4.1; updated copyright date (2016)
