@@ -63,9 +63,9 @@ Yes.
 1. A screenshot of the plugin's admin settings page.
 
 
-== Advanced ==
+== Hooks ==
 
-You can also programmatically add to or customize any CSS defined in the "Admin CSS" field via the c2c_add_admin_css filter, like so:
+The plugin exposes two filters for hooking. Typically, code making use of filters should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain). Bear in mind that the features controlled by these filters are also configurable via the plugin's settings page. These filters are likely only of interest to advanced users able to code.
 
 `
 /**
