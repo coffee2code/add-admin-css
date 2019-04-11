@@ -2,6 +2,7 @@
 
 ## _(in-progress)_
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
+* Change: Update License URI to be HTTPS
 
 ## 1.6 _(2017-11-03)_
 * New: Add support for CodeMirror (as packaged with WP 4.9)
