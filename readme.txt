@@ -22,9 +22,9 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/add-admin-css/) | [Pl
 
 == Installation ==
 
-1. Unzip `add-admin-css.zip` inside the `/wp-content/plugins/` directory for your site (or install via the built-in WordPress plugin installer)
+1. Install via the built-in WordPress plugin installer. Or download and unzip `add-admin-css.zip` inside the plugins directory for your site (typically `wp-content/plugins/`)
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
-1. Go to "Appearance" -> "Admin CSS" and add some CSS to be added into all admin pages.
+1. Go to "Appearance" -> "Admin CSS" and specify some CSS to be added into all admin pages. (You can also use the "Settings" link in the plugin's entry on the admin "Plugins" page).
 
 
 == Frequently Asked Questions ==
