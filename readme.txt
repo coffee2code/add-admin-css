@@ -67,6 +67,16 @@ Yes.
 
 The plugin exposes two filters for hooking. Typically, code making use of filters should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain). Bear in mind that the features controlled by these filters are also configurable via the plugin's settings page. These filters are likely only of interest to advanced users able to code.
 
+**c2c_add_admin_css (filter)**
+
+The 'c2c_add_admin_css' filter allows customization of CSS that should be added directly to the admin page head.
+
+Arguments:
+
+* $css (string): CSS styles.
+
+Example:
+
 `
 /**
  * Add CSS to admin pages.
@@ -84,7 +94,15 @@ function my_admin_css( $css ) {
 add_filter( 'c2c_add_admin_css', 'my_admin_css' );
 `
 
-You can also programmatically add to or customize any referenced CSS files defined in the "Admin CSS Files" field via the c2c_add_admin_css_files filter, like so:
+**c2c_add_admin_css_files (filter)**
+
+The 'c2c_add_admin_css_files' filter allows programmatic modification of the list of CSS files to enqueue in the admin.
+
+Arguments:
+
+* $files (array): Array of CSS files.
+
+Example:
 
 `
 /**
