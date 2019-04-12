@@ -21,6 +21,7 @@
 * New: Add README.md file
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
 * New: Add GitHub link to readme
+* Change: Store setting name in constant
 * Change: Improve documentation for hooks within readme.txt
 * Change: Note compatibility through WP 5.1+
 * Change: Rename readme.txt section from 'Advanced' to 'Hooks' and provide a better section intro

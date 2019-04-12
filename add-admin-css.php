@@ -52,6 +52,14 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_049 {
 
 	/**
+	 * Name of plugin's setting.
+	 *
+	 * @since 1.7
+	 * @var string
+	 */
+	const SETTING_NAME = 'c2c_add_admin_css';
+
+	/**
 	 * The one true instance.
 	 *
 	 * @var c2c_AddAdminCSS
@@ -114,7 +122,7 @@ final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_049 {
 	 * @since 1.1
 	 */
 	public static function uninstall() {
-		delete_option( 'c2c_add_admin_css' );
+		delete_option( self::SETTING_NAME );
 	}
 
 	/**

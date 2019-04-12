@@ -4,8 +4,6 @@ defined( 'ABSPATH' ) or die();
 
 class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
-	private $option_name = 'c2c_add_admin_css';
-
 	public function setUp() {
 		parent::setUp();
 
@@ -83,7 +81,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	}
 
 	public function set_option() {
-		update_option( $this->option_name, array(
+		update_option( 'c2c_add_admin_css', array(
 			'files' => array(
 				'https://maxcdn.example.com/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.4.0',
 				'http://test.example.org/css/sample.css',
@@ -127,8 +125,6 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		require( dirname( dirname( __FILE__ ) ) . '/add-admin-css.php' );
 		c2c_AddAdminCSS::instance()->init();
 		c2c_AddAdminCSS::instance()->register_css_files();
-
-		$this->option_name = c2c_AddAdminCSS::instance()->admin_options_name;
 
 		$this->assertTrue( is_admin() );
 	}
@@ -202,7 +198,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	}
 
 	public function test_uninstall_deletes_option() {
-		$option = 'c2c_add_admin_css';
+		$option = c2c_AddAdminCSS::SETTING_NAME;
 		c2c_AddAdminCSS::instance()->get_options();
 
 		$this->assertNotFalse( get_option( $option ) );
