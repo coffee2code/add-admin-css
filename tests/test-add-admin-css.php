@@ -197,15 +197,36 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$this->assertContains( $this->add_css( '' ), $this->get_action_output() );
 	}
 
-	public function test_uninstall_deletes_option() {
-		$option = c2c_AddAdminCSS::SETTING_NAME;
-		c2c_AddAdminCSS::instance()->get_options();
+	/*
+	 * Setting handling
+	 */
 
-		$this->assertNotFalse( get_option( $option ) );
+	/*
+	// This is normally the case, but the unit tests save the setting to db via
+	// setUp(), so until the unit tests are restructured somewhat, this test
+	// would fail.
+	public function test_does_not_immediately_store_default_settings_in_db() {
+		$option_name = c2c_AddAdminCSS::SETTING_NAME;
+		// Get the options just to see if they may get saved.
+		$options     = c2c_AddAdminCSS::instance()->get_options();
+
+		$this->assertFalse( get_option( $option_name ) );
+	}
+	*/
+
+	public function test_uninstall_deletes_option() {
+		$option_name = c2c_AddAdminCSS::SETTING_NAME;
+		$options     = c2c_AddAdminCSS::instance()->get_options();
+
+		// Explicitly set an option to ensure options get saved to the database.
+		$this->set_option( array( 'css' => 'p { margin-top: 1.5em; }' ) );
+
+		$this->assertNotEmpty( $options );
+		$this->assertNotFalse( get_option( $option_name ) );
 
 		c2c_AddAdminCSS::uninstall();
 
-		$this->assertFalse( get_option( $option ) );
+		$this->assertFalse( get_option( $option_name ) );
 	}
 
 }
