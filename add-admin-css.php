@@ -350,6 +350,6 @@ HTML;
 
 } // end c2c_AddAdminCSS
 
-c2c_AddAdminCSS::instance();
+add_action( 'plugins_loaded', array( 'c2c_AddAdminCSS', 'instance' ) );
 
 endif; // end if !class_exists()
