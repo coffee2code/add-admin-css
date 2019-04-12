@@ -229,6 +229,62 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$this->assertContains( $this->add_css( '' ), $this->get_action_output() );
 	}
 
+	public function test_add_css_to_head_with_just_css( $expected = false ) {
+		$css = $this->add_css( 'p { margin-top: 1.5em; }', 'settingfooter' );
+
+		$this->set_option( array( 'css' => $css, 'files' => array() ) );
+		$this->test_turn_on_admin();
+
+		ob_start();
+		c2c_AddAdminCSS::instance()->add_css( $css );
+		$out = ob_get_contents();
+		ob_end_clean();
+
+		if ( false === $expected ) {
+			$expected = "
+			<style type='text/css'>
+			{$css}
+			</style>
+			";
+		}
+
+		$this->assertEquals( $expected, $out );
+
+		return $out;
+	}
+
+	public function test_add_css_to_head_with_just_files( $expected = false ) {
+		// Examples of different types of references.
+		$files = array(
+			'https://maxcdn.example.com/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.4.0',
+			'http://example.org/css/sample.css',
+			'/css/site-relative.css',
+			'theme-relative.css',
+		);
+
+		$this->set_option( array( 'css' => '', 'files' => $files ) );
+		$this->test_turn_on_admin();
+
+		ob_start();
+		c2c_AddAdminCSS::instance()->add_css( $css );
+		$out = ob_get_contents();
+		ob_end_clean();
+
+		$ver = c2c_AddAdminCSS::instance()->version();
+
+		if ( false === $expected ) {
+			$expected = "<link rel='stylesheet' id='font-awesome.min-remote-css'  href='https://maxcdn.example.com/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.4.0' type='text/css' media='all' />
+<link rel='stylesheet' id='sample-remote-css'  href='http://example.org/css/sample.css?ver={$ver}' type='text/css' media='all' />
+<link rel='stylesheet' id='site-relative-css'  href='http://example.org/css/site-relative.css?ver={$ver}' type='text/css' media='all' />
+<link rel='stylesheet' id='theme-relative-css'  href='http://example.org/wp-content/themes/twentyseventeen/theme-relative.css?ver={$ver}' type='text/css' media='all' />
+";
+		}
+
+		$this->assertEquals( $expected, $out );
+
+		return $out;
+	}
+
 	/*
 	 * Setting handling
 	 */

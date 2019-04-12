@@ -22,6 +22,7 @@
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
 * New: Add GitHub link to readme
 * Unit tests:
+    * New: Add unit tests for `add_css()`
     * New: Add unit test for defaults for settings
     * Change: Improve tests for settings handling
     * Change: Update `set_option()` to accept an array of setting values to use
