@@ -262,6 +262,13 @@ HTML;
 	public function get_css_files() {
 		$options = $this->get_options();
 
+		/**
+		 * Filters the list of CSS files to enqueue in the admin.
+		 *
+		 * @since 1.0
+		 *
+		 * @param array $files Array of CSS files.
+		 */
 		return apply_filters( 'c2c_add_admin_css_files', $options['files'] );
 	}
 
@@ -311,6 +318,13 @@ HTML;
 			$wp_styles->do_items( $this->css_file_handles );
 		}
 
+		/**
+		 * Filters the CSS that should be added directly to all admin pages.
+		 *
+		 * @since 1.0
+		 *
+		 * @param string $files CSS code (without `<style>` tag).
+		 */
 		$css = trim( apply_filters( 'c2c_add_admin_css', $options['css'] . "\n" ) );
 
 		if ( ! empty( $css ) ) {
