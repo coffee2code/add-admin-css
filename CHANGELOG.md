@@ -25,7 +25,8 @@
     * New: Add unit test for defaults for settings
     * Change: Improve tests for settings handling
     * Change: Update `set_option()` to accept an array of setting values to use
-    * Remove: Delete `setUp()` and invoke `setup_options()` within each test as needed
+    * Change: Explicitly set 'twentyseventeen' as the theme to ensure testing against a known theme
+    * Change: Invoke `setup_options()` within each test as needed instead of `setUp()`
 * Change: Store setting name in constant
 * Change: Improve documentation for hooks within readme.txt
 * Change: Note compatibility through WP 5.1+

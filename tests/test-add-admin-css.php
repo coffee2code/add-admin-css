@@ -4,6 +4,11 @@ defined( 'ABSPATH' ) or die();
 
 class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
+	public function setUp() {
+		$theme = wp_get_theme( 'twentyseventeen' );
+		switch_theme( $theme->get_stylesheet() );
+	}
+
 	public function tearDown() {
 		parent::tearDown();
 
@@ -38,7 +43,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 			array( 'https://maxcdn.example.com/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.4.0' ),
 			array( 'http://test.example.org/css/sample.css' ),
 			array( 'http://example.org/css/site-relative.css' ),
-			array( get_stylesheet_directory_uri() . '/theme-relative.css' ),
+			array( 'http://example.org/wp-content/themes/twentyseventeen/theme-relative.css' ),
 		);
 	}
 
@@ -47,7 +52,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 			array( 'https://maxcdn.example.com/font-awesome/4.4.0/css/font-awesome2.min.css?ver=4.4.0' ),
 			array( 'http://test.example.org/css/sample2.css' ),
 			array( 'http://example.org/css/site-relative2.css' ),
-			array( get_stylesheet_directory_uri() . '/theme-relative2.css' ),
+			array( 'http://example.org/wp-content/themes/twentyseventeen/theme-relative2.css' ),
 		);
 	}
 
