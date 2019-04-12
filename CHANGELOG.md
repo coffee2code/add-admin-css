@@ -30,6 +30,7 @@
 * Change: Store setting name in constant
 * Change: Improve documentation for hooks within readme.txt
 * Change: Note compatibility through WP 5.1+
+* Change: Drop compatibility with version of WP older than 4.7
 * Change: Rename readme.txt section from 'Advanced' to 'Hooks' and provide a better section intro
 * Change: Update installation instruction to prefer built-in installer over .zip file
 * Change: Update copyright date (2019)
