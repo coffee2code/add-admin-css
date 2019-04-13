@@ -166,6 +166,7 @@ final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_049 {
 	public function register_filters() {
 		add_action( 'admin_init', array( $this, 'register_css_files' ) );
 		add_action( 'admin_head', array( $this, 'add_css' ) );
+		add_action( 'admin_notices',         array( $this, 'recovery_mode_notice' ) );
 		add_action( 'admin_notices', array( $this, 'show_admin_notices' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_codemirror' ) );
 		add_filter( 'wp_redirect',           array( $this, 'remove_query_param_from_redirects' ) );
@@ -244,6 +245,30 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );</code></pre>
 HTML;
 
 		return $help;
+	}
+
+	/**
+	 * Outputs admin notice on plugin's setting page if recovery mode is active.
+	 *
+	 * @since 1.7
+	 */
+	public function recovery_mode_notice() {
+		if ( get_current_screen()->id === $this->options_page && ! $this->can_show_css() ) {
+			if ( defined( 'C2C_ADD_ADMIN_CSS_DISABLED' ) && C2C_ADD_ADMIN_CSS_DISABLED ) {
+				$msg = sprintf(
+					__( "<strong>RECOVERY MODE ENABLED:</strong> CSS output for this plugin is currently disabled for the entire admin area via use of the <code>%s</code> constant.", 'add-admin-css' ),
+					'C2C_ADD_ADMIN_CSS_DISABLED'
+				);
+			} else {
+				$msg = __( "<strong>RECOVERY MODE ENABLED:</strong> CSS output for this plugin is disabled on this page view.", 'add-admin-css' );;
+			}
+
+			echo <<<HTML
+				<div class="error">
+					<p>{$msg}</p>
+				</div>
+HTML;
+		}
 	}
 
 	/**

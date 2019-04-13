@@ -15,6 +15,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		remove_filter( 'c2c_add_admin_css_files', array( $this, 'add_css_files' ) );
 		remove_filter( 'c2c_add_admin_css',       array( $this, 'add_css' ) );
 
+		unset( $GLOBALS['current_screen'] );
 		unset( $GLOBALS['wp_styles']);
 		$GLOBALS['wp_styles'] = new WP_Styles;
 
@@ -107,6 +108,12 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
 		$settings = wp_parse_args( (array) $settings, $defaults );
 		$obj->update_option( $settings, true );
+	}
+
+	protected function fake_current_screen( $screen_id = 'hacky' ) {
+		$GLOBALS['current_screen'] = (object) array( 'id' => $screen_id );
+		c2c_AddAdminCSS::instance()->options_page = $screen_id;
+		return $screen_id;
 	}
 
 
@@ -317,6 +324,24 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $out );
 	}
 
+	public function test_recovery_mode_notice_when_css_not_disabled() {
+		$this->fake_current_screen();
+
+		$this->assertEmpty( $this->get_action_output( 'admin_notices' ) );
+	}
+
+	public function test_recovery_mode_notice_when_css_disabled_by_query_param() {
+		$this->fake_current_screen();
+
+		$this->test_can_show_css_with_true_query_param();
+
+		$expected = "				<div class=\"error\">
+					<p><strong>RECOVERY MODE ENABLED:</strong> CSS output for this plugin is disabled on this page view.</p>
+				</div>";
+
+		$this->assertEquals( $expected, $this->get_action_output( 'admin_notices' ) );
+	}
+
 	/****************************************
 	 * NOTE: Anything beyond this point will run with the
 	 * C2C_ADD_ADMIN_CSS_DISABLED define and true.
@@ -332,6 +357,16 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$out = $this->test_add_css_to_head_with_just_css( '' );
 
 		$this->assertEmpty( $out );
+	}
+
+	public function test_recovery_mode_notice_when_css_disabled_by_constant() {
+		$this->fake_current_screen();
+
+		$expected = "				<div class=\"error\">
+					<p><strong>RECOVERY MODE ENABLED:</strong> CSS output for this plugin is currently disabled for the entire admin area via use of the <code>C2C_ADD_ADMIN_CSS_DISABLED</code> constant.</p>
+				</div>";
+
+		$this->assertEquals( $expected, $this->get_action_output( 'admin_notices' ) );
 	}
 
 	/*
