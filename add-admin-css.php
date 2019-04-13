@@ -60,6 +60,14 @@ final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_049 {
 	const SETTING_NAME = 'c2c_add_admin_css';
 
 	/**
+	 * Name of query parameter for disabling CSS output.
+	 *
+	 * @since 1.7
+	 * @var string
+	 */
+	const NO_CSS_QUERY_PARAM = 'c2c-no-css';
+
+	/**
 	 * The one true instance.
 	 *
 	 * @var c2c_AddAdminCSS
@@ -160,6 +168,7 @@ final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_049 {
 		add_action( 'admin_head', array( $this, 'add_css' ) );
 		add_action( 'admin_notices', array( $this, 'show_admin_notices' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_codemirror' ) );
+		add_filter( 'wp_redirect',           array( $this, 'remove_query_param_from_redirects' ) );
 	}
 
 	/**
@@ -307,10 +316,54 @@ HTML;
 	}
 
 	/**
+	 * Removes the query parameter to disable CSS output from redirect URLs.
+	 *
+	 * Needed to prevent the query parameter from propagating from page view
+	 * through to form submission.
+	 *
+	 * @since 1.7
+	 *
+	 * @param string $url The redirect URL.
+	 * @return string
+	 */
+	public function remove_query_param_from_redirects( $url ) {
+		if ( is_admin() ) {
+			$url = remove_query_arg( self::NO_CSS_QUERY_PARAM, $url );
+		}
+
+		return $url;
+	}
+
+	/**
+	 * Determines if CSS can be output under current conditions.
+	 *
+	 * CSS will always be output in the admin unless:
+	 * - The 'c2c-no-css' query parameter is present with a value of '1'.
+	 *
+	 * @since 1.7
+	 *
+	 * @return bool True if CSS can be shown, otherwise false.
+	 */
+	public function can_show_css() {
+		$can_show = true;
+
+		// Recovery mode enabled via query parameter.
+		if ( $can_show && isset( $_GET[ self::NO_CSS_QUERY_PARAM ] ) && '1' === $_GET[ self::NO_CSS_QUERY_PARAM ] ) {
+			$can_show = false;
+		}
+
+		return $can_show;
+	}
+
+	/**
 	 * Outputs CSS as header links and/or inline header styles
 	 */
 	public function add_css() {
 		global $wp_styles;
+
+		if ( ! $this->can_show_css() ) {
+			return;
+		}
 
 		$options = $this->get_options();
 
