@@ -20,6 +20,7 @@
     * Drop compatibility with version of WP older than 4.7
 * New: Add README.md file
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
+* New: Add FAQ entry describing ways to fix having potentially crippled the admin
 * New: Add inline documentation for hooks
 * New: Add GitHub link to readme
 * Unit tests:

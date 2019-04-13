@@ -47,6 +47,19 @@ No, not presently. At least not directly. By default, the CSS is added for any u
 
 You can hook the 'c2c_add_admin_css' and 'c2c_add_admin_css_files' filters and determine the current user to decide whether the respective hook argument should be returned (and thus output) for the user or not.
 
+= How can I edit the plugin's settings in the event I supplied CSS that prevents the admin pages from properly functioning or being seen? =
+
+It is certainly possible that you can put yourself in an unfortunate position by supplying CSS that could hide critical parts of admin pages, making it seeminly impossible to fix or revert your changes. Fortunately, there are a number of approaches you can take to correct the problem.
+
+Some approaches require direct database or server filesystem access:
+
+* Some browsers (such as Firefox, via View -> Page Style -> No Style) allow you to disable styles for sites loaded in that tab. Other browsers may also support such functionality natively or through an extension. Chrome has an extension called [Web Developer](https://chrome.google.com/webstore/detail/web-developer/bfbameneiokkgbdmiekhjnmfkcnldhhm?hl=en-US) that adds the functionality.
+* If you're familiar with doing so and have an idea of what CSS style you added that is causing problems, you can use your browser's developer tools to inspect the page, find the element in question, and disable the offending style.
+* Presuming you know how to directly access the database: within the site's database, find the row with the option_name field value of `c2c_add_admin_css` and delete that row. The settings you saved for the plugin will be deleted and it will be like you've installed the plugin for the first time.
+* If your server has WP-CLI installed, you can delete the plugin's setting from the commandline: `wp option delete c2c_add_admin_css`
+
+The initial reaction by some might be to remove the plugin from the server's filesystem. This will certainly disable the plugin and prevent the CSS you configured through it from taking effect, restoring the access and functionality to the backend. However, reinstalling the plugin will put you back into the original predicament because the plugin will use the previously-configured settings, which wouldn't have changed.
+
 = How do I disable syntax highlighting? =
 
 The plugin's syntax highlighting of CSS (available on WP 4.9+) honors the built-in setting for whether syntax highlighting should be enabled or not.
