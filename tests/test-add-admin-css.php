@@ -313,6 +313,22 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $out );
 	}
 
+	/****************************************
+	 * NOTE: Anything beyond this point will run with the
+	 * C2C_ADD_ADMIN_CSS_DISABLED define and true.
+	 ****************************************/
+
+	public function test_can_show_css_with_true_constant() {
+		define( 'C2C_ADD_ADMIN_CSS_DISABLED', true );
+
+		$this->assertFalse( c2c_AddAdminCSS::instance()->can_show_css() );
+	}
+
+	public function test_recovery_mode_via_constant_disables_add_css() {
+		$out = $this->test_add_css_to_head_with_just_css( '' );
+
+		$this->assertEmpty( $out );
+	}
 
 	/*
 	 * Setting handling

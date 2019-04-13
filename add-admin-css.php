@@ -338,6 +338,7 @@ HTML;
 	 * Determines if CSS can be output under current conditions.
 	 *
 	 * CSS will always be output in the admin unless:
+	 * - The C2C_ADD_ADMIN_CSS_DISABLED constant is defined and true.
 	 * - The 'c2c-no-css' query parameter is present with a value of '1'.
 	 *
 	 * @since 1.7
@@ -346,6 +347,11 @@ HTML;
 	 */
 	public function can_show_css() {
 		$can_show = true;
+
+		// Recovery mode enabled via constant.
+		if ( $can_show && defined( 'C2C_ADD_ADMIN_CSS_DISABLED' ) && C2C_ADD_ADMIN_CSS_DISABLED ) {
+			$can_show = false;
+		}
 
 		// Recovery mode enabled via query parameter.
 		if ( $can_show && isset( $_GET[ self::NO_CSS_QUERY_PARAM ] ) && '1' === $_GET[ self::NO_CSS_QUERY_PARAM ] ) {

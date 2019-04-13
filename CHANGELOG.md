@@ -3,6 +3,7 @@
 ## _(in-progress)_
 * New: Add recovery mode to be able to disable output of CSS via the plugin
     * Add support for `c2c-no-css` query parameter for enabling recovery mode
+    * Add support for `C2C_ADD_ADMIN_CSS_DISABLED` constant for enabling recovery mode
     * Add `can_show_css()`, `remove_query_param_from_redirects()`
 * Change: Initialize plugin on `plugins_loaded` action instead of on load
 * Change: Update plugin framework to 049
