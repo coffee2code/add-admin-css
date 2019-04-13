@@ -31,6 +31,7 @@
     * Change: Explicitly set 'twentyseventeen' as the theme to ensure testing against a known theme
     * Change: Invoke `setup_options()` within each test as needed instead of `setUp()`
 * Change: Store setting name in constant
+* Change: Cast return value of `c2c_add_admin_css_files` filter as an array
 * Change: Improve documentation for hooks within readme.txt
 * Change: Note compatibility through WP 5.1+
 * Change: Drop compatibility with version of WP older than 4.7

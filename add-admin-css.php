@@ -269,7 +269,7 @@ HTML;
 		 *
 		 * @param array $files Array of CSS files.
 		 */
-		return apply_filters( 'c2c_add_admin_css_files', $options['files'] );
+		return (array) apply_filters( 'c2c_add_admin_css_files', $options['files'] );
 	}
 
 	/**
