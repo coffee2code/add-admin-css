@@ -299,14 +299,14 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$this->assertTrue( c2c_AddAdminCSS::instance()->can_show_css() );
 	}
 
-	public function test_can_show_css_with_false_query_param() {
+	public function test_can_show_css_with_true_query_param() {
 		$_GET[ c2c_AddAdminCSS::NO_CSS_QUERY_PARAM ] = '1';
 
 		$this->assertFalse( c2c_AddAdminCSS::instance()->can_show_css() );
 	}
 
 	public function test_recovery_mode_via_query_param_disables_add_css() {
-		$this->test_can_show_css_with_false_query_param();
+		$this->test_can_show_css_with_true_query_param();
 
 		$out = $this->test_add_css_to_head_with_just_css( '' );
 
