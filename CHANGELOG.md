@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 1.7_(2019-04-13)_
+
+### Highlights:
+
+* This release adds a recovery mode to disable output of CSS via the plugin (and an admin notice when it is active), improves documentation, updates the plugin framework, notes compatibility through WP 5.1+, drops compatibility with versions of WP older than 4.7, and more documentation and code improvements.
+
+### Details:
+
 * New: Add recovery mode to be able to disable output of CSS via the plugin
     * Add support for `c2c-no-css` query parameter for enabling recovery mode
     * Add support for `C2C_ADD_ADMIN_CSS_DISABLED` constant for enabling recovery mode

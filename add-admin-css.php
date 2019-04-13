@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Add Admin CSS
- * Version:     1.6
+ * Version:     1.7
  * Plugin URI:  http://coffee2code.com/wp-plugins/add-admin-css/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -18,7 +18,7 @@
  *
  * @package Add_Admin_CSS
  * @author  Scott Reilly
- * @version 1.6
+ * @version 1.7
  **/
 
 /*
@@ -107,7 +107,7 @@ final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_049 {
 	 * Constructor.
 	 */
 	protected function __construct() {
-		parent::__construct( '1.6', 'add-admin-css', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		parent::__construct( '1.7', 'add-admin-css', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 
 		return self::$instance = $this;
