@@ -297,6 +297,10 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
 	public function test_can_show_css() {
 		$this->assertTrue( c2c_AddAdminCSS::instance()->can_show_css() );
+
+		$_GET[ c2c_AddAdminCSS::NO_CSS_QUERY_PARAM ] = '0';
+
+		$this->assertTrue( c2c_AddAdminCSS::instance()->can_show_css() );
 	}
 
 	public function test_can_show_css_with_true_query_param() {
