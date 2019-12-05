@@ -248,7 +248,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$this->test_turn_on_admin();
 
 		ob_start();
-		c2c_AddAdminCSS::instance()->add_css( $css );
+		c2c_AddAdminCSS::instance()->add_css();
 		$out = ob_get_contents();
 		ob_end_clean();
 
@@ -278,7 +278,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$this->test_turn_on_admin();
 
 		ob_start();
-		c2c_AddAdminCSS::instance()->add_css( $css );
+		c2c_AddAdminCSS::instance()->add_css();
 		$out = ob_get_contents();
 		ob_end_clean();
 

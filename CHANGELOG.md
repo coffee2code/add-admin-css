@@ -3,6 +3,7 @@
 ## _(in-progress)_
 * Unit tests:
     * New: Add unit test to ensure plugin is hooked to initialize on `plugins_loaded`
+    * Fix: Don't pass argument to plugin object's `add_css()`
     * Change: Update unit test install script and bootstrap to use latest WP unit test repo
 * Change: Note compatibility through WP 5.3+
 * Change: Update copyright date (2020)
