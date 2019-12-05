@@ -1,6 +1,9 @@
 # Changelog
 
-## 1.7_(2019-04-13)_
+## _(in-progress)_
+* Change: Note compatibility through WP 5.3+
+
+## 1.7 (2019-04-13)_
 
 ### Highlights:
 
