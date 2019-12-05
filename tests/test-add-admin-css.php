@@ -169,6 +169,10 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$this->assertEquals( '1.7', c2c_AddAdminCSS::instance()->version() );
 	}
 
+	public function test_hooks_plugins_loaded() {
+		$this->assertEquals( 10, has_action( 'plugins_loaded', array( 'c2c_AddAdminCSS', 'instance' ) ) );
+	}
+
 	/**
 	 * @dataProvider get_settings_and_defaults
 	 */

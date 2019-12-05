@@ -1,7 +1,9 @@
 # Changelog
 
 ## _(in-progress)_
-* Change: Update unit test install script and bootstrap to use latest WP unit test repo
+* Unit tests:
+    * New: Add unit test to ensure plugin is hooked to initialize on `plugins_loaded`
+    * Change: Update unit test install script and bootstrap to use latest WP unit test repo
 * Change: Note compatibility through WP 5.3+
 * Change: Update copyright date (2020)
 
