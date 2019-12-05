@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* New: Add HTML5 compliance by omitting `type` attribute when the theme supports 'html5'
 * Unit tests:
     * New: Add unit test to ensure plugin is hooked to initialize on `plugins_loaded`
     * Fix: Don't pass argument to plugin object's `add_css()`

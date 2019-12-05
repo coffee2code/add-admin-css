@@ -411,9 +411,11 @@ HTML;
 		 */
 		$css = trim( apply_filters( 'c2c_add_admin_css', $options['css'] . "\n" ) );
 
+		$type_attr = current_theme_supports( 'html5', 'style' ) ? '' : ' type="text/css"';
+
 		if ( ! empty( $css ) ) {
 			echo "
-			<style type='text/css'>
+			<style{$type_attr}>
 			$css
 			</style>
 			";
