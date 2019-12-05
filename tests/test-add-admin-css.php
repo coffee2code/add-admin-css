@@ -285,10 +285,10 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$ver = c2c_AddAdminCSS::instance()->version();
 
 		if ( false === $expected ) {
-			$expected = "<link rel='stylesheet' id='font-awesome.min-remote-css'  href='https://maxcdn.example.com/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.4.0' type='text/css' media='all' />
-<link rel='stylesheet' id='sample-remote-css'  href='http://example.org/css/sample.css?ver={$ver}' type='text/css' media='all' />
-<link rel='stylesheet' id='site-relative-css'  href='http://example.org/css/site-relative.css?ver={$ver}' type='text/css' media='all' />
-<link rel='stylesheet' id='theme-relative-css'  href='http://example.org/wp-content/themes/twentyseventeen/theme-relative.css?ver={$ver}' type='text/css' media='all' />
+			$expected = "<link rel='stylesheet' id='font-awesome.min-remote-css'  href='https://maxcdn.example.com/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.4.0' media='all' />
+<link rel='stylesheet' id='sample-remote-css'  href='http://example.org/css/sample.css?ver={$ver}' media='all' />
+<link rel='stylesheet' id='site-relative-css'  href='http://example.org/css/site-relative.css?ver={$ver}' media='all' />
+<link rel='stylesheet' id='theme-relative-css'  href='http://example.org/wp-content/themes/twentyseventeen/theme-relative.css?ver={$ver}' media='all' />
 ";
 		}
 

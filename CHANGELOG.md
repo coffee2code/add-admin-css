@@ -4,6 +4,7 @@
 * Unit tests:
     * New: Add unit test to ensure plugin is hooked to initialize on `plugins_loaded`
     * Fix: Don't pass argument to plugin object's `add_css()`
+    * Fix: Don't expect `type` attribute in `link` tags since they're not HTML5-compliant
     * Change: Update unit test install script and bootstrap to use latest WP unit test repo
 * Change: Note compatibility through WP 5.3+
 * Change: Update copyright date (2020)
