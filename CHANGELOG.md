@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 1.8 _(2019-12-04)_
+
+### Highlights:
+
+* This minor release adds HTML5 compliance when supported by the theme, modernizes and fixes unit tests, and notes compatibility through WP 5.3+.
+
+### Details:
+
 * New: Add HTML5 compliance by omitting `type` attribute when the theme supports 'html5'
 * Unit tests:
     * New: Add unit test to ensure plugin is hooked to initialize on `plugins_loaded`

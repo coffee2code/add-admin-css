@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
 Tested up to: 5.3
-Stable tag: 1.7
+Stable tag: 1.8
 
 Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
 
@@ -137,7 +137,24 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
 
 == Changelog ==
 
-= 1.7_(2019-04-13) =
+= 1.8 (2019-12-04) =
+Highlights:
+
+* This minor release adds HTML5 compliance when supported by the theme, modernizes and fixes unit tests, and notes compatibility through WP 5.3+.
+
+Details:
+
+* New: Add HTML5 compliance by omitting `type` attribute when the theme supports 'html5'
+* Unit tests:
+    * New: Add unit test to ensure plugin is hooked to initialize on `plugins_loaded`
+    * Fix: Don't pass argument to plugin object's `add_css()`
+    * Fix: Don't expect `type` attribute in `link` tags since they're not HTML5-compliant
+    * Fix: Prevent WP from attempting to print the emoji detection script (which isn't built in the develop.svn repo)
+    * Change: Update unit test install script and bootstrap to use latest WP unit test repo
+* Change: Note compatibility through WP 5.3+
+* Change: Update copyright date (2020)
+
+= 1.7 (2019-04-13) =
 Highlights:
 
 * This release adds a recovery mode to disable output of CSS via the plugin (and an admin notice when it is active), improves documentation, updates the plugin framework, notes compatibility through WP 5.1+, drops compatibility with versions of WP older than 4.7, and more documentation and code improvements.
@@ -217,23 +234,13 @@ Details:
 * Change: Remove support for WordPress older than 4.6
 * Change: Update copyright date (2018)
 
-= 1.5 (2016-04-21) =
-* Change: Declare class as final.
-* Change: Update plugin framework to 041:
-    * For a setting that is of datatype array, ensure its default value is an array.
-    * Make `verify_config()` public.
-    * Use `<p class="description">` for input field help text instead of custom styled span.
-    * Remove output of markup for adding icon to setting page header.
-    * Remove styling for .c2c-input-help.
-    * Add braces around the few remaining single line conditionals.
-* Change: Note compatibility through WP 4.5+.
-* Change: Remove 'Domain Path' from plugin header.
-* New: Add LICENSE file.
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/add-admin-css/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 1.8 =
+Minor update: added HTML5 compliance when supported by the theme, modernized and fixed unit tests, noted compatibility through WP 5.3+, and updated copyright date (2020)
 
 = 1.7 =
 Recommended update: added recovery mode, tweaked plugin initialization process, updated plugin framework, compatibility is now WP 4.7 through WP 5.1+, updated copyright date (2019), and more documentation and code improvements.
