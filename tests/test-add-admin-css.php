@@ -14,9 +14,6 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	public function tearDown() {
 		parent::tearDown();
 
-		remove_filter( 'c2c_add_admin_css_files', array( $this, 'add_css_files' ) );
-		remove_filter( 'c2c_add_admin_css',       array( $this, 'add_css' ) );
-
 		unset( $GLOBALS['current_screen'] );
 		unset( $GLOBALS['wp_styles']);
 		$GLOBALS['wp_styles'] = new WP_Styles;
