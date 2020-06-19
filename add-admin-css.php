@@ -2,9 +2,9 @@
 /**
  * Plugin Name: Add Admin CSS
  * Version:     1.8
- * Plugin URI:  http://coffee2code.com/wp-plugins/add-admin-css/
+ * Plugin URI:  https://coffee2code.com/wp-plugins/add-admin-css/
  * Author:      Scott Reilly
- * Author URI:  http://coffee2code.com/
+ * Author URI:  https://coffee2code.com/
  * Text Domain: add-admin-css
  * License:     GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
