@@ -5,6 +5,8 @@ defined( 'ABSPATH' ) or die();
 class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
 	public function setUp() {
+		parent::setUp();
+
 		$theme = wp_get_theme( 'twentyseventeen' );
 		switch_theme( $theme->get_stylesheet() );
 	}
