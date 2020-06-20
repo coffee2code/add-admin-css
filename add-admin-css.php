@@ -260,7 +260,7 @@ HTML;
 			}
 
 			echo <<<HTML
-				<div class="error">
+				<div class="notice notice-error">
 					<p>{$msg}</p>
 				</div>
 HTML;

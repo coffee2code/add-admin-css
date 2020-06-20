@@ -284,7 +284,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
 		if ( false === $expected ) {
 			$expected = "
-			<style>
+			<style{$attr}>
 			{$css}
 			</style>
 			";
@@ -369,7 +369,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
 		$this->test_can_show_css_with_true_query_param();
 
-		$expected = "				<div class=\"error\">
+		$expected = "				<div class=\"notice notice-error\">
 					<p><strong>RECOVERY MODE ENABLED:</strong> CSS output for this plugin is disabled on this page view.</p>
 				</div>";
 
@@ -396,7 +396,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	public function test_recovery_mode_notice_when_css_disabled_by_constant() {
 		$this->fake_current_screen();
 
-		$expected = "				<div class=\"error\">
+		$expected = "				<div class=\"notice notice-error\">
 					<p><strong>RECOVERY MODE ENABLED:</strong> CSS output for this plugin is currently disabled for the entire admin area via use of the <code>C2C_ADD_ADMIN_CSS_DISABLED</code> constant.</p>
 				</div>";
 

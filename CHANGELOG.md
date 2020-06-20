@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* Change: Change class names used for admin notice to match current WP convention
 * Change: Update plugin framework to 050
     * Allow a hash entry to literally have '0' as a value without being entirely omitted when saved
     * Output donation markup using `printf()` rather than using string concatenation
