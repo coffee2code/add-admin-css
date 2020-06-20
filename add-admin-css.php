@@ -164,10 +164,10 @@ final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_050 {
 			return;
 		}
 
-		add_action( 'admin_init', array( $this, 'register_css_files' ) );
-		add_action( 'admin_head', array( $this, 'add_css' ) );
+		add_action( 'admin_init',            array( $this, 'register_css_files' ) );
+		add_action( 'admin_head',            array( $this, 'add_css' ) );
 		add_action( 'admin_notices',         array( $this, 'recovery_mode_notice' ) );
-		add_action( 'admin_notices', array( $this, 'show_admin_notices' ) );
+		add_action( 'admin_notices',         array( $this, 'show_admin_notices' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'add_codemirror' ) );
 		add_filter( 'wp_redirect',           array( $this, 'remove_query_param_from_redirects' ) );
 	}
