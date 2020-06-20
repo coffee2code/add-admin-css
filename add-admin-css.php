@@ -179,13 +179,20 @@ final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_050 {
 	 */
 	public function options_page_description( $localized_heading_text = '' ) {
 		parent::options_page_description( __( 'Add Admin CSS Settings', 'add-admin-css' ) );
-		echo '<p>' . __( 'Add additional CSS to your admin pages, which allows you to tweak the appearance of the WordPress administration pages to your liking.', 'add-admin-css' ) . '</p>';
-		echo '<p>' . __( 'See the "Advanced Tips" tab in the "Help" section for info on how to use the plugin to programmatically customize CSS.', 'add-admin-css' ) . '</p>';
-		echo '<p>' .
-			sprintf( __( 'TIP: If you are primarily only interested in hiding certain administration interface elements, take a look at my <a href="%s" title="Admin Trim Interface">Admin Trim Interface</a> plugin.  If you only want to hide in-page help text, check out my <a href="%s" title="">Admin Expert Mode</a> plugin.  Both plugins are geared toward their respective tasks and are very simple to use, requiring no knowledge of CSS.', 'add-admin-css' ),
-			'https://wordpress.org/plugins/admin-trim-interface/',
-			'https://wordpress.org/plugins/admin-expert-mode/' ) .
-		'</p>';
+		echo '<p>'
+			. __( 'Add additional CSS to your admin pages, which allows you to tweak the appearance of the WordPress administration pages to your liking.', 'add-admin-css' )
+			. '</p>';
+		echo '<p>'
+			. __( 'See the "Advanced Tips" tab in the "Help" section for info on how to use the plugin to programmatically customize CSS.', 'add-admin-css' )
+			. '</p>';
+		echo '<p>'
+			/* translators: 1: URL for Admin Trim Interface plugin page, 2: URL for Admin Expert Mode plugin page */
+			. sprintf(
+				__( 'TIP: If you are primarily only interested in hiding certain administration interface elements, take a look at my <a href="%1$s" title="Admin Trim Interface">Admin Trim Interface</a> plugin. If you only want to hide in-page help text, check out my <a href="%2$s" title="">Admin Expert Mode</a> plugin. Both plugins are geared toward their respective tasks and are very simple to use, requiring no knowledge of CSS.', 'add-admin-css' ),
+				'https://wordpress.org/plugins/admin-trim-interface/',
+				'https://wordpress.org/plugins/admin-expert-mode/'
+			)
+			. '</p>';
 	}
 
 	/**

@@ -14,6 +14,8 @@
 * Change: Note compatibility through WP 5.4+
 * Change: Drop compatibility for version of WP older than 4.9
 * Change: Update links to coffee2code.com to be HTTPS
+* Change: Add translator comment for string with multiple placeholders
+* CHange: Minor code reformatting
 * Unit tests:
     * New: Add tests for default hooks
     * New: Add tests for setting and query param names
