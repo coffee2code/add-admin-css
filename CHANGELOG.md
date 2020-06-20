@@ -20,6 +20,7 @@
     * Fix: Invoke parent class's `setUp()` during `setUp()`
     * Change: Remove unnecessary unregistering of hooks in `tearDown()`
     * Change: Move `test_turn_on_admin()` until just before first needed now that other tests can run before it
+    * Change: Store plugin instance in test object to simplify referencing it
     * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests (and delete commented-out code)
 
 ## 1.8 _(2019-12-04)_

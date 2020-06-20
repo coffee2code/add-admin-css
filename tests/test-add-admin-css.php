@@ -4,6 +4,8 @@ defined( 'ABSPATH' ) or die();
 
 class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
+	protected $obj;
+
 	public function setUp() {
 		parent::setUp();
 
@@ -11,6 +13,8 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		switch_theme( $theme->get_stylesheet() );
 
 		add_theme_support( 'html5', array( 'script', 'style' ) );
+
+		$this->obj = c2c_AddAdminCSS::instance();
 	}
 
 	public function tearDown() {
@@ -21,7 +25,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$GLOBALS['wp_styles'] = new WP_Styles;
 
 		if ( class_exists( 'c2c_AddAdminCSS' ) ) {
-			c2c_AddAdminCSS::instance()->reset();
+			$this->obj->reset();
 			unset( $_GET[ c2c_AddAdminCSS::NO_CSS_QUERY_PARAM ] );
 		}
 	}
@@ -96,7 +100,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
 	// Use true for $settings for force use of defaults
 	public function set_option( $settings = true ) {
-		$obj = c2c_AddAdminCSS::instance();
+		$obj = $this->obj;
 
 		if ( true === $settings ) {
 			$defaults = array(
@@ -119,7 +123,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	protected function fake_current_screen( $screen_id = 'hacky' ) {
 		$this->test_turn_on_admin();
 		set_current_screen( $screen_id );
-		c2c_AddAdminCSS::instance()->options_page = $screen_id;
+		$this->obj->options_page = $screen_id;
 		return $screen_id;
 	}
 
@@ -154,11 +158,11 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	}
 
 	public function test_plugin_framework_version() {
-		$this->assertEquals( '050', c2c_AddAdminCSS::instance()->c2c_plugin_version() );
+		$this->assertEquals( '050', $this->obj->c2c_plugin_version() );
 	}
 
 	public function test_version() {
-		$this->assertEquals( '1.8', c2c_AddAdminCSS::instance()->version() );
+		$this->assertEquals( '1.8', $this->obj->version() );
 	}
 
 	public function test_hooks_plugins_loaded() {
@@ -166,14 +170,14 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	}
 
 	public function test_setting_name() {
-		$this->assertEquals( 'c2c_add_admin_css', c2c_AddAdminCSS::instance()::SETTING_NAME );
+		$this->assertEquals( 'c2c_add_admin_css', $this->obj::SETTING_NAME );
 	}
 
 	/**
 	 * @dataProvider get_settings_and_defaults
 	 */
 	public function test_default_settings( $setting ) {
-		$options = c2c_AddAdminCSS::instance()->get_options();
+		$options = $this->obj->get_options();
 
 		$this->assertEmpty( $options[ $setting ] );
 	}
@@ -187,8 +191,8 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 			define( 'WP_ADMIN', true );
 		}
 		require( dirname( dirname( __FILE__ ) ) . '/add-admin-css.php' );
-		c2c_AddAdminCSS::instance()->init();
-		c2c_AddAdminCSS::instance()->register_css_files();
+		$this->obj->init();
+		$this->obj->register_css_files();
 
 		$this->assertTrue( is_admin() );
 	}
@@ -207,14 +211,14 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$this->set_option();
 		$this->test_turn_on_admin();
 
-		$this->assertContains( 'http://test.example.org/css/sample.css?ver=' . c2c_AddAdminCSS::instance()->version(), $this->get_action_output() );
+		$this->assertContains( 'http://test.example.org/css/sample.css?ver=' . $this->obj->version(), $this->get_action_output() );
 	}
 
 	public function test_ver_query_arg_added_for_relative_links() {
 		$this->set_option();
 		$this->test_turn_on_admin();
 
-		$this->assertContains( '/css/site-relative.css?ver=' . c2c_AddAdminCSS::instance()->version(), $this->get_action_output() );
+		$this->assertContains( '/css/site-relative.css?ver=' . $this->obj->version(), $this->get_action_output() );
 	}
 
 	public function test_ver_query_arg_not_added_if_link_already_has_it() {
@@ -265,7 +269,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$this->test_turn_on_admin();
 
 		ob_start();
-		c2c_AddAdminCSS::instance()->add_css();
+		$this->obj->add_css();
 		$out = ob_get_contents();
 		ob_end_clean();
 
@@ -295,11 +299,11 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$this->test_turn_on_admin();
 
 		ob_start();
-		c2c_AddAdminCSS::instance()->add_css();
+		$this->obj->add_css();
 		$out = ob_get_contents();
 		ob_end_clean();
 
-		$ver = c2c_AddAdminCSS::instance()->version();
+		$ver = $this->obj->version();
 
 		if ( false === $expected ) {
 			$expected = "<link rel='stylesheet' id='font-awesome.min-remote-css'  href='https://maxcdn.example.com/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.4.0' media='all' />
@@ -321,18 +325,18 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
 		$this->assertEquals(
 			$url,
-			c2c_AddAdminCSS::instance()->remove_query_param_from_redirects( $url . '&' . c2c_AddAdminCSS::NO_CSS_QUERY_PARAM . '=1' )
+			$this->obj->remove_query_param_from_redirects( $url . '&' . c2c_AddAdminCSS::NO_CSS_QUERY_PARAM . '=1' )
 		);
 	}
 
 	public function test_can_show_css() {
 		$this->test_turn_on_admin();
 
-		$this->assertTrue( c2c_AddAdminCSS::instance()->can_show_css() );
+		$this->assertTrue( $this->obj->can_show_css() );
 
 		$_GET[ c2c_AddAdminCSS::NO_CSS_QUERY_PARAM ] = '0';
 
-		$this->assertTrue( c2c_AddAdminCSS::instance()->can_show_css() );
+		$this->assertTrue( $this->obj->can_show_css() );
 	}
 
 	public function test_can_show_css_with_true_query_param() {
@@ -340,7 +344,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
 		$_GET[ c2c_AddAdminCSS::NO_CSS_QUERY_PARAM ] = '1';
 
-		$this->assertFalse( c2c_AddAdminCSS::instance()->can_show_css() );
+		$this->assertFalse( $this->obj->can_show_css() );
 	}
 
 	public function test_recovery_mode_via_query_param_disables_add_css() {
@@ -379,7 +383,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
 		define( 'C2C_ADD_ADMIN_CSS_DISABLED', true );
 
-		$this->assertFalse( c2c_AddAdminCSS::instance()->can_show_css() );
+		$this->assertFalse( $this->obj->can_show_css() );
 	}
 
 	public function test_recovery_mode_via_constant_disables_add_css() {
@@ -409,7 +413,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	public function test_does_not_immediately_store_default_settings_in_db() {
 		$option_name = c2c_AddAdminCSS::SETTING_NAME;
 		// Get the options just to see if they may get saved.
-		$options     = c2c_AddAdminCSS::instance()->get_options();
+		$options     = $this->obj->get_options();
 
 		$this->assertFalse( get_option( $option_name ) );
 	}
@@ -417,7 +421,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
 	public function test_uninstall_deletes_option() {
 		$option_name = c2c_AddAdminCSS::SETTING_NAME;
-		$options     = c2c_AddAdminCSS::instance()->get_options();
+		$options     = $this->obj->get_options();
 
 		// Explicitly set an option to ensure options get saved to the database.
 		$this->set_option( array( 'css' => 'p { margin-top: 1.5em; }' ) );
