@@ -45,6 +45,17 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		);
 	}
 
+	public static function get_default_hooks() {
+		return array(
+			array( 'action', 'admin_init',            'register_css_files' ),
+			array( 'action', 'admin_head',            'add_css' ),
+			array( 'action', 'admin_notices',         'recovery_mode_notice' ),
+			array( 'action', 'admin_notices',         'show_admin_notices' ),
+			array( 'action', 'admin_enqueue_scripts', 'add_codemirror' ),
+			array( 'filter', 'wp_redirect',           'remove_query_param_from_redirects' ),
+		);
+	}
+
 	public static function get_css_file_links() {
 		return array(
 			array( 'https://maxcdn.example.com/font-awesome/4.4.0/css/font-awesome.min.css?ver=4.4.0' ),
@@ -199,6 +210,24 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$this->obj->register_css_files();
 
 		$this->assertTrue( is_admin() );
+	}
+
+	/**
+	 * @dataProvider get_default_hooks
+	 */
+	public function test_default_hooks( $hook_type, $hook, $function, $priority = 10, $class_method = true ) {
+		$this->test_turn_on_admin();
+
+		$callback = $class_method ? array( $this->obj, $function ) : $function;
+
+		$prio = $hook_type === 'action' ?
+			has_action( $hook, $callback ) :
+			has_filter( $hook, $callback );
+
+		$this->assertNotFalse( $prio );
+		if ( $priority ) {
+			$this->assertEquals( $priority, $prio );
+		}
 	}
 
 	/**
