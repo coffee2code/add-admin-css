@@ -9,6 +9,8 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 
 		$theme = wp_get_theme( 'twentyseventeen' );
 		switch_theme( $theme->get_stylesheet() );
+
+		add_theme_support( 'html5', array( 'script', 'style' ) );
 	}
 
 	public function tearDown() {
@@ -247,36 +249,16 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	}
 
 	public function test_add_css_to_head_with_just_css_no_html5_support( $expected = false ) {
-		$css = $this->add_css( 'p { margin-top: 1.5em; }', 'settingfooter' );
+		remove_theme_support( 'html5', 'script' );
 
-		$this->set_option( array( 'css' => $css, 'files' => array() ) );
-		$this->test_turn_on_admin();
-
-		ob_start();
-		c2c_AddAdminCSS::instance()->add_css();
-		$out = ob_get_contents();
-		ob_end_clean();
-
-		if ( false === $expected ) {
-			$expected = "
-			<style type=\"text/css\">
-			{$css}
-			</style>
-			";
-		}
-
-		$this->assertEquals( $expected, $out );
-
-		return $out;
+		return $this->test_add_css_to_head_with_just_css( $expected, ' type="text/css"' );
 	}
 
-	public function test_add_css_to_head_with_just_css_with_html5_support( $expected = false ) {
+	public function test_add_css_to_head_with_just_css( $expected = false, $attr = '' ) {
 		$css = $this->add_css( 'p { margin-top: 1.5em; }', 'settingfooter' );
 
 		$this->set_option( array( 'css' => $css, 'files' => array() ) );
 		$this->test_turn_on_admin();
-
-		add_theme_support( 'html5', array( 'script', 'style' ) );
 
 		ob_start();
 		c2c_AddAdminCSS::instance()->add_css();
@@ -360,7 +342,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	public function test_recovery_mode_via_query_param_disables_add_css() {
 		$this->test_can_show_css_with_true_query_param();
 
-		$out = $this->test_add_css_to_head_with_just_css_with_html5_support( '' );
+		$out = $this->test_add_css_to_head_with_just_css( '' );
 
 		$this->assertEmpty( $out );
 	}
@@ -397,7 +379,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	}
 
 	public function test_recovery_mode_via_constant_disables_add_css() {
-		$out = $this->test_add_css_to_head_with_just_css_with_html5_support( '' );
+		$out = $this->test_add_css_to_head_with_just_css( '' );
 
 		$this->assertEmpty( $out );
 	}
