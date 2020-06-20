@@ -173,6 +173,10 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'c2c_add_admin_css', $this->obj::SETTING_NAME );
 	}
 
+	public function test_query_param_name() {
+		$this->assertEquals( 'c2c-no-css', $this->obj::NO_CSS_QUERY_PARAM );
+	}
+
 	/**
 	 * @dataProvider get_settings_and_defaults
 	 */

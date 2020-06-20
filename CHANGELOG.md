@@ -15,7 +15,7 @@
 * Change: Drop compatibility for version of WP older than 4.9
 * Change: Update links to coffee2code.com to be HTTPS
 * Unit tests:
-    * New: Add test for setting name
+    * New: Add tests for setting and query param names
     * Fix: Adjust tests to properly account for theme support or non-support of html5 when checking expected markup output
     * Fix: Ensure admin-related tests call `test_turn_on_admin()` so admin init actions are called
     * Fix: Invoke parent class's `setUp()` during `setUp()`
