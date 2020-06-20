@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* Change: Allow class to always be instantiated, but add check to only register hooks when in the admin
 * Change: Change class names used for admin notice to match current WP convention
 * Change: Update plugin framework to 050
     * Allow a hash entry to literally have '0' as a value without being entirely omitted when saved

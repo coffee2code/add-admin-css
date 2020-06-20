@@ -41,7 +41,7 @@
 
 defined( 'ABSPATH' ) or die();
 
-if ( is_admin() && ! class_exists( 'c2c_AddAdminCSS' ) ) :
+if ( ! class_exists( 'c2c_AddAdminCSS' ) ) :
 
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 
@@ -160,6 +160,10 @@ final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_050 {
 	 * Override the plugin framework's register_filters() to register actions and filters.
 	 */
 	public function register_filters() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
 		add_action( 'admin_init', array( $this, 'register_css_files' ) );
 		add_action( 'admin_head', array( $this, 'add_css' ) );
 		add_action( 'admin_notices',         array( $this, 'recovery_mode_notice' ) );
