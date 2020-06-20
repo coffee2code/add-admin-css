@@ -142,7 +142,7 @@ final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_050 {
 				'default'          => '',
 				'datatype'         => 'array',
 				'label'            => __( 'Admin CSS Files', 'add-admin-css' ),
-				'help'             => __( 'List one file per line.  The reference can be relative to the root of your active theme, relative to the root of your site (by prepending file or path with "/"), or a full, absolute URL.  These will be listed in the order listed, and appear before the CSS defined below.', 'add-admin-css' ),
+				'help'             => __( 'List one file per line. The reference can be relative to the root of your active theme, relative to the root of your site (by prepending file or path with "/"), or a full, absolute URL. These will be output in the order listed above and appear before the CSS defined below.', 'add-admin-css' ),
 				'input_attributes' => 'style="width: 98%; white-space: pre; word-wrap: normal; overflow-x: scroll;" rows="4" cols="40"',
 			),
 			'css' => array(
