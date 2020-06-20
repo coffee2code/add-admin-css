@@ -115,7 +115,8 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	}
 
 	protected function fake_current_screen( $screen_id = 'hacky' ) {
-		$GLOBALS['current_screen'] = (object) array( 'id' => $screen_id );
+		$this->test_turn_on_admin();
+		set_current_screen( $screen_id );
 		c2c_AddAdminCSS::instance()->options_page = $screen_id;
 		return $screen_id;
 	}
@@ -330,6 +331,8 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	public function test_remove_query_param_from_redirects() {
 		$url = 'https://example.com/wp-admin/themes.php?page=add-admin-css%2Fadd-admin.css.php';
 
+		$this->test_turn_on_admin();
+
 		$this->assertEquals(
 			$url,
 			c2c_AddAdminCSS::instance()->remove_query_param_from_redirects( $url . '&' . c2c_AddAdminCSS::NO_CSS_QUERY_PARAM . '=1' )
@@ -337,6 +340,8 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	}
 
 	public function test_can_show_css() {
+		$this->test_turn_on_admin();
+
 		$this->assertTrue( c2c_AddAdminCSS::instance()->can_show_css() );
 
 		$_GET[ c2c_AddAdminCSS::NO_CSS_QUERY_PARAM ] = '0';
@@ -345,6 +350,8 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	}
 
 	public function test_can_show_css_with_true_query_param() {
+		$this->test_turn_on_admin();
+
 		$_GET[ c2c_AddAdminCSS::NO_CSS_QUERY_PARAM ] = '1';
 
 		$this->assertFalse( c2c_AddAdminCSS::instance()->can_show_css() );
@@ -382,6 +389,8 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	 ****************************************/
 
 	public function test_can_show_css_with_true_constant() {
+		$this->test_turn_on_admin();
+
 		define( 'C2C_ADD_ADMIN_CSS_DISABLED', true );
 
 		$this->assertFalse( c2c_AddAdminCSS::instance()->can_show_css() );
