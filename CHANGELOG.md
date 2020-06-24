@@ -17,6 +17,7 @@
 * Change: Add translator comment for string with multiple placeholders
 * CHange: Minor code reformatting
 * Unit tests:
+    * New: Add test for `options_page_description()`
     * New: Add tests for default hooks
     * New: Add tests for setting and query param names
     * Fix: Adjust tests to properly account for theme support or non-support of html5 when checking expected markup output

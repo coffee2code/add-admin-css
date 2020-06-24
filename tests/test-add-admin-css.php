@@ -230,6 +230,20 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		}
 	}
 
+	/*
+	 * options_page_description()
+	 */
+
+	public function test_options_page_description() {
+		$expected = '<h1>Add Admin CSS Settings</h1>' . "\n";
+		$expected .= '<p class="see-help">See the "Help" link to the top-right of the page for more help.</p>' . "\n";
+		$expected .= '<p>Add additional CSS to your admin pages, which allows you to tweak the appearance of the WordPress administration pages to your liking.</p>';
+		$expected .= '<p>See the "Advanced Tips" tab in the "Help" section for info on how to use the plugin to programmatically customize CSS.</p>';
+		$expected .= '<p>TIP: If you are primarily only interested in hiding certain administration interface elements, take a look at my <a href="https://wordpress.org/plugins/admin-trim-interface/" title="Admin Trim Interface">Admin Trim Interface</a> plugin. If you only want to hide in-page help text, check out my <a href="https://wordpress.org/plugins/admin-expert-mode/" title="">Admin Expert Mode</a> plugin. Both plugins are geared toward their respective tasks and are very simple to use, requiring no knowledge of CSS.</p>';
+
+		$this->expectOutputRegex( '~' . preg_quote( $expected ) . '~', $this->obj->options_page_description() );
+	}
+
 	/**
 	 * @dataProvider get_css_file_links
 	 */
