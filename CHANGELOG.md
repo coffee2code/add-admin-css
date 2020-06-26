@@ -20,6 +20,7 @@
     * New: Add test for `options_page_description()`
     * New: Add tests for default hooks
     * New: Add tests for setting and query param names
+    * New: Label groupings of tests
     * Fix: Adjust tests to properly account for theme support or non-support of html5 when checking expected markup output
     * Fix: Ensure admin-related tests call `test_turn_on_admin()` so admin init actions are called
     * Fix: Invoke parent class's `setUp()` during `setUp()`
