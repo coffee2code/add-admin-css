@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 1.9 _(2020-06-26)_
+
+### Highlights:
+
+This minor release updates its plugin framework, adds a TODO.md file, updates a few URLs to be HTTPS, expands unit testing, updates compatibility to be WP 4.9 through 5.4+, and minor behind-the-scenes tweaks.
+
+### Details:
+
 * Change: Allow class to always be instantiated, but add check to only register hooks when in the admin
 * Change: Change class names used for admin notice to match current WP convention
 * Change: Update plugin framework to 050

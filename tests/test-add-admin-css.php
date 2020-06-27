@@ -173,7 +173,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	}
 
 	public function test_version() {
-		$this->assertEquals( '1.8', $this->obj->version() );
+		$this->assertEquals( '1.9', $this->obj->version() );
 	}
 
 	public function test_hooks_plugins_loaded() {

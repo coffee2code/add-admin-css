@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
 Tested up to: 5.4
-Stable tag: 1.8
+Stable tag: 1.9
 
 Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
 
@@ -137,6 +137,42 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
 
 == Changelog ==
 
+= 1.9 (2020-06-26) =
+
+Highlights:
+
+* This minor release updates its plugin framework, adds a TODO.md file, updates a few URLs to be HTTPS, expands unit testing, updates compatibility to be WP 4.9 through 5.4+, and minor behind-the-scenes tweaks.
+
+Details:
+
+* Change: Allow class to always be instantiated, but add check to only register hooks when in the admin
+* Change: Change class names used for admin notice to match current WP convention
+* Change: Update plugin framework to 050
+    * Allow a hash entry to literally have '0' as a value without being entirely omitted when saved
+    * Output donation markup using `printf()` rather than using string concatenation
+    * Update copyright date (2020)
+    * Note compatibility through WP 5.4+
+    * Drop compatibility with version of WP older than 4.9
+* New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add to it)
+* Change: Tweak help text for 'files' setting for better phrasing and to remove extra sentence spaces
+* Change: Note compatibility through WP 5.4+
+* Change: Drop compatibility for version of WP older than 4.9
+* Change: Update links to coffee2code.com to be HTTPS
+* Change: Add translator comment for string with multiple placeholders
+* CHange: Minor code reformatting
+* Unit tests:
+    * New: Add test for `options_page_description()`
+    * New: Add tests for default hooks
+    * New: Add tests for setting and query param names
+    * New: Label groupings of tests
+    * Fix: Adjust tests to properly account for theme support or non-support of html5 when checking expected markup output
+    * Fix: Ensure admin-related tests call `test_turn_on_admin()` so admin init actions are called
+    * Fix: Invoke parent class's `setUp()` during `setUp()`
+    * Change: Remove unnecessary unregistering of hooks in `tearDown()`
+    * Change: Move `test_turn_on_admin()` until just before first needed now that other tests can run before it
+    * Change: Store plugin instance in class variable to simplify referencing it
+    * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests (and delete commented-out code)
+
 = 1.8 (2019-12-04) =
 Highlights:
 
@@ -205,39 +241,13 @@ Details:
 * Change: Update copyright date (2019)
 * Change: Update License URI to be HTTPS
 
-= 1.6 (2017-11-03) =
-* New: Add support for CodeMirror (as packaged with WP 4.9)
-    * Adds code highlighting, syntax checking, and other features
-* Fix: Show admin notifications for settings page
-* Change: Update plugin framework to 046
-    * 046:
-    * Fix `reset_options()` to reference instance variable `$options`.
-	* Note compatibility through WP 4.7+.
-	* Update copyright date (2017)
-    * 045:
-    * Ensure `reset_options()` resets values saved in the database.
-    * 044:
-    * Add `reset_caches()` to clear caches and memoized data. Use it in `reset_options()` and `verify_config()`.
-    * Add `verify_options()` with logic extracted from `verify_config()` for initializing default option attributes.
-    * Add `add_option()` to add a new option to the plugin's configuration.
-    * Add filter 'sanitized_option_names' to allow modifying the list of whitelisted option names.
-    * Change: Refactor `get_option_names()`.
-    * 043:
-    * Disregard invalid lines supplied as part of hash option value.
-    * 042:
-    * Update `disable_update_check()` to check for HTTP and HTTPS for plugin update check API URL.
-    * Translate "Donate" in footer message.
-* Change: Update unit test bootstrap
-    * Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable
-    * Enable more error output for unit tests
-* Change: Note compatibility through WP 4.9+
-* Change: Remove support for WordPress older than 4.6
-* Change: Update copyright date (2018)
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/add-admin-css/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 1.9 =
+Minor update: updated plugin framework, added a TODO.md file, updated a few URLs to be HTTPS, expanded unit testing, updated compatibility to be WP 4.9 through 5.4+, and minor behind-the-scenes tweaks.
 
 = 1.8 =
 Minor update: added HTML5 compliance when supported by the theme, modernized and fixed unit tests, noted compatibility through WP 5.3+, and updated copyright date (2020)
