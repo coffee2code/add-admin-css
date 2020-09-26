@@ -1,6 +1,6 @@
 # Changelog
 
-## _(in-progress)_
+## 1.9.1 _(2020-09-25)_
 * Change: Update plugin framework to 051
     * Allow setting integer input value to include commas
     * Use `number_format_i18n()` to format integer value within input field

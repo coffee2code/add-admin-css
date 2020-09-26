@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
 Tested up to: 5.5
-Stable tag: 1.9
+Stable tag: 1.9.1
 
 Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
 
@@ -137,6 +137,21 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
 
 == Changelog ==
 
+= 1.9.1 (2020-09-25) =
+* Change: Update plugin framework to 051
+    * Allow setting integer input value to include commas
+    * Use `number_format_i18n()` to format integer value within input field
+    * Update link to coffee2code.com to be HTTPS
+    * Update `readme_url()` to refer to plugin's readme.txt on plugins.svn.wordpress.org
+    * Remove defunct line of code
+* Change: Note compatibility through WP 5.5+
+* Change: Restructure unit test file structure
+    * New: Create new subdirectory `phpunit/` to house all files related to unit testing
+    * Change: Move `bin/` to `phpunit/bin/`
+    * Change: Move `tests/bootstrap.php` to `phpunit/`
+    * Change: Move `tests/` to `phpunit/tests/`
+    * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
+
 = 1.9 (2020-06-26) =
 
 Highlights:
@@ -190,61 +205,13 @@ Details:
 * Change: Note compatibility through WP 5.3+
 * Change: Update copyright date (2020)
 
-= 1.7 (2019-04-13) =
-Highlights:
-
-* This release adds a recovery mode to disable output of CSS via the plugin (and an admin notice when it is active), improves documentation, updates the plugin framework, notes compatibility through WP 5.1+, drops compatibility with versions of WP older than 4.7, and more documentation and code improvements.
-
-Details:
-
-* New: Add recovery mode to be able to disable output of CSS via the plugin
-    * Add support for `c2c-no-css` query parameter for enabling recovery mode
-    * Add support for `C2C_ADD_ADMIN_CSS_DISABLED` constant for enabling recovery mode
-    * Display admin notice when recovery mode is active
-    * Add `can_show_css()`, `remove_query_param_from_redirects()`, `recovery_mode_notice()`
-* Change: Initialize plugin on `plugins_loaded` action instead of on load
-* Change: Update plugin framework to 049
-    * 049:
-    * Correct last arg in call to `add_settings_field()` to be an array
-    * Wrap help text for settings in `label` instead of `p`
-    * Only use `label` for help text for checkboxes, otherwise use `p`
-    * Ensure a `textarea` displays as a block to prevent orphaning of subsequent help text
-    * Note compatibility through WP 5.1+
-    * Update copyright date (2019)
-    * 048:
-    * When resetting options, delete the option rather than setting it with default values
-    * Prevent double "Settings reset" admin notice upon settings reset
-    * 047:
-    * Don't save default setting values to database on install
-    * Change "Cheatin', huh?" error messages to "Something went wrong.", consistent with WP core
-    * Note compatibility through WP 4.9+
-    * Drop compatibility with version of WP older than 4.7
-* New: Add README.md file
-* New: Add CHANGELOG.md file and move all but most recent changelog entries into it
-* New: Add FAQ entry describing ways to fix having potentially crippled the admin
-* New: Add inline documentation for hooks
-* New: Add GitHub link to readme
-* Unit tests:
-    * New: Add unit tests for `add_css()`
-    * New: Add unit test for defaults for settings
-    * Change: Improve tests for settings handling
-    * Change: Update `set_option()` to accept an array of setting values to use
-    * Change: Explicitly set 'twentyseventeen' as the theme to ensure testing against a known theme
-    * Change: Invoke `setup_options()` within each test as needed instead of `setUp()`
-* Change: Store setting name in constant
-* Change: Cast return value of `c2c_add_admin_css_files` filter as an array
-* Change: Improve documentation for hooks within readme.txt
-* Change: Note compatibility through WP 5.1+
-* Change: Drop compatibility with version of WP older than 4.7
-* Change: Rename readme.txt section from 'Advanced' to 'Hooks' and provide a better section intro
-* Change: Update installation instruction to prefer built-in installer over .zip file
-* Change: Update copyright date (2019)
-* Change: Update License URI to be HTTPS
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/add-admin-css/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 1.9.1 =
+Trivial update: Updated plugin framework to version 051, restructured unit test file structure, and noted compatibility through WP 5.5+.
 
 = 1.9 =
 Minor update: updated plugin framework, added a TODO.md file, updated a few URLs to be HTTPS, expanded unit testing, updated compatibility to be WP 4.9 through 5.4+, and minor behind-the-scenes tweaks.
