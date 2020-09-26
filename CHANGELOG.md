@@ -1,6 +1,12 @@
 # Changelog
 
 ## _(in-progress)_
+* Change: Update plugin framework to 051
+    * Allow setting integer input value to include commas
+    * Use `number_format_i18n()` to format integer value within input field
+    * Update link to coffee2code.com to be HTTPS
+    * Update `readme_url()` to refer to plugin's readme.txt on plugins.svn.wordpress.org
+    * Remove defunct line of code
 * Change: Note compatibility through WP 5.5+
 * Change: Restructure unit test file structure
     * New: Create new subdirectory `phpunit/` to house all files related to unit testing

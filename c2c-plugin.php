@@ -2,13 +2,13 @@
 /**
  * @package C2C_Plugins
  * @author  Scott Reilly
- * @version 050
+ * @version 051
  */
-
 /*
 Basis for other plugins.
 
 Compatible with WordPress 4.9 through 5.4+.
+
 */
 
 /*
@@ -31,9 +31,9 @@ Compatible with WordPress 4.9 through 5.4+.
 
 defined( 'ABSPATH' ) or die();
 
-if ( ! class_exists( 'c2c_AddAdminCSS_Plugin_050' ) ) :
+if ( ! class_exists( 'c2c_AddAdminCSS_Plugin_051' ) ) :
 
-abstract class c2c_AddAdminCSS_Plugin_050 {
+abstract class c2c_AddAdminCSS_Plugin_051 {
 	protected $plugin_css_version = '009';
 	protected $options            = array();
 	protected $options_from_db    = '';
@@ -65,7 +65,7 @@ abstract class c2c_AddAdminCSS_Plugin_050 {
 	 * @since 040
 	 */
 	public function c2c_plugin_version() {
-		return '050';
+		return '051';
 	}
 
 	/**
@@ -406,6 +406,9 @@ abstract class c2c_AddAdminCSS_Plugin_050 {
 							case 'checkbox':
 								break;
 							case 'int':
+								if ( $val && is_string( $val ) ) {
+									$val = str_replace( ',', '', $val );
+								}
 								if ( ! empty( $val ) && ( ! is_numeric( $val ) || ( intval( $val ) != round( $val ) ) ) ) {
 									$msg = sprintf( __( 'Expected integer value for: %s', 'add-admin-css' ), $this->config[ $opt ]['label'] );
 									$error = true;
@@ -912,6 +915,8 @@ HTML;
 				}
 				$value = $new_value;
 			}
+		} elseif ( $datatype === 'int' && is_numeric( $value ) ) {
+			$value = number_format_i18n( $value );
 		}
 		$attributes = $this->config[ $opt ]['input_attributes'];
 		$this->config[ $opt ]['class'][] = 'c2c-' . $input;
@@ -983,8 +988,6 @@ HTML;
 			echo "<div id='message' class='updated fade'><p><strong>" . $this->saved_settings_msg . '</strong></p></div>';
 		}
 
-		$logo = plugins_url( 'c2c_minilogo.png', $this->plugin_file );
-
 		echo "<div class='wrap'>\n";
 
 		do_action( $this->get_hook( 'before_settings_form' ), $this );
@@ -1003,7 +1006,7 @@ HTML;
 		echo '<div id="c2c" class="wrap"><div>' . "\n";
 		printf(
 			__( 'This plugin brought to you by %s.', 'add-admin-css' ),
-			'<a href="http://coffee2code.com" title="coffee2code.com">Scott Reilly (coffee2code)</a>'
+			'<a href="https://coffee2code.com" title="' . esc_attr__( 'The plugin author homepage.', 'add-admin-css' ) . '">Scott Reilly (coffee2code)</a>'
 		);
 		printf(
 			'<span><a href="%1$s" title="%2$s">%3$s</span>',
@@ -1035,7 +1038,7 @@ HTML;
 	 * @return string The URL
 	 */
 	public function readme_url() {
-		return 'https://wordpress.org/plugins/' . $this->id_base . '/tags/' . $this->version . '/readme.txt';
+		return 'https://plugins.svn.wordpress.org/' . $this->id_base . '/tags/' . $this->version . '/readme.txt';
 	}
 } // end class
 
