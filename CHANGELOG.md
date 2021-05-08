@@ -132,8 +132,8 @@ This minor release updates its plugin framework, adds a TODO.md file, updates a 
 * Change: Update plugin framework to 046
     * 046:
     * Fix `reset_options()` to reference instance variable `$options`.
-	* Note compatibility through WP 4.7+.
-	* Update copyright date (2017)
+    * Note compatibility through WP 4.7+.
+    * Update copyright date (2017)
     * 045:
     * Ensure `reset_options()` resets values saved in the database.
     * 044:
