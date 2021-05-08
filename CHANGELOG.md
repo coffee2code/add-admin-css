@@ -1,5 +1,8 @@
 # Changelog
 
+## _(in-progress)_
+* Change: Update copyright date (2021)
+
 ## 1.9.1 _(2020-09-25)_
 * Change: Update plugin framework to 051
     * Allow setting integer input value to include commas
