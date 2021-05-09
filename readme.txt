@@ -8,7 +8,7 @@ Requires at least: 4.9
 Tested up to: 5.7
 Stable tag: 1.9.1
 
-Interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
+Easily define additional CSS (inline and/or by URL) to be added to all administration pages.
 
 
 == Description ==

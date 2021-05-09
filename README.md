@@ -1,6 +1,6 @@
 # Add Admin CSS
 
-A plugin for WordPress that provides an interface for easily defining additional CSS (inline and/or by URL) to be added to all administration pages.
+A plugin for WordPress that makes it easy to define additional CSS (inline and/or by URL) to be added to all administration pages.
 
 This plugin is available in the WordPress Plugin Directory: https://wordpress.org/plugins/add-admin-css/
 
