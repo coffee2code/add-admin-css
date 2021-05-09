@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* Change: Move translation of all parent class strings into main plugin file
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
 

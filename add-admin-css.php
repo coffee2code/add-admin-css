@@ -173,6 +173,76 @@ final class c2c_AddAdminCSS extends c2c_AddAdminCSS_Plugin_051 {
 	}
 
 	/**
+	 * Returns translated strings used by c2c_Plugin parent class.
+	 *
+	 * @since 2.0
+	 *
+	 * @param string $string Optional. The string whose translation should be
+	 *                       returned, or an empty string to return all strings.
+	 *                       Default ''.
+	 * @return string|string[] The translated string, or if a string was provided
+	 *                         but a translation was not found then the original
+	 *                         string, or an array of all strings if $string is ''.
+	 */
+	public function get_c2c_string( $string = '' ) {
+		$strings = array(
+			'A value is required for: "%s"'
+				/* translators: %s: Label for setting. */
+				=> __( 'A value is required for: "%s"', 'add-admin-css' ),
+			'Click for more help on this plugin'
+				=> __( 'Click for more help on this plugin', 'add-admin-css' ),
+			' (especially check out the "Other Notes" tab, if present)'
+				=> __( ' (especially check out the "Other Notes" tab, if present)', 'add-admin-css' ),
+			'Coffee fuels my coding.'
+				=> __( 'Coffee fuels my coding.', 'add-admin-css' ),
+			'Did you find this plugin useful?'
+				=> __( 'Did you find this plugin useful?', 'add-admin-css' ),
+			'Donate'
+				=> __( 'Donate', 'add-admin-css' ),
+			'Expected integer value for: %s'
+				=> __( 'Expected integer value for: %s', 'add-admin-css' ),
+			'Invalid file specified for C2C_Plugin: %s'
+				/* translators: %s: Path to the plugin file. */
+				=> __( 'Invalid file specified for C2C_Plugin: %s', 'add-admin-css' ),
+			'More information about %1$s %2$s'
+				/* translators: 1: plugin name 2: plugin version */
+				=> __( 'More information about %1$s %2$s', 'add-admin-css' ),
+			'More Help'
+				=> __( 'More Help', 'add-admin-css' ),
+			'More Plugin Help'
+				=> __( 'More Plugin Help', 'add-admin-css' ),
+			'Please consider a donation'
+				=> __( 'Please consider a donation', 'add-admin-css' ),
+			'Reset Settings'
+				=> __( 'Reset Settings', 'add-admin-css' ),
+			'Save Changes'
+				=> __( 'Save Changes', 'add-admin-css' ),
+			'See the "Help" link to the top-right of the page for more help.'
+				=> __( 'See the "Help" link to the top-right of the page for more help.', 'add-admin-css' ),
+			'Settings'
+				=> __( 'Settings', 'add-admin-css' ),
+			'Settings reset.'
+				=> __( 'Settings reset.', 'add-admin-css' ),
+			'Something went wrong.'
+				=> __( 'Something went wrong.', 'add-admin-css' ),
+			'The plugin author homepage.'
+				=> __( 'The plugin author homepage.', 'add-admin-css' ),
+			"The plugin configuration option '%s' must be supplied."
+				/* translators: %s: The setting configuration key name. */
+				=>__( "The plugin configuration option '%s' must be supplied.", 'add-admin-css' ),
+			'This plugin brought to you by %s.'
+				/* translators: %s: Link to plugin author's homepage. */
+				=> __( 'This plugin brought to you by %s.', 'add-admin-css' ),
+		);
+
+		if ( ! $string ) {
+			return array_values( $strings );
+		}
+
+		return ! empty( $strings[ $string ] ) ? $strings[ $string ] : $string;
+	}
+
+	/**
 	 * Outputs the text above the setting form
 	 *
 	 * @param string $localized_heading_text (optional) Localized page heading text.
