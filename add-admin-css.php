@@ -479,6 +479,11 @@ HTML;
 			$wp_styles->do_items( $this->css_file_handles );
 		}
 
+		$css = $options['css'];
+		if ( $css ) {
+			$css .= "\n";
+		}
+
 		/**
 		 * Filters the CSS that should be added directly to all admin pages.
 		 *
@@ -486,7 +491,7 @@ HTML;
 		 *
 		 * @param string $files CSS code (without `<style>` tag).
 		 */
-		$css = trim( apply_filters( 'c2c_add_admin_css', $options['css'] . "\n" ) );
+		$css = trim( apply_filters( 'c2c_add_admin_css', $css ) );
 
 		if ( ! empty( $css ) ) {
 			echo "
