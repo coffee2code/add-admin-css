@@ -157,7 +157,7 @@ final class c2c_AddAdminCSS extends c2c_Plugin_061 {
 	}
 
 	/**
-	 * Override the plugin framework's register_filters() to register actions and filters.
+	 * Overrides the plugin framework's `register_filters()` to register actions and filters.
 	 */
 	public function register_filters() {
 		if ( ! is_admin() ) {
@@ -243,9 +243,9 @@ final class c2c_AddAdminCSS extends c2c_Plugin_061 {
 	}
 
 	/**
-	 * Outputs the text above the setting form
+	 * Outputs the text above the setting form.
 	 *
-	 * @param string $localized_heading_text (optional) Localized page heading text.
+	 * @param string $localized_heading_text Optional. Localized page heading text. Default ''.
 	 */
 	public function options_page_description( $localized_heading_text = '' ) {
 		parent::options_page_description( __( 'Add Admin CSS Settings', 'add-admin-css' ) );
@@ -281,13 +281,14 @@ final class c2c_AddAdminCSS extends c2c_Plugin_061 {
 	}
 
 	/**
-	 * Outputs advanced tips text
+	 * Outputs advanced tips text.
 	 *
 	 * @since 1.2
 	 *
 	 * @param string $contextual_help The default contextual help
-	 * @param int $screen_id The screen ID
-	 * @param object $screen The screen object (only supplied in WP 3.0)
+	 * @param int    $screen_id       The screen ID
+	 * @param object $screen          The screen object (only supplied in WP 3.0).
+	 *                                Default null.
 	 */
 	public function contextual_help( $contextual_help, $screen_id, $screen = null ) {
 		if ( $screen_id != $this->options_page ) {
@@ -366,7 +367,7 @@ HTML;
 	}
 
 	/**
-	 * Register CSS files
+	 * Returns the array of CSS files configured via settings.
 	 *
 	 * @return array Array of CSS files
 	 */
@@ -384,7 +385,7 @@ HTML;
 	}
 
 	/**
-	 * Register CSS files
+	 * Registers CSS files.
 	 */
 	public function register_css_files() {
 		$files = $this->get_css_files();

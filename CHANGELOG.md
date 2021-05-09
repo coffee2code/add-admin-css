@@ -33,6 +33,7 @@
 * Change: Move translation of all parent class strings into main plugin file
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
+* Change: Tweak some inline function and parameter documentation
 
 ## 1.9.1 _(2020-09-25)_
 * Change: Update plugin framework to 051
