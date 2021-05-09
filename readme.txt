@@ -13,7 +13,7 @@ Interface for easily defining additional CSS (inline and/or by URL) to be added 
 
 == Description ==
 
-Ever want to tweak the appearance of the WordPress admin pages by hiding stuff, moving stuff around, changing fonts, colors, sizes, etc?  Any modification you may want to do with CSS can easily be done via this plugin.
+Ever want to tweak the appearance of the WordPress admin pages by hiding stuff, moving stuff around, changing fonts, colors, sizes, etc? Any modification you may want to do with CSS can easily be done via this plugin.
 
 Using this plugin you'll easily be able to define additional CSS (inline and/or files by URL) to be added to all administration pages. You can define CSS to appear inline in the admin head (within style tags), or reference CSS files to be linked (via "link rel='stylesheet'" tags). The referenced CSS files will appear in the admin head first, listed in the order defined in the plugin's settings. Then any inline CSS are added to the admin head. Both values can be filtered for advanced customization (see Advanced section).
 
@@ -37,9 +37,9 @@ Yes, via the "Admin CSS Files" input field on the plugin's settings page.
 
 No, not presently. At least not directly. By default, the CSS is added for every admin page on the site.
 
-However, you can preface your selectors with admin page specific class(es) on 'body' tag to ensure CSS only applies on certain admin pages. (e.g. `body.index-php h2, #icon-index { display: none; }`).
+However, you can preface your selectors with admin page specific class(es) on the 'body' tag to ensure CSS only applies on certain admin pages. (e.g. `body.index-php h2, #icon-index { display: none; }`).
 
-Or, you can hook the 'c2c_add_admin_css' and 'c2c_add_admin_css_files' filters and determine the current admin page content to decide whether the respective hook argument should be returned (and thus output) or not.
+Or, you can hook the 'c2c_add_admin_css' and 'c2c_add_admin_css_files' filters and determine the current admin page context to decide whether the respective hook argument should be returned (and thus output) or not.
 
 = Can I limit what users the CSS applies to? =
 
@@ -51,13 +51,13 @@ You can hook the 'c2c_add_admin_css' and 'c2c_add_admin_css_files' filters and d
 
 It is certainly possible that you can put yourself in an unfortunate position by supplying CSS that could hide critical parts of admin pages, making it seeminly impossible to fix or revert your changes. Fortunately, there are a number of approaches you can take to correct the problem.
 
-The recommended approach is to visit the URL for the plugin's settings page, but appended with a special query parameter to disable the output of its JavaScript. The plugin's settings page would typically be at a URL like `https://example.com/wp-admin/themes.php?page=add-admin-css%2Fadd-admin-css.php`. Append `&c2c-no-css=1` to that, so that the URL is `https://example.com/wp-admin/themes.php?page=add-admin-css%2Fadd-admin-css.php&c2c-no-css=1` (obviously change example.com with the domain name for your site).
+The recommended approach is to visit the URL for the plugin's settings page, but appended with a special query parameter to disable the output of its CSS. The plugin's settings page would typically be at a URL like `https://example.com/wp-admin/themes.php?page=add-admin-css%2Fadd-admin-css.php`. Append `&c2c-no-css=1` to that, so that the URL is `https://example.com/wp-admin/themes.php?page=add-admin-css%2Fadd-admin-css.php&c2c-no-css=1` (obviously change example.com with the domain name for your site).
 
 There are other approaches you can use, though they require direct database or server filesystem access:
 
 * Some browsers (such as Firefox, via View -> Page Style -> No Style) allow you to disable styles for sites loaded in that tab. Other browsers may also support such functionality natively or through an extension. Chrome has an extension called [Web Developer](https://chrome.google.com/webstore/detail/web-developer/bfbameneiokkgbdmiekhjnmfkcnldhhm?hl=en-US) that adds the functionality.
 * If you're familiar with doing so and have an idea of what CSS style you added that is causing problems, you can use your browser's developer tools to inspect the page, find the element in question, and disable the offending style.
-* In the site's `wp-config.php` file, define a constant to disable output of the plugin-defined JavaScript: `define( 'C2C_ADD_ADMIN_CSS_DISABLED', true );`. You can then visit the site's admin. Just remember to remove that line after you've fixed the CSS (or at least change "true" to "false"). This is an alternative to the query parameter approach described above, though it persists while the constant remains defined. There will be an admin notice on the plugin's setting page to alert you to the fact that the constant is defined and effectively disabling the plugin from adding any CSS.
+* In the site's `wp-config.php` file, define a constant to disable output of the plugin-defined CSS: `define( 'C2C_ADD_ADMIN_CSS_DISABLED', true );`. You can then visit the site's admin. Just remember to remove that line after you've fixed the CSS (or at least change "true" to "false"). This is an alternative to the query parameter approach described above, though it persists while the constant remains defined. There will be an admin notice on the plugin's setting page to alert you to the fact that the constant is defined and effectively disabling the plugin from adding any CSS.
 * Presuming you know how to directly access the database: within the site's database, find the row with the option_name field value of `c2c_add_admin_css` and delete that row. The settings you saved for the plugin will be deleted and it will be like you've installed the plugin for the first time.
 * If your server has WP-CLI installed, you can delete the plugin's setting from the commandline: `wp option delete c2c_add_admin_css`
 
@@ -65,7 +65,7 @@ The initial reaction by some might be to remove the plugin from the server's fil
 
 = How do I disable syntax highlighting? =
 
-The plugin's syntax highlighting of CSS (available on WP 4.9+) honors the built-in setting for whether syntax highlighting should be enabled or not.
+The plugin's syntax highlighting of CSS (available as of WP 4.9) honors the built-in setting for whether syntax highlighting should be enabled or not.
 
 To disable syntax highlighting, go to your profile page. Next to "Syntax Highlighting", click the checkbox labeled "Disable syntax highlighting when editing code". Note that this checkbox disables syntax highlighting throughout the admin interface and not just specifically for the plugin's settings page.
 
