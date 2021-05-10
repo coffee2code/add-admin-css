@@ -331,22 +331,30 @@ HTML;
 	 * @since 1.7
 	 */
 	public function recovery_mode_notice() {
-		if ( get_current_screen()->id === $this->options_page && ! $this->can_show_css() ) {
-			if ( defined( 'C2C_ADD_ADMIN_CSS_DISABLED' ) && C2C_ADD_ADMIN_CSS_DISABLED ) {
-				$msg = sprintf(
-					__( "<strong>RECOVERY MODE ENABLED:</strong> CSS output for this plugin is currently disabled for the entire admin area via use of the <code>%s</code> constant.", 'add-admin-css' ),
-					'C2C_ADD_ADMIN_CSS_DISABLED'
-				);
-			} else {
-				$msg = __( "<strong>RECOVERY MODE ENABLED:</strong> CSS output for this plugin is disabled on this page view.", 'add-admin-css' );;
-			}
-
-			echo <<<HTML
-				<div class="notice notice-error">
-					<p>{$msg}</p>
-				</div>
-HTML;
+		// Bail if not on the plugin setting page.
+		if ( ! $this->is_plugin_admin_page() ) {
+			return;
 		}
+
+		// Bail if CSS can be output.
+		if ( $this->can_show_css() ) {
+			return;
+		}
+
+		if ( defined( 'C2C_ADD_ADMIN_CSS_DISABLED' ) && C2C_ADD_ADMIN_CSS_DISABLED ) {
+			$msg = sprintf(
+				__( "<strong>RECOVERY MODE ENABLED:</strong> CSS output for this plugin is currently disabled for the entire admin area via use of the <code>%s</code> constant.", 'add-admin-css' ),
+				'C2C_ADD_ADMIN_CSS_DISABLED'
+			);
+		} else {
+			$msg = __( "<strong>RECOVERY MODE ENABLED:</strong> CSS output for this plugin is disabled on this page view.", 'add-admin-css' );
+		}
+
+		echo <<<HTML
+			<div class="notice notice-error">
+				<p>{$msg}</p>
+			</div>
+HTML;
 	}
 
 	/**
@@ -510,7 +518,8 @@ HTML;
 	 */
 	public function add_codemirror() {
 		// Bail if not on the plugin setting page.
-		if ( $this->options_page !== get_current_screen()->id ) {
+		$current_screen = get_current_screen();
+		if ( ! $current_screen || $this->options_page !== $current_screen->id ) {
 			return;
 		}
 
