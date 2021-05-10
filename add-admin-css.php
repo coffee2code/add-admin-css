@@ -367,7 +367,7 @@ HTML;
 	 */
 	public function show_admin_notices() {
 		// Bail if not on the plugin setting page.
-		if ( $this->options_page !== get_current_screen()->id ) {
+		if ( ! $this->is_plugin_admin_page() ) {
 			return;
 		}
 
