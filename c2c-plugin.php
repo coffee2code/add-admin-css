@@ -706,7 +706,7 @@ HTML;
 
 		$screen = get_current_screen();
 
-		if ( $screen->id != $this->options_page ) {
+		if ( ! $screen || $screen->id !== $this->options_page ) {
 			return;
 		}
 

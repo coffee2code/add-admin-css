@@ -2,7 +2,9 @@
 
 ## _(in-progress)_
 * Change: Outright support HTML5 rather than check for theme support of HTML5, since that isn't relevant to admin
-* Change: Update plugin framework to 061
+* Change: Update plugin framework to 062
+    * 062:
+    * Change: Check that there is a current screen before attempting to access its property
     * 061:
     * Fix bug preventing settings from getting saved
     * 060:
