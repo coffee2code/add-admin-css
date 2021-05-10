@@ -4,6 +4,7 @@
 * Change: Outright support HTML5 rather than check for theme support of HTML5, since that isn't relevant to admin
 * Change: Update plugin framework to 062
     * 062:
+    * Change: Update `is_plugin_admin_page()` to use `get_current_screen()` when available
     * Change: Check that there is a current screen before attempting to access its property
     * 061:
     * Fix bug preventing settings from getting saved

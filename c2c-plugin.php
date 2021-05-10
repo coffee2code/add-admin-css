@@ -906,7 +906,24 @@ HTML;
 	 * @return bool True if on the plugin's settings page, else false.
 	 */
 	protected function is_plugin_admin_page() {
-		return ( basename( $_SERVER['PHP_SELF'], '.php' ) == $this->settings_page && isset( $_REQUEST['page'] ) && $_REQUEST['page'] == $this->plugin_basename );
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		// Necessary when called before `get_current_screen()` is defined.
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return ( basename( $_SERVER['PHP_SELF'], '.php' ) === $this->settings_page && isset( $_REQUEST['page'] ) && $_REQUEST['page'] === $this->plugin_basename );
+		}
+
+		$current_screen = get_current_screen();
+
+		return (
+			$current_screen
+		&&
+			$this->options_page
+		&&
+			$current_screen->id === $this->options_page
+		);
 	}
 
 	/**
