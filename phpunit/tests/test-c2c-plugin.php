@@ -72,6 +72,39 @@ class c2c_Plugin extends WP_UnitTestCase {
 
 
 	/*
+	 * __clone()
+	 */
+
+	/**
+	 * @expectedException Error
+	 */
+	public function test_unable_to_clone_object() {
+		$clone = clone $this->obj;
+		$this->assertEquals( $clone, $this->obj );
+	}
+
+	/*
+	 * __wakeup()
+	 */
+
+	/**
+	 * @expectedException Error
+	 */
+	public function test_unable_to_instantiate_object_from_class() {
+		new get_class( $this->obj );
+	}
+
+	/**
+	 * @expectedException Error
+	 */
+	public function test_unable_to_unserialize_an_instance_of_the_class() {
+		$class = get_class( $this->obj );
+		$data = 'O:' . strlen( $class ) . ':"' . $class . '":0:{}';
+
+		unserialize( $data );
+	}
+
+	/*
 	 * is_wp_version_cmp()
 	 */
 
@@ -93,7 +126,7 @@ class c2c_Plugin extends WP_UnitTestCase {
 	 */
 
 	 public function test_get_c2c_string_size() {
-		$this->assertEquals( 21, count( $this->obj->get_c2c_string( '' ) ) );
+		$this->assertEquals( 23, count( $this->obj->get_c2c_string( '' ) ) );
 	}
 
 	public function test_get_c2c_string_for_unknown_string() {

@@ -129,18 +129,26 @@ abstract class c2c_Plugin_061 {
 	}
 
 	/**
-	 * A dummy magic method to prevent object from being cloned
+	 * A dummy magic method to prevent object from being cloned.
 	 *
 	 * @since 036
+	 * @since 062 Throw error to actually prevent cloning.
 	 */
-	public function __clone() { _doing_it_wrong( __FUNCTION__, $this->get_c2c_string( 'Something went wrong.' ), '036' ); }
+	public function __clone() {
+		/* translators: %s: Name of plugin class. */
+		throw new Error( sprintf( $this->get_c2c_string( '%s cannot be cloned.' ), __CLASS__ ) );
+	}
 
 	/**
-	 * A dummy magic method to prevent object from being unserialized
+	 * A dummy magic method to prevent object from being unserialized.
 	 *
 	 * @since 036
+	 * @since 062 Throw error to actually prevent unserialization.
 	 */
-	public function __wakeup() { _doing_it_wrong( __FUNCTION__, $this->get_c2c_string( 'Something went wrong.' ), '036' ); }
+	public function __wakeup() {
+		/* translators: %s: Name of plugin class. */
+		throw new Error( sprintf( $this->get_c2c_string( '%s cannot be unserialized.' ), __CLASS__ ) );
+	}
 
 	/**
 	 * Returns the plugin's version.
