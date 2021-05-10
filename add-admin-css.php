@@ -186,6 +186,12 @@ final class c2c_AddAdminCSS extends c2c_Plugin_061 {
 	 */
 	public function get_c2c_string( $string = '' ) {
 		$strings = array(
+			'%s cannot be cloned.'
+				/* translators: %s: Name of plugin class. */
+				=> __( '%s cannot be cloned.', 'add-admin-css' ),
+			'%s cannot be unserialized.'
+				/* translators: %s: Name of plugin class. */
+				=> __( '%s cannot be unserialized.', 'add-admin-css' ),
 			'A value is required for: "%s"'
 				/* translators: %s: Label for setting. */
 				=> __( 'A value is required for: "%s"', 'add-admin-css' ),
