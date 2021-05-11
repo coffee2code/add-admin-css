@@ -257,10 +257,10 @@ final class c2c_AddAdminCSS extends c2c_Plugin_061 {
 		parent::options_page_description( __( 'Add Admin CSS Settings', 'add-admin-css' ) );
 		echo '<p>'
 			. __( 'Add additional CSS to your admin pages, which allows you to tweak the appearance of the WordPress administration pages to your liking.', 'add-admin-css' )
-			. '</p>';
+			. "</p>\n";
 		echo '<p>'
 			. __( 'See the "Advanced Tips" tab in the "Help" section for info on how to use the plugin to programmatically customize CSS.', 'add-admin-css' )
-			. '</p>';
+			. "</p>\n";
 		echo '<p><strong>'
 			. __( 'TIPS:', 'add-admin-css' )
 			. "</strong></p>\n";

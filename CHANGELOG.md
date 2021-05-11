@@ -40,6 +40,7 @@
 * Change: Move translation of all parent class strings into main plugin file
 * Change: Tweak conditional checks to be more succinct
 * Change: Ensure there's a current screen before attempting to get one of its properties
+* Change: Output newlines after paragraph tags in settings page
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
 * Change: Change plugin's short description
