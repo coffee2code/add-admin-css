@@ -35,6 +35,7 @@
     * Remove defunct line of code
 * Change: Use plugin framework's `is_plugin_admin_page()` instead of reinventing it
 * New: Add a recommendation for Add Admin JavaScript plugin to settings page
+* Change: Output the multiple tips on the settings page as a list instead of multiple paragraphs
 * Change: Prevent appending newline to value of setting passed to filter unless an actual value was configured
 * Change: Move translation of all parent class strings into main plugin file
 * Change: Tweak conditional checks to be more succinct
