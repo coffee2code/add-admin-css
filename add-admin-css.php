@@ -421,7 +421,7 @@ HTML;
 				if ( strpos( $file, '://' ) !== false ) {
 					$src = $file;
 					$handle .= '-remote';
-				} elseif ( '/' == $file[0] ) {
+				} elseif ( $file && '/' === $file[0] ) {
 					$src = trailingslashit( get_option( 'siteurl' ) ) . ltrim( $file, '/' );
 				} else {
 					$src = trailingslashit( get_stylesheet_directory_uri() ) . $file;
@@ -508,7 +508,7 @@ HTML;
 		 */
 		$css = trim( apply_filters( 'c2c_add_admin_css', $css ) );
 
-		if ( ! empty( $css ) ) {
+		if ( $css ) {
 			echo "
 			<style>
 			$css
