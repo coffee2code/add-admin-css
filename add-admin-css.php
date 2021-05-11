@@ -78,7 +78,7 @@ final class c2c_AddAdminCSS extends c2c_Plugin_061 {
 	protected $css_file_handles = array();
 
 	/**
-	 * Get singleton instance.
+	 * Returns singleton instance.
 	 *
 	 * @since 1.2
 	 */
