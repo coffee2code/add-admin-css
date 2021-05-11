@@ -642,7 +642,7 @@ abstract class c2c_Plugin_061 {
 		 * Remember to increment the plugin_css_version variable if changing the CSS
 		 */
 		echo <<<HTML
-		<style type="text/css">
+		<style>
 		.long-text {width:98% !important;}
 		#c2c {
 			text-align:center;

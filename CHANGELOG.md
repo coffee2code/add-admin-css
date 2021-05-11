@@ -7,6 +7,7 @@
     * Change: Update `is_plugin_admin_page()` to use `get_current_screen()` when available
     * Change: Actually prevent object cloning and unserialization by throwing an error
     * Change: Check that there is a current screen before attempting to access its property
+    * Change: Remove 'type' attribute from `style` tag
     * 061:
     * Fix bug preventing settings from getting saved
     * 060:
