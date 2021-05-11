@@ -269,6 +269,13 @@ final class c2c_AddAdminCSS extends c2c_Plugin_061 {
 				'https://wordpress.org/plugins/admin-expert-mode/'
 			)
 			. '</p>';
+		echo '<p>'
+			. sprintf(
+				/* translators: %s: URL for Add Admin JavaSCript plugin page. */
+				__( 'TIP: If you like this plugin and are interested in also easily adding custom JavaScript to the admin areas of your site, check out my <a href="%s">Add Admin JavaScript</a> plugin.', 'add-admin-css' ),
+				'https://wordpress.org/plugins/add-admin-javascript/'
+			)
+			. "</p>\n";
 	}
 
 	/**

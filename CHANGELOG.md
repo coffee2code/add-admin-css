@@ -34,6 +34,7 @@
     * Update `readme_url()` to refer to plugin's readme.txt on plugins.svn.wordpress.org
     * Remove defunct line of code
 * Change: Use plugin framework's `is_plugin_admin_page()` instead of reinventing it
+* New: Add a recommendation for Add Admin JavaScript plugin to settings page
 * Change: Prevent appending newline to value of setting passed to filter unless an actual value was configured
 * Change: Move translation of all parent class strings into main plugin file
 * Change: Tweak conditional checks to be more succinct
