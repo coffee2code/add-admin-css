@@ -224,7 +224,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		if ( ! defined( 'WP_ADMIN' ) ) {
 			define( 'WP_ADMIN', true );
 		}
-		require( dirname( dirname( dirname( __FILE__ ) ) ) . '/add-admin-css.php' );
+		require dirname( __FILE__, 4 ) . '/add-admin-css.php';
 		$this->obj->init();
 		$this->obj->register_css_files();
 

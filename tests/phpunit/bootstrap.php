@@ -20,7 +20,7 @@ require_once $_tests_dir . '/tests/phpunit/includes/functions.php';
  * Manually load the plugin being tested.
  */
 function _manually_load_plugin() {
-	require dirname( dirname( __FILE__ ) ) . '/add-admin-css.php';
+	require dirname( __FILE__, 3 ) . '/add-admin-css.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 

@@ -51,6 +51,7 @@
     * New: Add tests for JS files getting registered and enqueued
     * New: Add tests for `add_codemirror()`
     * New: Add help function `get_css_files()`
+    * Change: Restructure unit test directories and files into `tests/` top-level directory
 
 ## 1.9.1 _(2020-09-25)_
 * Change: Update plugin framework to 051
