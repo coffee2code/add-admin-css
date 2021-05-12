@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 2.0 _(2021-05-12)_
+
+### Highlights:
+
+This recommended minor release updates the plugin framework, restructures unit test files, notes compatibility through 5.7+, and incorporates numerous minor behind-the-scenes tweaks.
+
+### Details:
+
 * Change: Outright support HTML5 rather than check for theme support of HTML5, since that isn't relevant to admin
 * Change: Update plugin framework to 062
     * 062:
