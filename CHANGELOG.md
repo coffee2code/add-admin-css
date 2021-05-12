@@ -42,6 +42,7 @@
 * Change: Move translation of all parent class strings into main plugin file
 * Change: Tweak conditional checks to be more succinct
 * Change: Ensure there's a current screen before attempting to get one of its properties
+* Change: Omit inline styles for settings now that plugin framework defines them
 * Change: Output newlines after paragraph tags in settings page
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
