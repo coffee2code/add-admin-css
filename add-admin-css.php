@@ -45,7 +45,7 @@ if ( ! class_exists( 'c2c_AddAdminCSS' ) ) :
 
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 
-final class c2c_AddAdminCSS extends c2c_Plugin_061 {
+final class c2c_AddAdminCSS extends c2c_Plugin_062 {
 
 	/**
 	 * Name of plugin's setting.
