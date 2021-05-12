@@ -22,11 +22,16 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		unset( $GLOBALS['wp_styles']);
 		$GLOBALS['wp_styles'] = new WP_Styles;
 
+		unset( $GLOBALS['wp_scripts'] );
+		$GLOBALS['wp_scripts'] = new WP_Scripts;
+
 		if ( class_exists( 'c2c_AddAdminCSS' ) ) {
 			$this->obj->reset();
 			unset( $_GET[ c2c_AddAdminCSS::NO_CSS_QUERY_PARAM ] );
 		}
 
+		wp_dequeue_script( 'jquery' );
+		wp_dequeue_script( 'code-editor' );
 		foreach ( self::get_css_files() as $file ) {
 			$key = explode( '/', $file[0] );
 			$key = array_pop( $key );
@@ -472,6 +477,63 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 			</div>";
 
 		$this->assertEquals( $expected, $this->get_action_output( 'admin_notices' ) );
+	}
+
+	/*
+	 * add_codemirror()
+	 */
+
+	public function test_add_codemirror_registered_but_not_enqueued( $should_be_enqueued = false ) {
+		$key = 'code-editor';
+
+		$this->assertTrue( wp_script_is( $key, 'registered' ) );
+		$this->assertFalse( wp_script_is( $key, 'enqueued' ) );
+
+		$this->set_option();
+		$this->test_turn_on_admin();
+		$this->obj->add_codemirror();
+
+		$this->assertTrue( wp_script_is( $key, 'registered' ) );
+		if ( $should_be_enqueued ) {
+			$this->assertTrue( wp_script_is( $key, 'enqueued' ) );
+		} else {
+			$this->assertFalse( wp_script_is( $key, 'enqueued' ) );
+		}
+	}
+
+	public function test_add_codemirror_registered_and_enqueued_on_appropriate_page() {
+		$this->fake_current_screen();
+
+		$this->test_add_codemirror_registered_but_not_enqueued( true );
+	}
+
+	public function test_add_codemirror_adds_scripts() {
+		$this->fake_current_screen();
+		$this->obj->add_codemirror();
+
+		$expected = 'jQuery\.extend\( wp\.codeEditor\.defaultSettings, {"codemirror":.+wp\.codeEditor\.initialize\( "css".+\);';
+
+		$this->expectOutputRegex( '~' . $expected . '~ims', wp_scripts()->print_inline_script( 'code-editor' ) );
+	}
+
+	public function test_add_codemirror_does_not_add_scripts_on_other_screen_ids() {
+		$this->fake_current_screen();
+		set_current_screen( 'another' );
+		$this->obj->add_codemirror();
+
+		$inline_script = wp_scripts()->print_inline_script( 'code-editor', 'after', false );
+
+		$this->assertEquals( '', $inline_script );
+	}
+
+	public function test_add_codemirror_does_not_add_scripts_if_code_editor_not_registered() {
+		$this->fake_current_screen();
+		wp_deregister_script( 'code-editor' );
+		$this->obj->add_codemirror();
+
+		$inline_script = wp_scripts()->print_inline_script( 'code-editor', 'after', false );
+
+		$this->assertEmpty( $inline_script );
 	}
 
 	/****************************************

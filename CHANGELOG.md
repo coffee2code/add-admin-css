@@ -49,6 +49,7 @@
 * Change: Tweak some inline function and parameter documentation
 * Unit tests:
     * New: Add tests for JS files getting registered and enqueued
+    * New: Add tests for `add_codemirror()`
     * New: Add help function `get_css_files()`
 
 ## 1.9.1 _(2020-09-25)_
