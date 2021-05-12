@@ -8,6 +8,7 @@
     * Change: Actually prevent object cloning and unserialization by throwing an error
     * Change: Check that there is a current screen before attempting to access its property
     * Change: Remove 'type' attribute from `style` tag
+    * Change: Incorporate commonly defined styling for inline_textarea
     * 061:
     * Fix bug preventing settings from getting saved
     * 060:
