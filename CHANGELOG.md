@@ -47,6 +47,9 @@
 * Change: Change plugin's short description
 * Change: Tweak some readme.txt documentation
 * Change: Tweak some inline function and parameter documentation
+* Unit tests:
+    * New: Add tests for JS files getting registered and enqueued
+    * New: Add help function `get_css_files()`
 
 ## 1.9.1 _(2020-09-25)_
 * Change: Update plugin framework to 051

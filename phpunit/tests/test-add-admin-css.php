@@ -26,6 +26,18 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 			$this->obj->reset();
 			unset( $_GET[ c2c_AddAdminCSS::NO_CSS_QUERY_PARAM ] );
 		}
+
+		foreach ( self::get_css_files() as $file ) {
+			$key = explode( '/', $file[0] );
+			$key = array_pop( $key );
+			$key = explode( '.css', $key );
+			$key = reset( $key );
+			if ( false !== strpos( $file[0], '://' ) ) {
+				$key .= '-remote';
+			}
+
+			wp_dequeue_style( $key );
+		}
 	}
 
 
@@ -51,6 +63,15 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 			array( 'action', 'admin_notices',         'show_admin_notices' ),
 			array( 'action', 'admin_enqueue_scripts', 'add_codemirror' ),
 			array( 'filter', 'wp_redirect',           'remove_query_param_from_redirects' ),
+		);
+	}
+
+	public static function get_css_files() {
+		return array(
+			array( 'https://maxcdn.example.com/font-awesome/4.4.0/css/font-awesome2.min.css?ver=4.4.0' ),
+			array( 'http://test.example.org/css/sample2.css' ),
+			array( '/css/site-relative2.css' ),
+			array( 'theme-relative2.css' ),
 		);
 	}
 
@@ -94,12 +115,7 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	}
 
 	public function add_css_files( $files ) {
-		$files = array();
-		$files[] = 'https://maxcdn.example.com/font-awesome/4.4.0/css/font-awesome2.min.css?ver=4.4.0';
-		$files[] = 'http://test.example.org/css/sample2.css';
-		$files[] = '/css/site-relative2.css';
-		$files[] = 'theme-relative2.css';
-		return $files;
+		return array_merge( ...array_values( $this->get_css_files() ) );
 	}
 
 	public function add_css( $css, $modifier = '' ) {
@@ -361,6 +377,34 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$this->assertEquals( $expected, $out );
 
 		return $out;
+	}
+
+	/*
+	 * register_css_files()
+	 */
+
+	/**
+	 * @dataProvider get_css_files
+	 */
+	public function test_register_css_files( $file ) {
+		$key = explode( '/', $file );
+		$key = array_pop( $key );
+		$key = explode( '.css', $key );
+		$key = reset( $key );
+
+		if ( false !== strpos( $file, '://' ) ) {
+			$key .= '-remote';
+		}
+
+		$this->assertFalse( wp_style_is( $key, 'registered' ) );
+		$this->assertFalse( wp_style_is( $key, 'enqueued' ) );
+
+		$this->set_option();
+		add_filter( 'c2c_add_admin_css_files', array( $this, 'add_css_files' ) );
+		$this->test_turn_on_admin();
+
+		$this->assertTrue( wp_style_is( $key, 'registered' ) );
+		$this->assertFalse( wp_style_is( $key, 'enqueued' ) );
 	}
 
 	/*
