@@ -52,6 +52,7 @@
     * New: Add tests for `add_codemirror()`
     * New: Add help function `get_css_files()`
     * Change: Restructure unit test directories and files into `tests/` top-level directory
+    * Change: In bootstrap, store path to plugin file constant so its value can be used within that file and in test file
 
 ## 1.9.1 _(2020-09-25)_
 * Change: Update plugin framework to 051
