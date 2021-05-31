@@ -909,13 +909,22 @@ HTML;
 	/**
 	 * Checks if the current page is the plugin's settings page.
 	 *
-	 * Note: This should not be used during or before `'admin_init'`.
+	 * Note: This should not be used during or before `'admin_init'` since the
+	 * current screen won't be set yet.
 	 *
 	 * @return bool True if on the plugin's settings page, else false.
 	 */
 	protected function is_plugin_admin_page() {
 		if ( ! is_admin() ) {
 			return false;
+		}
+
+		if ( ! did_action( 'admin_init' ) ) {
+			_doing_it_wrong(
+				__METHOD__,
+				sprintf( $this->get_c2c_string( 'The method %1$s should not be called until after the %2$s action.' ), 'is_plugin_admin_page()', 'admin_init' ),
+				'063'
+			);
 		}
 
 		$current_screen = get_current_screen();
