@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 2.0.1 _(2021-05-30)_
+
+### Highlights:
+
+This recommended bugfix release addresses a potential conflict with other plugins that prevented the plugin settings page main content from being displayed.
+
+### Details:
+
 * Change: Update plugin framework to 063
     * Fix: Simplify settings initialization to prevent conflicts with other plugins
     * Change: Remove ability to detect plugin settings page before current screen is set, as it is no longer needed

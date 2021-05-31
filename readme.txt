@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
 Tested up to: 5.7
-Stable tag: 2.0
+Stable tag: 2.0.1
 
 Easily define additional CSS (inline and/or by URL) to be added to all administration pages.
 
@@ -137,6 +137,21 @@ add_filter( 'c2c_add_admin_css_files', 'my_admin_css_files' );
 
 == Changelog ==
 
+= 2.0.1 (2021-05-30) =
+Highlights:
+
+This recommended bugfix release addresses a potential conflict with other plugins that prevented the plugin settings page main content from being displayed.
+
+Details:
+
+* Change: Update plugin framework to 063
+    * Fix: Simplify settings initialization to prevent conflicts with other plugins
+    * Change: Remove ability to detect plugin settings page before current screen is set, as it is no longer needed
+    * Change: Enqueue thickbox during `'admin_enqueue_scripts'` action instead of during `'init'`
+    * Change: Use `is_plugin_admin_page()` in `help_tabs()` instead of reproducing its functionality
+    * Change: Trigger a debugging warning if `is_plugin_admin_page()` is used before `'admin_init'` action is fired
+* New: Add new string (from plugin framework) for translation
+
 = 2.0 (2021-05-12) =
 
 Highlights:
@@ -216,46 +231,13 @@ Details:
     * Change: Move `tests/` to `phpunit/tests/`
     * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
 
-= 1.9 (2020-06-26) =
-
-Highlights:
-
-* This minor release updates its plugin framework, adds a TODO.md file, updates a few URLs to be HTTPS, expands unit testing, updates compatibility to be WP 4.9 through 5.4+, and minor behind-the-scenes tweaks.
-
-Details:
-
-* Change: Allow class to always be instantiated, but add check to only register hooks when in the admin
-* Change: Change class names used for admin notice to match current WP convention
-* Change: Update plugin framework to 050
-    * Allow a hash entry to literally have '0' as a value without being entirely omitted when saved
-    * Output donation markup using `printf()` rather than using string concatenation
-    * Update copyright date (2020)
-    * Note compatibility through WP 5.4+
-    * Drop compatibility with version of WP older than 4.9
-* New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add to it)
-* Change: Tweak help text for 'files' setting for better phrasing and to remove extra sentence spaces
-* Change: Note compatibility through WP 5.4+
-* Change: Drop compatibility for version of WP older than 4.9
-* Change: Update links to coffee2code.com to be HTTPS
-* Change: Add translator comment for string with multiple placeholders
-* CHange: Minor code reformatting
-* Unit tests:
-    * New: Add test for `options_page_description()`
-    * New: Add tests for default hooks
-    * New: Add tests for setting and query param names
-    * New: Label groupings of tests
-    * Fix: Adjust tests to properly account for theme support or non-support of html5 when checking expected markup output
-    * Fix: Ensure admin-related tests call `test_turn_on_admin()` so admin init actions are called
-    * Fix: Invoke parent class's `setUp()` during `setUp()`
-    * Change: Remove unnecessary unregistering of hooks in `tearDown()`
-    * Change: Move `test_turn_on_admin()` until just before first needed now that other tests can run before it
-    * Change: Store plugin instance in class variable to simplify referencing it
-    * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests (and delete commented-out code)
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/add-admin-css/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 2.0.1 =
+Recommended bugfix release: Addressed potential conflict with other plugins that prevented plugin settings page main content from being displayed.
 
 = 2.0 =
 Recommended minor update: Updated plugin framework, restructured unit test files, noted compatibility through 5.7+, and incorporated numerous minor behind-the-scenes tweaks.
