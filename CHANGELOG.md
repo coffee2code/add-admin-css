@@ -3,6 +3,7 @@
 ## _(in-progress)_
 * Change: Update plugin framework to 063
     * Fix: Simplify settings initialization to prevent conflicts with other plugins
+    * Change: Remove ability to detect plugin settings page before current screen is set, as it is no longer needed
 
 ## 2.0 _(2021-05-12)_
 

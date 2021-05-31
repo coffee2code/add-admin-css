@@ -911,16 +911,13 @@ HTML;
 	/**
 	 * Checks if the current page is the plugin's settings page.
 	 *
+	 * Note: This should not be used during or before `'admin_init'`.
+	 *
 	 * @return bool True if on the plugin's settings page, else false.
 	 */
 	protected function is_plugin_admin_page() {
 		if ( ! is_admin() ) {
 			return false;
-		}
-
-		// Necessary when called before `get_current_screen()` is defined.
-		if ( ! function_exists( 'get_current_screen' ) ) {
-			return ( basename( $_SERVER['PHP_SELF'], '.php' ) === $this->settings_page && isset( $_REQUEST['page'] ) && $_REQUEST['page'] === $this->plugin_basename );
 		}
 
 		$current_screen = get_current_screen();
