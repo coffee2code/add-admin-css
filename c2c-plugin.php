@@ -712,13 +712,11 @@ HTML;
 			return;
 		}
 
-		$screen = get_current_screen();
-
-		if ( ! $screen || $screen->id !== $this->options_page ) {
+		if ( ! $this->is_plugin_admin_page() ) {
 			return;
 		}
 
-		$this->help_tabs_content( $screen );
+		$this->help_tabs_content( get_current_screen() );
 	}
 
 	/**

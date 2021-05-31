@@ -4,6 +4,7 @@
 * Change: Update plugin framework to 063
     * Fix: Simplify settings initialization to prevent conflicts with other plugins
     * Change: Remove ability to detect plugin settings page before current screen is set, as it is no longer needed
+    * Change: Use `is_plugin_admin_page()` in `help_tabs()` instead of reproducing its functionality
 
 ## 2.0 _(2021-05-12)_
 
