@@ -231,6 +231,9 @@ final class c2c_AddAdminCSS extends c2c_Plugin_062 {
 				=> __( 'Settings reset.', 'add-admin-css' ),
 			'Something went wrong.'
 				=> __( 'Something went wrong.', 'add-admin-css' ),
+			'The method %1$s should not be called until after the %2$s action.'
+				/* translators: 1: The name of a code function, 2: The name of a WordPress action. */
+				=> __( 'The method %1$s should not be called until after the %2$s action.', 'add-admin-css' ),
 			'The plugin author homepage.'
 				=> __( 'The plugin author homepage.', 'add-admin-css' ),
 			"The plugin configuration option '%s' must be supplied."

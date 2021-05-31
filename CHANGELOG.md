@@ -7,6 +7,7 @@
     * Change: Enqueue thickbox during `'admin_enqueue_scripts'` action instead of during `'init'`
     * Change: Use `is_plugin_admin_page()` in `help_tabs()` instead of reproducing its functionality
     * Change: Trigger a debugging warning if `is_plugin_admin_page()` is used before `'admin_init'` action is fired
+* New: Add new string (from plugin framework) for translation
 
 ## 2.0 _(2021-05-12)_
 

@@ -126,7 +126,7 @@ class c2c_Plugin extends WP_UnitTestCase {
 	 */
 
 	 public function test_get_c2c_string_size() {
-		$this->assertEquals( 23, count( $this->obj->get_c2c_string( '' ) ) );
+		$this->assertEquals( 24, count( $this->obj->get_c2c_string( '' ) ) );
 	}
 
 	public function test_get_c2c_string_for_unknown_string() {
