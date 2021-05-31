@@ -196,9 +196,7 @@ abstract class c2c_Plugin_062 {
 				if ( version_compare( $GLOBALS['wp_version'], '3.3', '<' ) ) {
 					add_filter( 'contextual_help', array( $this, 'contextual_help' ), 10, 3 );
 				}
-				if ( $this->is_plugin_admin_page() ) {
-					add_thickbox();
-				}
+				add_action( 'admin_enqueue_scripts', 'add_thickbox' );
 			}
 		}
 

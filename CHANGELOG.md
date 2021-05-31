@@ -4,6 +4,7 @@
 * Change: Update plugin framework to 063
     * Fix: Simplify settings initialization to prevent conflicts with other plugins
     * Change: Remove ability to detect plugin settings page before current screen is set, as it is no longer needed
+    * Change: Enqueue thickbox during `'admin_enqueue_scripts'` action instead of during `'init'`
     * Change: Use `is_plugin_admin_page()` in `help_tabs()` instead of reproducing its functionality
     * Change: Trigger a debugging warning if `is_plugin_admin_page()` is used before `'admin_init'` action is fired
 
