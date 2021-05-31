@@ -221,9 +221,16 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 	 *****/
 
 	public function test_turn_on_admin() {
+		global $wp_actions;
+
 		if ( ! defined( 'WP_ADMIN' ) ) {
 			define( 'WP_ADMIN', true );
 		}
+
+		if ( ! isset( $wp_actions[ 'admin_init' ] ) ) {
+			$wp_actions['admin_init'] = 1;
+		}
+
 		require ADD_ADMIN_CSS_PLUGIN_FILE;
 		$this->obj->init();
 		$this->obj->register_css_files();
