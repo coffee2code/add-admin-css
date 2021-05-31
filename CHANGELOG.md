@@ -1,5 +1,9 @@
 # Changelog
 
+## _(in-progress)_
+* Change: Update plugin framework to 063
+    * Fix: Simplify settings initialization to prevent conflicts with other plugins
+
 ## 2.0 _(2021-05-12)_
 
 ### Highlights:

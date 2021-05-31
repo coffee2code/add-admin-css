@@ -120,12 +120,8 @@ abstract class c2c_Plugin_062 {
 		add_action( 'init',                         array( $this, 'init' ) );
 		add_action( 'activate_' . $plugin_file,     array( $this, 'install' ) );
 		add_action( 'deactivate_' . $plugin_file,   array( $this, 'deactivate' ) );
-		if ( $this->is_plugin_admin_page() || $this->is_submitting_form() ) {
-			add_action( 'admin_init', array( $this, 'init_options' ) );
-			if ( ! $this->is_submitting_form() ) {
-				add_action( 'admin_head', array( $this, 'add_c2c_admin_css' ) );
-			}
-		}
+		add_action( 'admin_init',                   array( $this, 'init_options' ) );
+		add_action( 'admin_head',                   array( $this, 'add_c2c_admin_css' ) );
 	}
 
 	/**
@@ -633,6 +629,10 @@ abstract class c2c_Plugin_062 {
 	public function add_c2c_admin_css() {
 		global $c2c_plugin_max_css_version, $c2c_plugin_css_was_output;
 		if ( ( $c2c_plugin_max_css_version != $this->plugin_css_version ) || ( isset( $c2c_plugin_css_was_output ) && $c2c_plugin_css_was_output ) ) {
+			return;
+		}
+
+		if ( ! $this->is_plugin_admin_page() ) {
 			return;
 		}
 
