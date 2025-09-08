@@ -624,7 +624,7 @@ HTML;
 
 		if ( $css ) {
 			echo "<style>\n";
-			echo esc_html( $css ) . "\n";
+			echo str_replace( '<', '&lt;', wp_check_invalid_utf8( $css ) ) . "\n";
 			echo "</style>\n";
 		}
 	}
