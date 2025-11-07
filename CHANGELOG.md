@@ -2,7 +2,7 @@
 
 ## _(in-progress)_
 * Fix: Escape only the minimum of characters so that valid CSS characters don't get escaped. Props kevinvanrijn.
-* New: Add `.gitattributes` file. Props kevinvanrijn.
+* New: Add `.gitattributes` file to exclude files from Github packaging. Props kevinvanrijn.
 
 ## 2.5 _(2025-03-29)_
 
