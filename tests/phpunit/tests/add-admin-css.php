@@ -98,6 +98,15 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		);
 	}
 
+	public static function get_css_with_special_characters() {
+		return [
+			[ '.button { &:hover { background-color: #000; } }' ],
+			[ '@media (width < 600px) { .button { background-color: #0f0; } }' ],
+			[ '@media (width >= 600px) { .button { background-color: #f00; } }' ],
+			[ '.quote { font-family: "Comic Sans MS", cursive; }' ],
+			[ "a[target='_blank'] { color: blue; }" ],
+		];
+	}
 
 	//
 	//
@@ -450,6 +459,27 @@ class Add_Admin_CSS_Test extends WP_UnitTestCase {
 		$this->assertEquals( $expected, $out );
 
 		return $out;
+	}
+
+	/**
+	 * @dataProvider get_css_with_special_characters
+	 */
+	public function test_add_css_allows_valid_css_characters( $css ) {
+		$this->set_option( [ 'css' => $css, 'files' => [] ] );
+		$this->test_turn_on_admin();
+
+		$this->assertStringContainsString( $css, $this->get_action_output() );
+	}
+
+	public function test_add_css_prevents_markup_injection() {
+		$injection = '<script>alert("Hello, world!");</script>';
+		$css = $this->add_css( $injection, '' );
+
+		$this->set_option( [ 'css' => $css, 'files' => [] ] );
+		$this->test_turn_on_admin();
+
+		$this->assertStringNotContainsString( $injection, $this->get_action_output() );
+		$this->assertStringContainsString( str_replace( '<', '&lt;', $injection ), $this->get_action_output() );
 	}
 
 	public function test_add_css_to_head_with_just_files( $expected = false ) {

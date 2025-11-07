@@ -618,13 +618,20 @@ HTML;
 		 *
 		 * @since 1.0
 		 *
-		 * @param string $files CSS code (without `<style>` tag).
+		 * @param string $files CSS styles (without `<style>` tag).
 		 */
 		$css = trim( apply_filters( 'c2c_add_admin_css', $css ) );
 
-		if ( $css ) {
+		if ( $css && is_string( $css ) ) {
+			// Encode '<' to prevent tag injection.
+			$sanitized_css = str_replace( '<', '&lt;', wp_check_invalid_utf8( $css ) );
+			// Allow use of '<' in comparators.
+			$sanitized_css = str_replace( '&lt; ', '< ', $sanitized_css );
+			$sanitized_css = str_replace( '&lt;= ', '<= ', $sanitized_css );
+
 			echo "<style>\n";
-			echo str_replace( '<', '&lt;', wp_check_invalid_utf8( $css ) ) . "\n";
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Sanitized above.
+			echo $sanitized_css . "\n";
 			echo "</style>\n";
 		}
 	}
