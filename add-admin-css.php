@@ -10,7 +10,7 @@
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Description: Easily define additional CSS (inline and/or by URL) to be added to all administration pages.
  *
- * Compatible with WordPress 5.5+ through 6.8+, and PHP through at least 8.3+.
+ * Compatible with WordPress 5.5+ through 6.9+, and PHP through at least 8.3+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
