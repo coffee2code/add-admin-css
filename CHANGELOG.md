@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 2.5.1 _(2025-12-02)_
+
+### Highlights:
+
+A bugfix release to address the overzealous encoding of some valid CSS characters introduced in v2.5.
+
+### Details:
+
 * Fix: Escape only the minimum of characters so that valid CSS characters don't get escaped. Props kevinvanrijn.
 * New: Add `.gitattributes` file to exclude files from Github packaging. Props kevinvanrijn.
 * Change: Note compatibility through WP 6.9+

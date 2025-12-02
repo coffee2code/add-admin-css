@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 5.5
 Tested up to: 6.9
-Stable tag: 2.5
+Stable tag: 2.5.1
 
 Easily define additional CSS (inline and/or by URL) to be added to all administration pages.
 
@@ -93,6 +93,16 @@ As an overview, these are the hooks provided by the plugin:
 
 
 == Changelog ==
+
+= 2.5.1 (2025-12-02) =
+Highlights:
+
+A bugfix release to address the overzealous encoding of some valid CSS characters introduced in v2.5.
+
+Details:
+
+* Fix: Escape only the minimum of characters so that valid CSS characters don't get escaped. Props kevinvanrijn.
+* Change: Note compatibility through WP 6.9+
 
 = 2.5 (2025-03-29) =
 Highlights:
@@ -185,74 +195,13 @@ Details:
     * Change: Trigger a debugging warning if `is_plugin_admin_page()` is used before `'admin_init'` action is fired
 * New: Add new string (from plugin framework) for translation
 
-= 2.0 (2021-05-12) =
-
-Highlights:
-
-This recommended minor release updates the plugin framework, restructures unit test files, notes compatibility through 5.7+, and incorporates numerous minor behind-the-scenes tweaks.
-
-Details:
-
-* Change: Outright support HTML5 rather than check for theme support of HTML5, since that isn't relevant to admin
-* Change: Update plugin framework to 062
-    * 062:
-    * Change: Update `is_plugin_admin_page()` to use `get_current_screen()` when available
-    * Change: Actually prevent object cloning and unserialization by throwing an error
-    * Change: Check that there is a current screen before attempting to access its property
-    * Change: Remove 'type' attribute from `style` tag
-    * Change: Incorporate commonly defined styling for inline_textarea
-    * 061:
-    * Fix bug preventing settings from getting saved
-    * 060:
-    * Rename class from `c2c_{PluginName}_Plugin_051` to `c2c_Plugin_060`
-    * Move string translation handling into inheriting class making the plugin framework code plugin-agnostic
-        * Add abstract function `get_c2c_string()` as a getter for translated strings
-        * Replace all existing string usage with calls to `get_c2c_string()`
-    * Handle WordPress's deprecation of the use of the term "whitelist"
-        * Change: Rename `whitelist_options()` to `allowed_options()`
-        * Change: Use `add_allowed_options()` instead of deprecated `add_option_whitelist()` for WP 5.5+
-        * Change: Hook `allowed_options` filter instead of deprecated `whitelist_options` for WP 5.5+
-    * New: Add initial unit tests (currently just covering `is_wp_version_cmp()` and `get_c2c_string()`)
-    * Add `is_wp_version_cmp()` as a utility to compare current WP version against a given WP version
-    * Refactor `contextual_help()` to be easier to read, and correct function docblocks
-    * Don't translate urlencoded donation email body text
-    * Add inline comments for translators to clarify purpose of placeholders
-    * Change PHP package name (make it singular)
-    * Tweak inline function description
-    * Note compatibility through WP 5.7+
-    * Update copyright date (2021)
-    * 051:
-    * Allow setting integer input value to include commas
-    * Use `number_format_i18n()` to format integer value within input field
-    * Update link to coffee2code.com to be HTTPS
-    * Update `readme_url()` to refer to plugin's readme.txt on plugins.svn.wordpress.org
-    * Remove defunct line of code
-* Change: Use plugin framework's `is_plugin_admin_page()` instead of reinventing it
-* New: Add a recommendation for Add Admin JavaScript plugin to settings page
-* Change: Output the multiple tips on the settings page as a list instead of multiple paragraphs
-* Change: Prevent appending newline to value of setting passed to filter unless an actual value was configured
-* Change: Move translation of all parent class strings into main plugin file
-* Change: Tweak conditional checks to be more succinct
-* Change: Ensure there's a current screen before attempting to get one of its properties
-* Change: Omit inline styles for settings now that plugin framework defines them
-* Change: Output newlines after paragraph tags in settings page
-* Change: Note compatibility through WP 5.7+
-* Change: Update copyright date (2021)
-* Change: Change plugin's short description
-* Change: Tweak some readme.txt documentation
-* Change: Tweak some inline function and parameter documentation
-* Unit tests:
-    * New: Add tests for JS files getting registered and enqueued
-    * New: Add tests for `add_codemirror()`
-    * New: Add help function `get_css_files()`
-    * Change: Restructure unit test directories and files into `tests/` top-level directory
-    * Change: Remove 'test-' prefix from unit test files
-    * Change: In bootstrap, store path to plugin file constant so its value can be used within that file and in test file
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/add-admin-css/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 2.5.1 =
+Recommended bugfix update: Addressed the overzealous encoding of some valid CSS characters introduced in v2.5 and noted compatibility through WP 6.9+.
 
 = 2.5 =
 Recommended update: added filter to control if CSS is output, updated plugin framework (hardening & improvements), prevented unintended markup in translations, noted compatibility through WP 6.8+, dropped compatibility with WP older than 5.5, and removed unit tests from release packaging.
